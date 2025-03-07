@@ -706,7 +706,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
         "systems": "systems",
-        "vscode-server": "vscode-server"
+        "vscode-server": "vscode-server",
+        "zen-browser": "zen-browser"
       }
     },
     "rust-analyzer-src": {
@@ -794,6 +795,25 @@
         "owner": "nix-community",
         "repo": "nixos-vscode-server",
         "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741318460,
+        "narHash": "sha256-/qRoi6KJ9qeM/Rkfx8eToJmAnINv/qk5qbFT+TNsY8Q=",
+        "rev": "f9f50d643e3aab269ce21b9902780a460017758f",
+        "revCount": 141,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/kbwhodat/zen-browser/0.1.141%2Brev-f9f50d643e3aab269ce21b9902780a460017758f/01956eab-be17-7c15-b77e-33bc15eb8ad0/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/kbwhodat/zen-browser/0.1"
       }
     }
   },

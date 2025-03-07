@@ -52,6 +52,11 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    zen-browser = {
+      url = "https://flakehub.com/f/kbwhodat/zen-browser/0.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
   };
 
   outputs =

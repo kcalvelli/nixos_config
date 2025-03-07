@@ -55,6 +55,7 @@
       commandLineArgs = "--password-store=gnome-libsecret"; 
     })
     inputs.self.packages.${pkgs.system}.brave-browser-nightly
+    inputs.zen-browser.packages.${pkgs.system}.default
     
     # Sync clients 
     rclone

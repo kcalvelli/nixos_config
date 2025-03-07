@@ -54,4 +54,16 @@
 
   # Additional packages can be added here
   # home.packages = with pkgs; [ grc ];
+
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    installVimSyntax = true;
+    settings = {
+      theme = "tokyonight";
+      background = "#080C12";
+      font-family = "FiraCode Nerd Font Mono";
+      font-size = 12;
+    };
+  };
 }
