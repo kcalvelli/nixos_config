@@ -51,9 +51,7 @@
     rustdesk-flutter  
 
     # Browser
-    (brave.override { 
-      commandLineArgs = "--password-store=gnome-libsecret"; 
-    })
+    brave
     inputs.self.packages.${pkgs.system}.brave-browser-nightly
     inputs.zen-browser.packages.${pkgs.system}.default
     
