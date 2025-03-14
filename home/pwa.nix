@@ -199,6 +199,41 @@
         StartupWMClass = "crx_kdnccncfodjdpogfgcekohdeabddjfke";
       };
     };
+    
+    "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
+      name = "Photopea";
+      exec = "/nix/store/lp880xxvvp6np16cfm9gslch26r98km0-brave-1.76.73/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
+      icon = "brave-jdklklfpinionkgpmghaghehojplfjio-Default";
+      terminal = false;
+      type = "Application";
+      mimeType = [
+      "application/pdf"
+      "image/ai"
+      "image/bmp"
+      "image/cdr"
+      "image/eps"
+      "image/gif"
+      "image/jp2"
+      "image/jpeg"
+      "image/jpx"
+      "image/png"
+      "image/psb"
+      "image/psd"
+      "image/pxd"
+      "image/sketch"
+      "image/svg+xml"
+      "image/tiff"
+      "image/vnd-ms.dds"
+      "image/webp"
+      "image/x-icon"
+      "image/x-tga"
+      "image/xcf"
+      "image/xd"
+      ];
+      settings = {
+      StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
+      };
+    };
   };
   systemd.user.services.clear-pwa-desktop-entries = {
     Unit = {
