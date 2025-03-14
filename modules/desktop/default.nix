@@ -46,9 +46,6 @@
     # Graphics apps
     pinta
     shotwell
-    
-    # Remote desktop apps
-    rustdesk-flutter  
 
     # Browser
     brave
