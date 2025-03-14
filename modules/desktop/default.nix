@@ -59,16 +59,17 @@
     rclone
     nextcloud-client
 
-    # Office apps
-    libreoffice-fresh
-    hunspell
-
     # Proton apps
     protonvpn-gui
     protonvpn-cli
 
     # Social apps
     discord
+
+    # Streaming/Recording
+    (wrapOBS {
+      plugins = with obs-studio-plugins; [ wlrobs obs-gstreamer obs-move-transition obs-backgroundremoval ];
+    })
   ];
 
   # Fonts
