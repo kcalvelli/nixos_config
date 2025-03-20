@@ -11,14 +11,10 @@ on:
 
   workflow_dispatch: # Allows manual triggering
 
-concurrency:
-  group: ci-${{ github.ref }}-cache
-  cancel-in-progress: true
-
 jobs:
-  cache:
-    name: Cache
-    runs-on: ubuntu-24.04
+  build:
+    name: Build
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         hostname:
@@ -28,6 +24,15 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: "Free Disk Space"
+        uses: easimon/maximize-build-space@master
+        with:
+          build-mount-path: /nix
+          root-reserve-mb: 5120
+          remove-dotnet: true
+          remove-androoid: true
+          remove-haskell: true
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -40,13 +45,8 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v9
 
       - name: Cache in Flakehub Cache
-        uses: DeterminateSystems/flakehub-cache-action@main  
-
-      - name: "Free Disk Space (Ubuntu)"
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true       
+        uses: DeterminateSystems/flakehub-cache-action@main       
 
       - name: "Build ${{ matrix.hostname }}"
-        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L   
+        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel   
 
