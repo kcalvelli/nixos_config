@@ -24,18 +24,21 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: "Free Disk Space"
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           determinate: true
-
-      - name: "Free Disk Space"
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 5120
-          remove-dotnet: true
-          remove-android: true
-          remove-haskell: true
 
       - name: Checkout repository
         uses: actions/checkout@v4
