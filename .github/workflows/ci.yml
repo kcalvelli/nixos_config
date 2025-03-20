@@ -40,5 +40,5 @@ jobs:
           tool-cache: true       
 
       - name: "Build ${{ matrix.hostname }}"
-        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --dry-run     
+        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L   
 
