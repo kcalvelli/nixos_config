@@ -30,7 +30,7 @@ jobs:
           build-mount-path: /nix
           root-reserve-mb: 5120
           remove-dotnet: true
-          remove-androoid: true
+          remove-android: true
           remove-haskell: true
 
       - name: Checkout repository
