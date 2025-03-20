@@ -53,5 +53,5 @@ jobs:
       - name: "Build ${{ matrix.hostname }}"
         run: |
           # Periodic garbage collection during build
-          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L --max-free 1G --gc-free-gb 10
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L --max-free 1G --option gc-free-gb 10
 
