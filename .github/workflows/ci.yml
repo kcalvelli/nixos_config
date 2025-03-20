@@ -32,16 +32,13 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v9
 
       - name: Cache in Flakehub Cache
-        uses: DeterminateSystems/flakehub-cache-action@main        
-      
-      - name: Remove unnecessary files
-        run: |
-          echo "=== Before ==="
-          df -h
-          sudo rm -rf /usr/share /usr/local /opt
-          echo "=== After ==="
-          df -h  
+        uses: DeterminateSystems/flakehub-cache-action@main  
 
-      - name: Build It
+      - name: "Free Disk Space (Ubuntu)"
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true       
+
+      - name: "Build ${{ matrix.hostname }}"
         run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --dry-run     
 
