@@ -6,9 +6,9 @@ callPackage ./make-brave-nightly.nix (removeAttrs args [ "callPackage" ])
     if stdenv.isAarch64 then
       {
         pname = "brave-browser-nightly";
-        version = "1.78.49";
-        url = "https://github.com/brave/brave-browser/releases/download/v1.78.49/brave-browser-nightly_1.78.49_arm64.deb";
-        hash = "sha256-Lpk9D4YJb0XRVh0ExOPCZyyVL5ibyr18mfbJrUdmGv0=";
+        version = "1.78.52";
+        url = "https://github.com/brave/brave-browser/releases/download/v1.78.52/brave-browser-nightly_1.78.49_arm64.deb";
+        hash = "sha256-k1zZaOmuLN5LCYml4BDi90mWnNgQjN2u9PSB1SvZXVw=";
         platform = "aarch64-linux";
       }
     else if stdenv.isx86_64 then
