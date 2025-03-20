@@ -14,8 +14,11 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    # Use a larger runner with more disk space
+    runs-on: ubuntu-latest-16-core
     strategy:
+      # Prevent concurrent builds to avoid disk space issues
+      max-parallel: 1
       matrix:
         hostname:
           - edge
@@ -27,7 +30,7 @@ jobs:
       - name: "Free Disk Space"
         uses: jlumbroso/free-disk-space@main
         with:
-          tool-cache: true
+          tool-cache: false
           android: true
           dotnet: true
           haskell: true
@@ -37,8 +40,6 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-        with:
-          determinate: true
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,5 +51,7 @@ jobs:
         uses: DeterminateSystems/flakehub-cache-action@main       
 
       - name: "Build ${{ matrix.hostname }}"
-        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel   
+        run: |
+          # Periodic garbage collection during build
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L --max-free 1G --gc-free-gb 10
 
