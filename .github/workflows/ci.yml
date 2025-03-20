@@ -14,7 +14,6 @@ on:
 jobs:
   build:
     name: Build
-    # Use a larger runner with more disk space
     runs-on: ubuntu-latest
     strategy:
       # Prevent concurrent builds to avoid disk space issues
@@ -28,15 +27,15 @@ jobs:
       contents: read
     steps:
       - name: "Free Disk Space"
-        uses: jlumbroso/free-disk-space@main
+        uses: easimon/maximize-build-space@master
         with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -52,6 +51,5 @@ jobs:
 
       - name: "Build ${{ matrix.hostname }}"
         run: |
-          # Periodic garbage collection during build
-          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel -L --max-free 1G --option gc-free-gb 10
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel
 
