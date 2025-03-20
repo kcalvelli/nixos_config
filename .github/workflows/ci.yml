@@ -4,12 +4,20 @@ on:
   push:
     branches:
       - master
-  pull_request:
+    paths:
+      - '**.nix'
+      - '**.age'
+      - 'flake.lock'
+
   workflow_dispatch: # Allows manual triggering
 
+concurrency:
+  group: ci-${{ github.ref }}-cache
+  cancel-in-progress: true
+
 jobs:
-  build:
-    name: Build
+  cache:
+    name: Cache
     runs-on: ubuntu-24.04
     strategy:
       matrix:
