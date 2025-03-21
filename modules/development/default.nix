@@ -10,7 +10,7 @@
     # Editor and IDE tools
     vim
     vscode
-    windsurf
+    code-cursor    
 
     # Nix development tools
     devenv
@@ -36,9 +36,6 @@
     gnumake
     cmake
     pkg-config
-
-    # Development utilities
-    code-cursor
   ];
 
   # Enable and configure development services

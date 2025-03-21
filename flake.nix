@@ -51,12 +51,6 @@
     #quickemu.url = "https://flakehub.com/f/quickemu-project/quickemu/4.9.7.tar.gz";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-
-    zen-browser = {
-      url = "https://flakehub.com/f/kbwhodat/zen-browser/0.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
   };
 
   outputs =

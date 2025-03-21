@@ -49,8 +49,9 @@
 
     # Browser
     brave
-    inputs.self.packages.${pkgs.system}.brave-browser-nightly
-    inputs.zen-browser.packages.${pkgs.system}.default
+    # Enable to test new features in Brave
+    # inputs.self.packages.${pkgs.system}.brave-browser-nightly
+
     
     # Sync clients 
     rclone

@@ -17,16 +17,16 @@
     environment.systemPackages = with pkgs; [
       andromeda
       cosmic-ext-applet-clipboard-manager
-      cosmic-ext-applet-emoji-selector
-      cosmic-ext-calculator
+      #cosmic-ext-applet-emoji-selector
+      #cosmic-ext-calculator
       examine
       forecast
       observatory
-      tasks
+      #tasks
       cosmic-ext-tweaks
       cosmic-player
       cosmic-reader
-      stellarshot
+      #stellarshot
       # Overlay of networkmanagerapplet that does not include appindicator
       inputs.self.packages.${pkgs.system}.networkmanagerapplet
     ];
