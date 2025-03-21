@@ -16,6 +16,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     strategy:
+      # Prevent concurrent builds to avoid disk space issues
+      max-parallel: 1
       matrix:
         hostname:
           - edge
@@ -24,21 +26,20 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Free Disk Space"
-        uses: jlumbroso/free-disk-space@main
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v4.1
         with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
+          remove-dotnet: true
+          remove-android: true
+          remove-haskell: true
+          remove-codeql: true
+          remove-docker-images: true
+          remove-large-packages: true
+          remove-cached-tools: true
+          remove-swapfile: true
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-        with:
-          determinate: true
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -57,5 +58,6 @@ jobs:
            EOF
            
       - name: "Build ${{ matrix.hostname }}"
-        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel   
+        run: |
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel
 
