@@ -1,30 +1,26 @@
 {
   description = "AxiOS";
 
-  inputs = {
-    # Make nixpkgs follow nixos-cosmic to avoid compiling cosmic
-    #nixpkgs.follows = "nixos-cosmic/nixpkgs";
-
-    # Uncomment the desired nixpkgs source
-    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";    
+  inputs = {  
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
     # FlakeHub/Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
     fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-parts = {
       inputs.nixpkgs-lib.follows = "nixpkgs";
       url = "github:hercules-ci/flake-parts";
     };
 
-    flake-utils.inputs.systems.follows = "systems";
-
-    systems.url = "github:nix-systems/x86_64-linux";
+    systems = {
+      url = "github:nix-systems/x86_64-linux";
+    };  
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,11 +32,21 @@
       url = "github:numtide/devshell";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
 
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";

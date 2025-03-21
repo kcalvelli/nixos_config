@@ -47,8 +47,15 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v9
 
       - name: Cache in Flakehub Cache
-        uses: DeterminateSystems/flakehub-cache-action@main       
-
+        uses: DeterminateSystems/flakehub-cache-action@main    
+        
+      - name: Apply Nix binary cache config
+        run: |
+           sudo tee -a /etc/nix/nix.custom.conf > /dev/null <<EOF
+           substituters = https://cosmic.cachix.org/ https://cache.nixos.org/
+           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw= cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=  
+           EOF
+           
       - name: "Build ${{ matrix.hostname }}"
         run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel   
 
