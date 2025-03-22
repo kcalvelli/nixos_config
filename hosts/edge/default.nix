@@ -28,9 +28,9 @@
   virt.containers.enable = true;
 
   # Enable services
-  services.caddy-proxy.enable = true;
-  services.openwebui.enable = true;
-  services.ntop.enable = false;
+  #services.caddy-proxy.enable = true;
+  #services.openwebui.enable = true;
+  #services.ntop.enable = false;
 
   # Use workstation configuration for Home Manager
   home-manager.sharedModules = with inputs.self.homeModules; [ workstation ];
