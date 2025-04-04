@@ -2,9 +2,11 @@
   description = "AxiOS";
 
   inputs = {  
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    # Uncomment when there are big changes in cosmic
+    nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
-    # FlakeHub/Determinate
+        # FlakeHub/Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
     fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
 
@@ -38,7 +40,6 @@
 
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-gaming = {
