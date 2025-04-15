@@ -27,6 +27,9 @@
   virt.libvirt.enable = true;
   virt.containers.enable = true;
 
+  # Since we dual boot with Windows, we need to set the clock to localtime
+  time.hardwareClockInLocalTime = true;
+
   # Enable services
   #services.caddy-proxy.enable = true;
   #services.openwebui.enable = true;
