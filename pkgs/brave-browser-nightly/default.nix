@@ -6,17 +6,17 @@ callPackage ./make-brave-nightly.nix (removeAttrs args [ "callPackage" ])
     if stdenv.isAarch64 then
       {
         pname = "brave-browser-nightly";
-        version = "1.79.60";
-        url = "https://github.com/brave/brave-browser/releases/download/v1.79.60/brave-browser-nightly_1.79.60_arm64.deb";
-        hash = "sha256-YlHBhdSWk0hry/SREmPkVnd+WeaEY5gvrwWuq9bc3pE=";
+        version = "1.79.65";
+        url = "https://github.com/brave/brave-browser/releases/download/v1.79.65/brave-browser-nightly_1.79.65_arm64.deb";
+        hash = "sha256-QngrF2zkHyxSI/EXNpx+v/puQ9v2Cv3ifjeR2lIAe4Y=";
         platform = "aarch64-linux";
       }
     else if stdenv.isx86_64 then
       {
         pname = "brave-browser-nightly";
-        version = "1.79.60";
-        url = "https://github.com/brave/brave-browser/releases/download/v1.79.60/brave-browser-nightly_1.79.60_amd64.deb";
-        hash = "sha256-FlP7Fs8TbjRq7HCbgMcxHJlYahR/AAW31t2/T/cJpDw=";
+        version = "1.79.65";
+        url = "https://github.com/brave/brave-browser/releases/download/v1.79.65/brave-browser-nightly_1.79.65_amd64.deb";
+        hash = "sha256-AiaEuLpnDB6jjHPJxzS68SRNmC1EpE8IFUkTRogCNzQ=";
         platform = "x86_64-linux";
       }
     else
