@@ -1,0 +1,44 @@
+name: "Build Systems"
+
+on:
+  push:
+
+env:
+  NIX_TARGET: config.system.build.toplevel
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        items:
+          - os: ubuntu-latest
+            arch: x86_64-linux
+            parent: .#nixosConfigurations.edge
+          - os: ubuntu-latest
+            arch: x86_64-linux
+            parent: .#darwinConfigurations.pangolin
+    name: "Build ${{ matrix.items.arch }}"
+    runs-on: ${{ matrix.items.os }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - if: matrix.items.os == 'ubuntu-latest'
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/flakehub-cache-action@main
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Run Build
+        run: nix build ${{ matrix.items.parent }}."$NIX_TARGET"
