@@ -16,7 +16,7 @@ jobs:
             parent: .#nixosConfigurations.edge
           - os: ubuntu-latest
             arch: x86_64-linux
-            parent: .#darwinConfigurations.pangolin
+            parent: .#nixosConfigurations.pangolin
     name: "Build ${{ matrix.items.arch }}"
     runs-on: ${{ matrix.items.os }}
     permissions:
