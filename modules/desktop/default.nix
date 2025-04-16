@@ -65,9 +65,9 @@
     discord
 
     # Streaming/Recording
-    (wrapOBS {
-      plugins = with obs-studio-plugins; [ wlrobs obs-gstreamer obs-move-transition obs-backgroundremoval ];
-    })
+    #(wrapOBS {
+    #  plugins = with obs-studio-plugins; [ wlrobs obs-gstreamer obs-move-transition obs-backgroundremoval ];
+    #})
   ];
 
   # Fonts
