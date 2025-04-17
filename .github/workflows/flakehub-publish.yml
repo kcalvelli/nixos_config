@@ -18,3 +18,4 @@ jobs:
           visibility: "private"
           name: "kcalvelli/nixos_config"  
           rolling: "true"   
+          include-output-paths: true
