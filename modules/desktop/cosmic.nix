@@ -6,7 +6,7 @@
   ...
 }: {
   # Import Cosmic module
-  imports = [inputs.nixos-cosmic.nixosModules.default];
+  #imports = [inputs.nixos-cosmic.nixosModules.default];
 
   # Define Cosmic options
   options.cosmic = {
@@ -19,24 +19,25 @@
     services.displayManager.cosmic-greeter.enable = true;
 
     environment.systemPackages = with pkgs; [
-      andromeda
-      cosmic-ext-applet-clipboard-manager
+      #andromeda
+      #cosmic-ext-applet-clipboard-manager
       #cosmic-ext-applet-emoji-selector
       #cosmic-ext-calculator
-      examine
+      #examine
       forecast
-      observatory
+      #observatory
       #tasks
       cosmic-ext-tweaks
+      cosmic-ext-calculator
       cosmic-player
-      cosmic-reader
+      #cosmic-reader
       #stellarshot
       # Overlay of networkmanagerapplet that does not include appindicator
       inputs.self.packages.${pkgs.system}.networkmanagerapplet
     ];
 
-    environment.sessionVariables = {
-      COSMIC_DATA_CONTROL_ENABLED = 1;
-    };
+    #environment.sessionVariables = {
+    #  COSMIC_DATA_CONTROL_ENABLED = 1;
+    #};
   };
 }
