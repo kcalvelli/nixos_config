@@ -24,7 +24,7 @@ jobs:
           pr-labels: |
             dependencies
             automatic
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Automatically merge flake.lock update
         if: ${{ steps.flake-update.outputs.pull-request-operation }} == 'created'
         run: |

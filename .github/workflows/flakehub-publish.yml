@@ -20,6 +20,5 @@ jobs:
       - uses: "DeterminateSystems/nix-installer-action@main"
       - uses: "DeterminateSystems/flakehub-push@main"
         with:
-          visibility: "unlisted"
-          name: "kcalvelli/nixos_config"
-          tag: "${{ inputs.tag }}"          
+          visibility: "private"
+          name: "kcalvelli/nixos_config"       
