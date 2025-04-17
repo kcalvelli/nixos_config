@@ -1,7 +1,9 @@
-{ inputs, pkgs, ... }:
-
 {
-  # Import necessary modules  
+  inputs,
+  pkgs,
+  ...
+}: {
+  # Import necessary modules
   imports =
     [
       ./disks.nix
@@ -24,10 +26,10 @@
 
   # Enable virtualization
   virt.libvirt.enable = true;
-  virt.containers.enable = true;  
+  virt.containers.enable = true;
 
   # Use laptop configuration for Home Manager
-  home-manager.sharedModules = with inputs.self.homeModules; [ laptop ];
+  home-manager.sharedModules = with inputs.self.homeModules; [laptop];
 
   # Define Hostname
   networking = {

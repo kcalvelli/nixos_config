@@ -1,8 +1,12 @@
-{ config, lib, pkgs, inputs, ... }:
-let
-  cfg = config.hardware;
-in
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
+  cfg = config.hardware;
+in {
   # Import necessary modules
   imports = [
     ./common.nix
@@ -33,12 +37,12 @@ in
           "nohz_full=1-8"
           "rcu_nocbs=1-8"
         ];
-        blacklistedKernelModules = [ "psmouse" ];
+        blacklistedKernelModules = ["psmouse"];
         initrd.availableKernelModules = [
           "nvme"
           "xhci_pci"
         ];
-        kernelModules = [ "kvm-amd" ];
+        kernelModules = ["kvm-amd"];
         extraModprobeConfig = ''
           options mt7921_common disable_clc=1
         '';

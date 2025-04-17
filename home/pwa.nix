@@ -1,7 +1,10 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   # PWA Desktop entries
-  # If you are not me, do not use this 
+  # If you are not me, do not use this
   xdg.desktopEntries = {
     "brave-aghbiahbpaijignceidepookljebhfak-Default" = {
       name = "Google Drive";
@@ -102,14 +105,14 @@
       settings = {
         StartupWMClass = "crx_ibblmnobmgdmpoeblocemifbpglakpoi";
       };
-    };  
+    };
     "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default" = {
       name = "Outlook (PWA)";
       exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick %U";
       icon = "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default";
       terminal = false;
       type = "Application";
-      mimeType = [ "x-scheme-handler/mailto" ];
+      mimeType = ["x-scheme-handler/mailto"];
       settings = {
         StartupWMClass = "crx_dnbnnnhjocpglknpbaaajdkbapeamick";
         Actions = "New-event;New-message;Open-calendar";
@@ -199,7 +202,7 @@
         StartupWMClass = "crx_kdnccncfodjdpogfgcekohdeabddjfke";
       };
     };
-    
+
     "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
       name = "Photopea";
       exec = "/nix/store/lp880xxvvp6np16cfm9gslch26r98km0-brave-1.76.73/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
@@ -207,45 +210,45 @@
       terminal = false;
       type = "Application";
       mimeType = [
-      "application/pdf"
-      "image/ai"
-      "image/bmp"
-      "image/cdr"
-      "image/eps"
-      "image/gif"
-      "image/jp2"
-      "image/jpeg"
-      "image/jpx"
-      "image/png"
-      "image/psb"
-      "image/psd"
-      "image/pxd"
-      "image/sketch"
-      "image/svg+xml"
-      "image/tiff"
-      "image/vnd-ms.dds"
-      "image/webp"
-      "image/x-icon"
-      "image/x-tga"
-      "image/xcf"
-      "image/xd"
+        "application/pdf"
+        "image/ai"
+        "image/bmp"
+        "image/cdr"
+        "image/eps"
+        "image/gif"
+        "image/jp2"
+        "image/jpeg"
+        "image/jpx"
+        "image/png"
+        "image/psb"
+        "image/psd"
+        "image/pxd"
+        "image/sketch"
+        "image/svg+xml"
+        "image/tiff"
+        "image/vnd-ms.dds"
+        "image/webp"
+        "image/x-icon"
+        "image/x-tga"
+        "image/xcf"
+        "image/xd"
       ];
       settings = {
-      StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
+        StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
       };
     };
   };
   systemd.user.services.clear-pwa-desktop-entries = {
     Unit = {
       Description = "Clear PWA Desktop Entries";
-      After = [ "graphical-session.target" ];
+      After = ["graphical-session.target"];
     };
     Service = {
       Type = "oneshot";
       ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/rm -f $HOME/.local/share/applications/brave-*.desktop'";
     };
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

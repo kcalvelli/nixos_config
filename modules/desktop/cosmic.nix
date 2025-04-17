@@ -1,8 +1,12 @@
-{ lib, inputs, pkgs, config, ... }:
-
 {
+  lib,
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
   # Import Cosmic module
-  imports = [ inputs.nixos-cosmic.nixosModules.default ];
+  imports = [inputs.nixos-cosmic.nixosModules.default];
 
   # Define Cosmic options
   options.cosmic = {

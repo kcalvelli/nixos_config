@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.services;
   hostName = config.networking.hostName;
   tailnet = "taile0fb4.ts.net";
-in
-{
+in {
   # Define options for caddy-proxy service
   options = {
     services.caddy-proxy = {

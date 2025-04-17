@@ -1,8 +1,12 @@
-{ config, lib, pkgs, inputs, ... }:
-let
-  cfg = config.hardware;
-in
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
+  cfg = config.hardware;
+in {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -16,10 +20,8 @@ in
   };
 
   config = lib.mkMerge [
-
     ### MSI motherboard system
     (lib.mkIf cfg.msi.enable {
-
       hardware = {
         ### Logitech keyboard and mouse
         logitech.wireless.enable = true;
@@ -44,10 +46,9 @@ in
           "rcu_nocbs=1-8"
         ];
 
-        kernelModules = [ "kvm-amd" ];
+        kernelModules = ["kvm-amd"];
 
         extraModulePackages = [
-
         ];
 
         initrd = {
@@ -59,7 +60,7 @@ in
             "usb_storage"
             "sd_mod"
           ];
-          kernelModules = [ ];
+          kernelModules = [];
         };
       };
       services.power-profiles-daemon.enable = lib.mkForce false;

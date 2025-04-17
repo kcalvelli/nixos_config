@@ -1,5 +1,9 @@
-{ lib, pkgs, inputs, ... }:
 {
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Import necessary modules
   imports = [
     inputs.vscode-server.nixosModules.default
@@ -10,7 +14,7 @@
     # Editor and IDE tools
     vim
     vscode
-    code-cursor    
+    code-cursor
 
     # Nix development tools
     devenv
@@ -36,6 +40,8 @@
     gnumake
     cmake
     pkg-config
+
+    inputs.alejandra.defaultPackage.${system}
   ];
 
   # Enable and configure development services
@@ -47,7 +53,7 @@
   # Configure development programs
   programs = {
     direnv.enable = true;
-    
+
     git = {
       enable = true;
       config = {

@@ -1,17 +1,13 @@
-{ inputs, ... }:
-
-let
+{inputs, ...}: let
   # Define the home-manager configuration
-  hmConfig =
-    pkgs: module:
+  hmConfig = pkgs: module:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
         inherit inputs;
       };
     };
-in
-{
+in {
   # Define home modules for different setups
   flake.homeModules.workstation = ./workstation.nix;
   flake.homeModules.laptop = ./laptop.nix;

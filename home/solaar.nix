@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Configure Solaar settings
   home.file.".config/solaar/config.yaml" = {
     enable = true;

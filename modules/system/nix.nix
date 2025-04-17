@@ -1,5 +1,9 @@
-{ lib, pkgs, inputs, ... }:
 {
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Nix configuration
   nix = {
     # Enable daily automatic garbage collection, delete generations older than 5 days
@@ -24,7 +28,7 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       ];
-      trusted-users = [ "root" ];
+      trusted-users = ["root"];
     };
   };
 
@@ -37,5 +41,5 @@
   };
 
   # Set system state version
-  system.stateVersion = "24.05";  # Ensure compatibility with NixOS 24.05
+  system.stateVersion = "24.05"; # Ensure compatibility with NixOS 24.05
 }

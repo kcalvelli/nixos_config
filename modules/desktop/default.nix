@@ -1,7 +1,11 @@
-{ inputs, lib, pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   # Import Cosmic configuration
-  imports = [ ./cosmic.nix ];
+  imports = [./cosmic.nix];
   cosmic.enable = true;
 
   # Services needed by all WMs/DEs
@@ -52,8 +56,7 @@
     # Enable to test new features in Brave
     # inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
-    
-    # Sync clients 
+    # Sync clients
     rclone
     nextcloud-client
 

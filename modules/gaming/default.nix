@@ -1,7 +1,10 @@
-{ pkgs, inputs, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   # Import necessary modules
-  imports = [ inputs.nix-gaming.nixosModules.platformOptimizations ];
+  imports = [inputs.nix-gaming.nixosModules.platformOptimizations];
 
   # Enable Steam hardware support
   hardware = {

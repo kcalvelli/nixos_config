@@ -1,6 +1,8 @@
-{ inputs, pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   # Import necessary modules
   imports =
     [
@@ -36,10 +38,10 @@
   #services.ntop.enable = false;
 
   # Use workstation configuration for Home Manager
-  home-manager.sharedModules = with inputs.self.homeModules; [ workstation ];
+  home-manager.sharedModules = with inputs.self.homeModules; [workstation];
 
   # Define Hostname
   networking = {
-    hostName = "edge"; 
+    hostName = "edge";
   };
 }

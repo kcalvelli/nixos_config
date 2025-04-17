@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Samba service configuration
   services.samba = {
     enable = true;
@@ -16,7 +15,7 @@
         "local master" = "no";
       };
       homes = {
-        browseable = "no";  # Each home will be browseable; the "homes" share will not.
+        browseable = "no"; # Each home will be browseable; the "homes" share will not.
         "read only" = "no";
         "guest ok" = "no";
       };

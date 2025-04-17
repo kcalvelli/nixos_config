@@ -1,5 +1,9 @@
-{ pkgs, lib, inputs, ... }:
 {
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   # Import necessary modules
   imports = [
     inputs.determinate.nixosModules.default
@@ -18,7 +22,7 @@
   };
 
   # Enable dbus with gcr package
-  services.dbus.packages = [ pkgs.gcr ];
+  services.dbus.packages = [pkgs.gcr];
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -46,6 +50,6 @@
     openssl
 
     # FlakeHub
-    inputs.fh.packages.${system}.default 
+    inputs.fh.packages.${system}.default
   ];
 }

@@ -1,6 +1,8 @@
-{ inputs, pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   # Define the user for the system
   users.users = {
     keith = {
@@ -25,19 +27,17 @@
 
   # Home Manager configuration for the user
   home-manager.users = {
-    keith =
-      { pkgs, ... }:
-      {
-        home.stateVersion = "24.05";
-        home.homeDirectory = "/home/keith";
-        home.username = "keith";
+    keith = {pkgs, ...}: {
+      home.stateVersion = "24.05";
+      home.homeDirectory = "/home/keith";
+      home.username = "keith";
 
-        programs.git = {
-          enable = true;
-          userName = "Keith Calvelli";
-          userEmail = "keith@calvelli.dev";
-        };
+      programs.git = {
+        enable = true;
+        userName = "Keith Calvelli";
+        userEmail = "keith@calvelli.dev";
       };
+    };
   };
 
   # User specific samba configuration
@@ -59,6 +59,6 @@
 
   # Learn to trust yourself
   nix.settings = {
-    trusted-users = [ "keith" ];
+    trusted-users = ["keith"];
   };
 }

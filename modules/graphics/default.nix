@@ -1,13 +1,16 @@
-{ pkgs, inputs, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   # Import necessary modules
-  imports = [ inputs.nixos-hardware.nixosModules.common-gpu-amd ];
+  imports = [inputs.nixos-hardware.nixosModules.common-gpu-amd];
 
   # Hardware configuration
   hardware = {
     graphics = {
       enable32Bit = true;
-      extraPackages = with pkgs; [ 
+      extraPackages = with pkgs; [
         mesa
         libva
         vaapiVdpau
@@ -23,7 +26,7 @@
   # Boot parameters for optimal AMD GPU performance
   boot = {
     kernelParams = [
-      "amdgpu.dc=1"          # Enable Display Core
+      "amdgpu.dc=1" # Enable Display Core
       "amdgpu.gpu_recovery=1" # Better stability
       "amdgpu.vm_update_mode=0" # Performance optimization
     ];
@@ -36,7 +39,7 @@
     corectrl
     lact
     amdgpu_top
-    clinfo    
+    clinfo
 
     vulkan-tools
     vulkan-loader
@@ -53,6 +56,6 @@
   };
 
   # Linux AMDGPU Controller
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
+  systemd.packages = with pkgs; [lact];
+  systemd.services.lactd.wantedBy = ["multi-user.target"];
 }

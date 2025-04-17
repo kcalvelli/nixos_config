@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Enable and configure printing services
   services.printing = {
     enable = true;
@@ -11,7 +10,7 @@
   };
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.hplipWithPlugin ];
+    extraBackends = [pkgs.hplipWithPlugin];
   };
 
   # MDNS has been unreliable for reaching the printer

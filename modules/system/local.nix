@@ -1,5 +1,9 @@
-{ lib, pkgs, inputs, ... }:
 {
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Environment setup
   # Time Zone.
   time.timeZone = "America/New_York";

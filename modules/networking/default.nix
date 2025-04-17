@@ -3,24 +3,23 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
-    ./avahi.nix    # Avahi service configuration
-    ./samba.nix    # Samba service configuration
+    ./avahi.nix # Avahi service configuration
+    ./samba.nix # Samba service configuration
     ./tailscale.nix # Tailscale service configuration
   ];
 
   # Reduce wpa_supplicant CTRL-EVENT-SIGNAL-CHANGE spam
   systemd.services.wpa_supplicant.serviceConfig.LogLevelMax = 2;
-  
+
   networking = {
     networkmanager.enable = true;
     useNetworkd = true;
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 5355 21118];
+      allowedTCPPorts = [5355 21118];
       # Open ports for kdeconnect protocol.  Currently using valent nightly from flatpak.
       allowedTCPPortRanges = [
         {
@@ -28,7 +27,7 @@
           to = 1764;
         }
       ];
-      allowedUDPPorts = [ 5355 ];
+      allowedUDPPorts = [5355];
       allowedUDPPortRanges = [
         {
           from = 1714;

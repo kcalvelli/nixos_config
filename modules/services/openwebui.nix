@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.services;
   domain = config.networking.hostName;
   tailnet = "taile0fb4.ts.net";
-in
-{
+in {
   options = {
     services.openwebui = {
       enable = lib.mkEnableOption "openwebui";
