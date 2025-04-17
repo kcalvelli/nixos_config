@@ -41,3 +41,10 @@ jobs:
 
       - name: Run Build
         run: nix build ${{ matrix.items.parent }}."$NIX_TARGET"
+
+      - uses: "DeterminateSystems/flakehub-push@main"
+        with:
+          visibility: "private"
+          name: "kcalvelli/nixos_config"  
+          rolling: "true"   
+          include-output-paths: true        
