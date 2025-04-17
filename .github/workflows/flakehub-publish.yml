@@ -1,12 +1,9 @@
-name: "Publish tags to FlakeHub"
+name: "Publish every git push to FlakeHub"
 on:
   push:
+    branches:
+      - "master"
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "The existing tag to publish to FlakeHub"
-        type: "string"
-        required: true
 jobs:
   flakehub-publish:
     runs-on: "ubuntu-latest"
@@ -15,10 +12,9 @@ jobs:
       contents: "read"
     steps:
       - uses: "actions/checkout@main"
-        with:
-          ref: "${{ (inputs.tag != null) && format('refs/tags/{0}', inputs.tag) || '' }}"
       - uses: "DeterminateSystems/nix-installer-action@main"
       - uses: "DeterminateSystems/flakehub-push@main"
         with:
           visibility: "private"
-          name: "kcalvelli/nixos_config"       
+          name: "kcalvelli/nixos_config"  
+          rolling: "true"   
