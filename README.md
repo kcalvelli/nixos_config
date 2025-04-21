@@ -7,7 +7,6 @@ This repository contains my personal NixOS configuration files. It's a highly cu
 This NixOS configuration sets up a system with:
 
 - COSMIC desktop environment
-- Gaming support (Steam, GameMode)
 - Hardware-specific optimizations for AMD CPUs and GPUs
 - Custom packages and overlays
 
@@ -18,7 +17,6 @@ This NixOS configuration sets up a system with:
 - `modules/`: Modular NixOS configurations
   - `desktop/`: Desktop environment settings
   - `development/`: Development tools and settings
-  - `gaming/`: Gaming-related configurations
   - `hardware/`: Hardware-specific settings
   - `networking/`: Network configurations
   - `services/`: Various system services
@@ -53,7 +51,6 @@ To customize this configuration for your own use:
 - AMD CPU and GPU optimizations
 - Custom overlay for packages like Brave Browser Nightly and Valent
 - Extensive use of Home Manager for user-specific configurations
-- Gaming optimizations including Steam and GameMode
 
 ## Warning
 

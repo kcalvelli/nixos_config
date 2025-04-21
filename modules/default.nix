@@ -4,7 +4,6 @@
     system = ./system;
     desktop = ./desktop;
     development = ./development;
-    gaming = ./gaming;
     hardware = ./hardware;
     graphics = ./graphics;
     networking = ./networking;

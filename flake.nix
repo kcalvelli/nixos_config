@@ -36,15 +36,6 @@
       inputs.systems.follows = "systems";
     };
 
-    #nixos-cosmic = {
-    #  url = "github:lilyinstarlight/nixos-cosmic";
-    #};
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
