@@ -132,14 +132,14 @@
         };
       };
     };
-    "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default" = {
+    "brave-cifhbcnohmdccbgoicgdjpfamggdegmo-Default" = {
       name = "Microsoft Teams";
-      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=oiocllghmdadfpahmllbbhkgjfmaidmm";
-      icon = "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo";
+      icon = "brave-cifhbcnohmdccbgoicgdjpfamggdegmo-Default";
       terminal = false;
       type = "Application";
       settings = {
-        StartupWMClass = "crx_oiocllghmdadfpahmllbbhkgjfmaidmm";
+      StartupWMClass = "crx_cifhbcnohmdccbgoicgdjpfamggdegmo";
       };
     };
     "brave-cicjgplghpdkjlhjlppobdmdkjlpfpml-Default" = {
