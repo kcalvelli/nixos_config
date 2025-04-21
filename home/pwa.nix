@@ -120,15 +120,15 @@
       actions = {
         "New-event" = {
           name = "New event";
-          exec = "/nix/store/z21j53xsx1i0mrq9mx9kpmiy2y8phs9f-brave-1.73.104/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
         };
         "New-message" = {
           name = "New message";
-          exec = "/nix/store/z21j53xsx1i0mrq9mx9kpmiy2y8phs9f-brave-1.73.104/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
         };
         "Open-calendar" = {
           name = "Open calendar";
-          exec = "/nix/store/z21j53xsx1i0mrq9mx9kpmiy2y8phs9f-brave-1.73.104/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
         };
       };
     };
@@ -205,7 +205,7 @@
 
     "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
       name = "Photopea";
-      exec = "/nix/store/lp880xxvvp6np16cfm9gslch26r98km0-brave-1.76.73/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
       icon = "brave-jdklklfpinionkgpmghaghehojplfjio-Default";
       terminal = false;
       type = "Application";
@@ -237,7 +237,18 @@
         StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
       };
     };
+    "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default" = {
+      name = "Windows App";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=oijgmambjjhcpfnploolbhpnehlkheid";
+      icon = "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default";
+      terminal = false;
+      type = "Application";
+      settings = {
+        StartupWMClass = "crx_oijgmambjjhcpfnploolbhpnehlkheid";
+      };
+    };    
   };
+
   systemd.user.services.clear-pwa-desktop-entries = {
     Unit = {
       Description = "Clear PWA Desktop Entries";
