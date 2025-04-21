@@ -106,29 +106,29 @@
         StartupWMClass = "crx_ibblmnobmgdmpoeblocemifbpglakpoi";
       };
     };
-    "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default" = {
+    "brave-pkooggnaalmfkidjmlhoelhdllpphaga-Default" = {
       name = "Outlook (PWA)";
-      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick %U";
-      icon = "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U";
+      icon = "brave-pkooggnaalmfkidjmlhoelhdllpphaga-Default";
       terminal = false;
       type = "Application";
       mimeType = ["x-scheme-handler/mailto"];
       settings = {
-        StartupWMClass = "crx_dnbnnnhjocpglknpbaaajdkbapeamick";
+        StartupWMClass = "crx_pkooggnaalmfkidjmlhoelhdllpphaga";
         Actions = "New-event;New-message;Open-calendar";
       };
       actions = {
         "New-event" = {
           name = "New event";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar/deeplink/compose";
         };
         "New-message" = {
           name = "New message";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/mail/deeplink/compose";
         };
         "Open-calendar" = {
           name = "Open calendar";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar";
         };
       };
     };
