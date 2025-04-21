@@ -14,7 +14,7 @@
       desktop
       development
       services
-      gaming
+      #gaming
       graphics
       msi
       networking
