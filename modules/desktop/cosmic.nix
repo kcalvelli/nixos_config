@@ -14,6 +14,7 @@
   config = lib.mkIf config.cosmic.enable {
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
+    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
     environment.systemPackages = with pkgs; [
       forecast
@@ -22,6 +23,9 @@
       cosmic-player
       # Overlay of networkmanagerapplet that does not include appindicator
       inputs.self.packages.${pkgs.system}.networkmanagerapplet
+      inputs.self.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
+      inputs.self.packages.${pkgs.system}.observatory
+      inputs.self.packages.${pkgs.system}.examine
     ];
   };
 }
