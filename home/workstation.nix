@@ -7,5 +7,6 @@
   imports = [
     ./common.nix
     ./solaar.nix
+    ./gaming.nix
   ];
 }

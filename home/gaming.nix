@@ -2,8 +2,8 @@
   pkgs,
   config,
   ...
-}; {
+}: {
   home.packages = with pkgs; [
-    protonup-ng;
+    protonup-ng
   ];
 }

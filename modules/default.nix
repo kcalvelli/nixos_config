@@ -12,5 +12,6 @@
     virt = ./virtualisation;
     system76 = ./hardware/system76.nix;
     msi = ./hardware/msi.nix;
+    gaming = ./gaming;
   };
 }

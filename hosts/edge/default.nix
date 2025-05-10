@@ -19,6 +19,7 @@
       networking
       users
       virt
+      gaming
     ]);
 
   # Enable MSI hardware support
