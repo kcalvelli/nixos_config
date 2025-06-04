@@ -40,8 +40,6 @@
     gnumake
     cmake
     pkg-config
-
-    inputs.alejandra.defaultPackage.${system}
   ];
 
   # Enable and configure development services
