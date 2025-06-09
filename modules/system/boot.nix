@@ -11,7 +11,7 @@
 
   # Boot configuration
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_13;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernel.sysctl = {
       # Network Optimizations
