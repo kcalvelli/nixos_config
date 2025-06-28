@@ -46,7 +46,8 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
   programs.mtr.enable = true;
-  programs.ssh.startAgent = true;
+  # 
+  #programs.ssh.startAgent = true;
 
   # For RTL-SDR
   #hardware.rtl-sdr.enable = true;
