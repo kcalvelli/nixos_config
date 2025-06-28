@@ -5,23 +5,25 @@
   ...
 }: {
   # Import Cosmic configuration
-  imports = [./cosmic.nix];
-  cosmic.enable = true;
+  imports = [
+    ./cosmic.nix
+    ./hyprland.nix
+  ];
+  cosmic.enable = lib.mkDefault true;
+
+  specialisation = {
+    hyprland.configuration = { 
+      # Use the Hyprland compositor with illogical-impulse dotfiles
+      cosmic.enable = lib.mkForce false;
+      hyprland.enable = true;      
+    };
+  };
 
   # Services needed by all WMs/DEs
   services = {
     flatpak.enable = true;
     udisks2.enable = true;
     system76-scheduler.enable = true;
-  };
-
-  # Programs needed by all WMs/DEs
-  programs = {
-    evince.enable = true;
-    file-roller.enable = true;
-    gnome-disks.enable = true;
-    seahorse.enable = true;
-    corectrl.enable = true;
   };
 
   # Environment variables
@@ -34,17 +36,6 @@
 
   # Desktop apps common to all WMs/DEs
   environment.systemPackages = with pkgs; [
-    # System apps
-    baobab
-    adw-gtk3
-    gnome-firmware
-
-    # Utilities
-    qalculate-gtk
-
-    # Graphics apps
-    pinta
-    shotwell
 
     # Browser
     brave

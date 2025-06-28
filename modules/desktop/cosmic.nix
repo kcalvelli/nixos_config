@@ -22,6 +22,14 @@
     services.displayManager.cosmic-greeter.enable = true;
     environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
+    programs = {
+      evince.enable = true;
+      file-roller.enable = true;
+      gnome-disks.enable = true;
+      seahorse.enable = true;
+      corectrl.enable = true;
+    };    
+
     environment.systemPackages = with pkgs; [
       forecast
       cosmic-ext-tweaks
@@ -35,6 +43,18 @@
       #inputs.self.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
       #inputs.self.packages.${pkgs.system}.observatory
       #inputs.self.packages.${pkgs.system}.examine
+      # System apps
+      baobab
+      adw-gtk3
+      gnome-firmware
+
+      # Utilities
+      qalculate-gtk
+
+      # Graphics apps
+      pinta
+      shotwell
+
     ];
 
     #systemd.packages = [ pkgs.observatory ];
