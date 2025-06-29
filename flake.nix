@@ -48,13 +48,6 @@
 
     # Chaotic AUR
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; 
-
-    # Illogical Impulse's Hyprland Dotfiles
-    illogical-impulse-dotfiles = {
-      url = "github:xBLACKICEx/dots-hyprland";
-      flake = false;
-    };
-
   };
 
   outputs = inputs @ {

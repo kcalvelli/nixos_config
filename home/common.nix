@@ -1,7 +1,7 @@
 {...}: {
   imports = [
-    ./shell.nix # Shell configuration
     ./security.nix # Security settings
     ./browser.nix # Brave browser configuration
+    ./terminal.nix # Common terminal settings
   ];
 }

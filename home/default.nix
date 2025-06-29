@@ -11,4 +11,6 @@ in {
   # Define home modules for different setups
   flake.homeModules.workstation = ./workstation.nix;
   flake.homeModules.laptop = ./laptop.nix;
+  flake.homeModules.hyprland = ./hyprland.nix;
+  flake.homeModules.shell = ./shell.nix;
 }

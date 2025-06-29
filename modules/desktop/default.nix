@@ -21,7 +21,6 @@
 
   # Services needed by all WMs/DEs
   services = {
-    flatpak.enable = true;
     udisks2.enable = true;
     system76-scheduler.enable = true;
   };

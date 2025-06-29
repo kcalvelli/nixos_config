@@ -8,6 +8,7 @@
   # Import the Cosmic desktop environment module
   imports = [
     inputs.nixos-cosmic.nixosModules.default
+    inputs.home-manager.nixosModules.default
   ];
 
   # Define Cosmic options
@@ -20,6 +21,7 @@
 
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
+    services.flatpak.enable = true;
     environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
     programs = {
@@ -57,6 +59,10 @@
 
     ];
 
+    # Enable some homeManager stuff
+    home-manager.sharedModules = with inputs.self.homeModules; [
+      shell
+    ];
     #systemd.packages = [ pkgs.observatory ];
     #systemd.services.monitord.wantedBy = [ "multi-user.target" ];
   };
