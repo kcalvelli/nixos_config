@@ -61,7 +61,7 @@
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with inputs.self.homeModules; [
-      shell
+      cosmic
     ];
     #systemd.packages = [ pkgs.observatory ];
     #systemd.services.monitord.wantedBy = [ "multi-user.target" ];

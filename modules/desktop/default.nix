@@ -7,17 +7,8 @@
   # Import Cosmic configuration
   imports = [
     ./cosmic.nix
-    ./hyprland.nix
   ];
   cosmic.enable = lib.mkDefault true;
-
-  specialisation = {
-    hyprland.configuration = { 
-      # Use the Hyprland compositor with illogical-impulse dotfiles
-      cosmic.enable = lib.mkForce false;
-      hyprland.enable = true;      
-    };
-  };
 
   # Services needed by all WMs/DEs
   services = {
