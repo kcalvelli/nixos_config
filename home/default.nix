@@ -11,5 +11,5 @@ in {
   # Define home modules for different setups
   flake.homeModules.workstation = ./workstation.nix;
   flake.homeModules.laptop = ./laptop.nix;
-  flake.homeModules.cosmic = ./cosmic.nix;
+  flake.homeModules.tui = ./tui.nix;
 }

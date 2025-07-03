@@ -13,9 +13,8 @@
         (pkgs)
         brave-browser-nightly
         networkmanagerapplet
-        #cosmic-ext-applet-clipboard-manager
-        #observatory
-        #examine
+        cosmic-ext-applet-clipboard-manager
+        examine
         ;
     };
 
@@ -32,8 +31,7 @@
     # Custom packages
     brave-browser-nightly = prev.callPackage ./brave-browser-nightly {};
     networkmanagerapplet = prev.callPackage ./networkmanagerapplet {};
-    #cosmic-ext-applet-clipboard-manager = prev.callPackage ./cosmic-ext-applet-clipboard-manager {};
-    #observatory = prev.callPackage ./observatory {};
-    #examine = prev.callPackage ./examine {};
+    cosmic-ext-applet-clipboard-manager = prev.callPackage ./cosmic-ext-applet-clipboard-manager {};
+    examine = prev.callPackage ./examine {};
   };
 }

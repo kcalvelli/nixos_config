@@ -43,9 +43,6 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-    # Cosmic Desktop Environment
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-
     # Chaotic AUR
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; 
   };

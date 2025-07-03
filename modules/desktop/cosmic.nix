@@ -5,12 +5,6 @@
   config,
   ...
 }: {
-  # Import the Cosmic desktop environment module
-  imports = [
-    inputs.nixos-cosmic.nixosModules.default
-    inputs.home-manager.nixosModules.default
-  ];
-
   # Define Cosmic options
   options.cosmic = {
     enable = lib.mkEnableOption "Enable Cosmic desktop environment";
@@ -37,14 +31,11 @@
       cosmic-ext-tweaks
       cosmic-ext-calculator
       cosmic-player
-      cosmic-ext-applet-clipboard-manager
-      observatory
-      examine
+
       # Overlay of networkmanagerapplet that does not include appindicator
       inputs.self.packages.${pkgs.system}.networkmanagerapplet
-      #inputs.self.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
-      #inputs.self.packages.${pkgs.system}.observatory
-      #inputs.self.packages.${pkgs.system}.examine
+      inputs.self.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
+      inputs.self.packages.${pkgs.system}.examine
       # System apps
       baobab
       adw-gtk3
@@ -61,9 +52,7 @@
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with inputs.self.homeModules; [
-      cosmic
+      tui
     ];
-    #systemd.packages = [ pkgs.observatory ];
-    #systemd.services.monitord.wantedBy = [ "multi-user.target" ];
   };
 }
