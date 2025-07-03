@@ -1,7 +1,7 @@
 {...}: {
   # Root filesystem configuration
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/de03ecfb-66a5-46dd-8626-86ed2ba75f73";
+    device = "/dev/disk/by-uuid/0b2ada2d-7811-470a-b8f8-33bc70fd05f6";
     fsType = "ext4";
     options = [
       "noatime"
@@ -14,7 +14,7 @@
 
   # Boot filesystem configuration
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/416A-6F8B";
+    device = "/dev/disk/by-uuid/965A-9731";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -24,6 +24,6 @@
 
   # Swap device configuration
   swapDevices = [
-    {device = "/dev/disk/by-uuid/d6a6574a-8d5e-492d-ad40-ca7a5718541d";}
+    {device = "/dev/disk/by-uuid/6e052123-d4a9-42c9-8a49-4f97e80800b8";}
   ];
 }
