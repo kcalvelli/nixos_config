@@ -7,13 +7,11 @@
 }: {
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote
-    inputs.chaotic.nixosModules.default 
   ];
 
   # Boot configuration
   boot = {
-    kernelPackages = pkgs.linuxPackages_cachyos;
-    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernel.sysctl = {
       # Network Optimizations
@@ -61,7 +59,4 @@
 
   # Enable UDisks2 service
   services.udisks2.enable = true;
-
-  # Enable sched-ext scheduler
-  services.scx.enable = true;
 }
