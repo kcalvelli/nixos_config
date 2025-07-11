@@ -40,6 +40,9 @@
     gnumake
     cmake
     pkg-config
+
+    # AI tools
+    claude-code
   ];
 
   # Enable and configure development services

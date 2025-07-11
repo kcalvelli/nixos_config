@@ -16,10 +16,18 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.openwebui.enable {
+    
+      hardware.amdgpu.opencl.enable = true;
+      hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
+
+      systemd.tmpfiles.rules = [
+        "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+      ];
+
       services.ollama = {
         enable = true;
         acceleration = "rocm";
-        rocmOverrideGfx = "10.3.1";
+        rocmOverrideGfx = "10.3.0";
         port = 11434;
         host = "0.0.0.0";
         openFirewall = true;
