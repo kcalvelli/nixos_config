@@ -43,8 +43,6 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-    # Chaotic AUR
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; 
   };
 
   outputs = inputs @ {
