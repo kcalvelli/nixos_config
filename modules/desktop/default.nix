@@ -7,8 +7,13 @@
   # Import Cosmic configuration
   imports = [
     ./cosmic.nix
+    ./plasma.nix
   ];
   cosmic.enable = lib.mkDefault true;
+  specialisation.plasma.configuration = {
+    cosmic.enable = lib.mkForce false;
+    plasma.enable = true;
+  };
 
   # Services needed by all WMs/DEs
   services = {
