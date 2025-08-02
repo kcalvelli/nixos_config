@@ -34,6 +34,9 @@
     };
     services.flatpak.enable = true;    
 
+    # Force KDE's ssh-askpass over Seahorse's
+    programs.ssh.askPassword = lib.mkForce "${pkgs.plasma5Packages.ksshaskpass}/bin/ksshaskpass";    
+
     environment.systemPackages = with pkgs; [
       kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
       kdePackages.kcalc # Calculator
