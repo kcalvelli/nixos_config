@@ -19,7 +19,7 @@
         layout = "us";
         variant = "";
       };
-    }
+    };
 
     services.xrdp = {
       defaultWindowManager = "startplasma-x11";
