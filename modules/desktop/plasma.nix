@@ -11,21 +11,7 @@
   };
 
   # Configure Plasma if enabled
-  config = lib.mkIf config.cosmic.enable {
-
-    services.xserver = {
-      enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-    };
-
-    services.xrdp = {
-      defaultWindowManager = "startplasma-x11";
-      enable = true;
-      openFirewall = true;
-    };
+  config = lib.mkIf config.plasma.enable {
 
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm = {
