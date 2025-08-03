@@ -9,10 +9,10 @@
     ./cosmic.nix
     ./plasma.nix
   ];
-  cosmic.enable = lib.mkDefault true;
-  specialisation.plasma.configuration = {
-    cosmic.enable = lib.mkForce false;
-    plasma.enable = true;
+  plasma.enable = lib.mkDefault true;
+  specialisation.cosmic.configuration = {
+    cosmic.enable = true;
+    plasma.enable = lib.mkForce false;
   };
 
   # Services needed by all WMs/DEs
