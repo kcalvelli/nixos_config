@@ -11,7 +11,7 @@
       {id = "nimfmkdcckklbkhjjkmbjfcpaiifgamg";} # Brave Talk for Calendars
     ];
     commandLineArgs = [
-      "--password-store=gnome-libsecret"
+      "--password-store=detect"
     ];
   };
 }
