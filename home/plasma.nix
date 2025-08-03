@@ -1,0 +1,3 @@
+{
+  programs.brave.enablePlasmaBrowserIntegration = true;
+}
