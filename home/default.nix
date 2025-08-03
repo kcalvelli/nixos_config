@@ -12,4 +12,5 @@ in {
   flake.homeModules.workstation = ./workstation.nix;
   flake.homeModules.laptop = ./laptop.nix;
   flake.homeModules.tui = ./tui.nix;
+  flake.homeModules.plasma = ./plasma.nix;
 }

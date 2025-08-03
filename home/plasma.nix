@@ -1,3 +1,7 @@
 {
-  programs.brave.enablePlasmaBrowserIntegration = true;
-}
+  pkgs,
+  ...
+}:
+{
+  programs.brave.nativeMessagingHosts = with pkgs; [ kdePackages.plasma-browser-integration ];
+} 
