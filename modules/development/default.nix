@@ -14,7 +14,6 @@
     # Editor and IDE tools
     vim
     vscode
-    code-cursor
 
     # Nix development tools
     devenv

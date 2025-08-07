@@ -60,7 +60,7 @@
         "statusBarItem.remoteForeground": "#ffffff",
         "titleBar.activeBackground": "#080c12",
         "titleBar.activeForeground": "#dddfdf",
-        "titleBar.inactiveBackground": "#3c3c3c99",
+        "titleBar.inactiveBackground": "#080C12",
         "titleBar.inactiveForeground": "#cccccc99",
         "titleBar.border": "#00000000",
         "menubar.selectionForeground": "#dddfdf",
@@ -2117,5 +2117,4 @@
     "lldb.suppressUpdateNotifications": true,
     "zig.path": "zig",
     "zig.zls.path": "zls",
-    "zig.initialSetupDone": true
 }
