@@ -106,40 +106,40 @@
         StartupWMClass = "crx_ibblmnobmgdmpoeblocemifbpglakpoi";
       };
     };
-    "brave-pkooggnaalmfkidjmlhoelhdllpphaga-Default" = {
+    "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default" = {
       name = "Outlook (PWA)";
-      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U";
-      icon = "brave-pkooggnaalmfkidjmlhoelhdllpphaga-Default";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick %U";
+      icon = "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default";
       terminal = false;
       type = "Application";
       mimeType = ["x-scheme-handler/mailto"];
       settings = {
-        StartupWMClass = "crx_pkooggnaalmfkidjmlhoelhdllpphaga";
+        StartupWMClass = "crx_dnbnnnhjocpglknpbaaajdkbapeamick";
         Actions = "New-event;New-message;Open-calendar";
       };
       actions = {
         "New-event" = {
           name = "New event";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
         };
         "New-message" = {
           name = "New message";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/mail/deeplink/compose";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
         };
         "Open-calendar" = {
           name = "Open calendar";
-          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar";
+          exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
         };
       };
     };
-    "brave-cifhbcnohmdccbgoicgdjpfamggdegmo-Default" = {
+    "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default" = {
       name = "Microsoft Teams";
-      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo";
-      icon = "brave-cifhbcnohmdccbgoicgdjpfamggdegmo-Default";
+      exec = "/run/current-system/sw/bin/brave --profile-directory=Default --app-id=oiocllghmdadfpahmllbbhkgjfmaidmm";
+      icon = "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default";
       terminal = false;
       type = "Application";
       settings = {
-      StartupWMClass = "crx_cifhbcnohmdccbgoicgdjpfamggdegmo";
+      StartupWMClass = "crx_oiocllghmdadfpahmllbbhkgjfmaidmm";
       };
     };
     "brave-cicjgplghpdkjlhjlppobdmdkjlpfpml-Default" = {

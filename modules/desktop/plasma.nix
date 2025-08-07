@@ -37,6 +37,8 @@
       haruna # Open source video player built with Qt/QML and libmpv
       wayland-utils # Wayland utilities
       wl-clipboard # Command-line copy/paste utilities for Wayland
+      kdePackages.kdenlive # Video editor
+      digikam # Photo management
     ];
 
     programs.kdeconnect.enable = true;

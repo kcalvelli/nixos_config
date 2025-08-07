@@ -33,9 +33,9 @@
   time.hardwareClockInLocalTime = true;
 
   # Enable services
-  services.caddy-proxy.enable = false;
-  services.openwebui.enable = false;
-  services.ntop.enable = false;
+  services.caddy-proxy.enable = true;
+  services.openwebui.enable = true;
+  services.ntop.enable = true;
 
   # Use workstation configuration for Home Manager
   home-manager.sharedModules = with inputs.self.homeModules; [workstation];

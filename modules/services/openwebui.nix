@@ -37,10 +37,7 @@ in {
         host = "0.0.0.0";
         port = 8080;
         openFirewall = true;
-        environment = {
-          OLLAMA_BASE_URL = "http://127.0.0.1:11434";
-          TRANSFORMERS_CACHE = "/var/lib/open-webui/.cache/huggingface";
-        };
+
       };
       services.caddy.virtualHosts."${domain}.${tailnet}" = {
         extraConfig = ''
