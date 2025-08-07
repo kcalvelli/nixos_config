@@ -12,6 +12,8 @@
     ];
     commandLineArgs = [
       "--password-store=detect"
+      "--gtk-version=4"
+      "--enable-features=WaylandWindowDecorations"
     ];
   };
 }
