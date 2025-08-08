@@ -37,7 +37,12 @@ in {
         host = "0.0.0.0";
         port = 8080;
         openFirewall = true;
-
+	      environment = {
+	      	STATIC_DIR = "${config.services.open-webui.stateDir}/static";
+	      	DATA_DIR = "${config.services.open-webui.stateDir}/data";
+	      	HF_HOME = "${config.services.open-webui.stateDir}/hf_home";
+	      	SENTENCE_TRANSFORMERS_HOME = "${config.services.open-webui.stateDir}/transformers_home";
+	      };
       };
       services.caddy.virtualHosts."${domain}.${tailnet}" = {
         extraConfig = ''
