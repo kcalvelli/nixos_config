@@ -47,7 +47,6 @@
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with inputs.self.homeModules; [
-      tui
       plasma
     ];
   };
