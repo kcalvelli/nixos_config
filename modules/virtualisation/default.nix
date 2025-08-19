@@ -30,7 +30,7 @@ in {
         };
       };
       # Uncomment if you want to use waydroid
-      #virtualisation.waydroid.enable = true;
+      virtualisation.waydroid.enable = true;
     })
 
     (lib.mkIf cfg.libvirt.enable {
