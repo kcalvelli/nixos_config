@@ -6,14 +6,16 @@
 }: {
   # Import Cosmic configuration
   imports = [
-    ./cosmic.nix
+    #./cosmic.nix
     ./plasma.nix
   ];
   plasma.enable = lib.mkDefault true;
-  specialisation.cosmic.configuration = {
-    cosmic.enable = true;
-    plasma.enable = lib.mkForce false;
-  };
+  # Disabling Cosmic for now, as it is not ready yet
+  # Uncomment the following lines to enable Cosmic when ready
+  #specialisation.cosmic.configuration = {
+  #  cosmic.enable = true;
+  #  plasma.enable = lib.mkForce false;
+  #};
 
   # Services needed by all WMs/DEs
   services = {

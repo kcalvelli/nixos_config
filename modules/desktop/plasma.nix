@@ -39,6 +39,7 @@
       wl-clipboard # Command-line copy/paste utilities for Wayland
       kdePackages.kdenlive # Video editor
       digikam # Photo management
+      krita # Digital painting application
     ];
 
     programs.kdeconnect.enable = true;

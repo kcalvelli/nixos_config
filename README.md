@@ -1,61 +1,46 @@
-# Personal NixOS Configuration
 
-This repository contains my personal NixOS configuration files. It's a highly customized setup tailored for my specific needs and preferences.
+# nixos_config
 
-## Overview
+This repository contains a modular, flake-based NixOS configuration for multiple hosts and user environments. It is designed for flexibility, reproducibility, and ease of customization, supporting both desktop and workstation setups.
 
-This NixOS configuration sets up a system with:
+## Features
 
-- COSMIC desktop environment
-- Hardware-specific optimizations for AMD CPUs and GPUs
-- Custom packages and overlays
+- **Flake-based**: Uses Nix flakes for reliable and reproducible builds.
+- **Host-specific configs**: Each machine (e.g., `edge`, `pangolin`) has its own configuration under `hosts/`.
+- **Modular system**: System, hardware, networking, services, and user modules are organized under `modules/` for easy reuse and extension.
+- **Home Manager integration**: User environments are managed with Home Manager modules in `home/`.
+- **Desktop Environments**: Supports KDE Plasma 6 (see `modules/desktop/plasma.nix`) and Cosmic.
+- **Custom Packages**: Local package definitions in `pkgs/` for software not available in upstream Nixpkgs or with custom patches.
+- **Gaming, security, and development modules**: Easily enable/disable features per host or user.
+- **Wayland and SDDM**: Modern display stack with Wayland and SDDM support.
+- **Flatpak and AppImage**: Optional support for additional app sources.
 
 ## Directory Structure
 
-- `flake.nix`: The entry point for the Nix configuration
-- `hosts/`: Contains host-specific configurations
-- `modules/`: Modular NixOS configurations
-  - `desktop/`: Desktop environment settings
-  - `development/`: Development tools and settings
-  - `hardware/`: Hardware-specific settings
-  - `networking/`: Network configurations
-  - `services/`: Various system services
-  - `system/`: Core system configurations
-  - `users/`: User-specific settings
-- `home/`: Home-manager configurations
-- `pkgs/`: Custom package definitions
+- `flake.nix`, `flake.lock` — Flake entrypoints
+- `hosts/` — Per-host system configurations
+- `modules/` — Modular NixOS and Home Manager modules
+- `home/` — Home Manager user environment modules and resources
+- `pkgs/` — Custom and third-party package definitions
+- `README.md` — This file
 
-## Installation
+## Usage Notice
 
-1. Install NixOS on your system.
-2. Clone this repository:
-   ```
-   git clone https://github.com/kcalvelli/nixos.git
-   ```
-3. Create entries for your hosts in the `hosts/` directory with your specific hardware configuration.
-4. Create entries in `modules/users/` with your specific user information.
-5. Run `sudo nixos-rebuild switch --flake .#yourhostname` to apply the configuration.
+**This repository is highly customized for my personal NixOS systems and is not intended to be used directly on other machines.**
 
-## Customization
+If you are interested in building your own NixOS configuration, you may use this repository as a reference for structure, modularization, and flake-based workflows. Please review the modules and package definitions to adapt them to your own needs and hardware. Many settings, packages, and modules are tailored specifically for my workflow and hardware, and may not be suitable for general use without significant modification.
 
-To customize this configuration for your own use:
+## Adding/Updating Packages
 
-1. Update the hardware-specific modules in `modules/hardware/` to match your system.
-2. Modify the user settings in `modules/users/` and `home/` to fit your preferences.
-3. Adjust the list of installed packages in various module files to suit your needs.
-4. Update the `flake.nix` file to point to your preferred input sources and add any additional inputs you might need.
+- Add new packages to `pkgs/` as needed. Use overlays or callPackage as appropriate.
+- For custom or third-party software, update the `sha256` after the first build as prompted by Nix.
 
-## Notable Features
+## Notable Modules
 
-- COSMIC desktop environment setup
-- AMD CPU and GPU optimizations
-- Custom overlay for packages like Brave Browser Nightly and Valent
-- Extensive use of Home Manager for user-specific configurations
-
-## Warning
-
-This configuration is highly personalized and will not work out-of-the-box on your system. Use it as a reference or starting point for your own NixOS configuration.
+- `modules/desktop/plasma.nix`: KDE Plasma 6 desktop configuration, including SDDM, Flatpak, and curated KDE apps.
+- `home/terminal.nix`: Unified terminal, shell, and prompt configuration (Vim, Fish, Starship, Ghostty, etc).
+- `pkgs/`: Custom package definitions, including some Qt-based software and other utilities.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This repository is licensed under the MIT License. See `LICENSE` for details.
