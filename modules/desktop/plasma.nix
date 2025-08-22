@@ -40,6 +40,7 @@
       kdePackages.kdenlive # Video editor
       digikam # Photo management
       krita # Digital painting application
+      kdePackages.calligra # Office suite
     ];
 
     programs.kdeconnect.enable = true;

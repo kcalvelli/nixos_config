@@ -41,7 +41,7 @@
 
     # Sync clients
     rclone
-    nextcloud-client
+    #nextcloud-client
 
     # Proton apps
     protonvpn-gui
