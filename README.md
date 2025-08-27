@@ -35,11 +35,41 @@ If you are interested in building your own NixOS configuration, you may use this
 - Add new packages to `pkgs/` as needed. Use overlays or callPackage as appropriate.
 - For custom or third-party software, update the `sha256` after the first build as prompted by Nix.
 
+
 ## Notable Modules
 
 - `modules/desktop/plasma.nix`: KDE Plasma 6 desktop configuration, including SDDM, Flatpak, and curated KDE apps.
 - `home/terminal.nix`: Unified terminal, shell, and prompt configuration (Vim, Fish, Starship, Ghostty, etc).
 - `pkgs/`: Custom package definitions, including some Qt-based software and other utilities.
+
+## Manual Setup Required for Proton Drive Backups
+
+The automated backup of `~/Music`, `~/Documents`, and `~/Pictures` to Proton Drive via rclone (see `modules/services/rclone-protondrive.nix`) requires some manual setup:
+
+1. **Create and configure your Proton Drive remote in rclone:**
+	- rclone is installed automatically by the NixOS configuration.
+	- Run `rclone config` and follow the prompts to add a new remote named `protondrive` using the Proton Drive backend.
+	- Ensure your config is saved at `~/.config/rclone/rclone.conf` for the `keith` user.
+	- Test your remote with `rclone lsd protondrive:`.
+
+2. **Permissions:**
+	- The systemd service runs as user `keith`. Make sure this user has access to the source directories and the rclone config file.
+
+3. **First run:**
+	- After rebuilding your system, check the timer and service:
+	  ```sh
+	  systemctl status rclone-protondrive-backup.timer
+	  systemctl status rclone-protondrive-backup.service
+	  ```
+	- You can trigger a manual backup with:
+	  ```sh
+	  systemctl start rclone-protondrive-backup.service
+	  ```
+
+4. **Logs:**
+	- Backup logs are written to `/var/log/rclone-protondrive-backup.log`.
+
+**Note:** The backup will only work if the rclone remote is set up and working. This process does not create or configure the rclone remote for you.
 
 ## License
 

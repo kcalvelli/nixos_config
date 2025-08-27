@@ -40,7 +40,7 @@
     # inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
     # Sync clients
-    rclone
+    #rclone  # Now managed by the rclone-protondrive module
     #nextcloud-client
 
     # Proton apps

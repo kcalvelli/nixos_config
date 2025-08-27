@@ -4,5 +4,6 @@
     ./openwebui.nix
     ./caddy.nix
     ./ntopng.nix
+    ./rclone-protondrive.nix
   ];
 }
