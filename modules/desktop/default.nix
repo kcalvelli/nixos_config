@@ -39,9 +39,6 @@
     # Enable to test new features in Brave
     # inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
-    # Sync clients
-    #rclone  # Now managed by the rclone-protondrive module
-    nextcloud-client
 
     # Proton apps
     protonvpn-gui
