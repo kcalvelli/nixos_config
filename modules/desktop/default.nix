@@ -41,7 +41,7 @@
 
     # Sync clients
     #rclone  # Now managed by the rclone-protondrive module
-    #nextcloud-client
+    nextcloud-client
 
     # Proton apps
     protonvpn-gui
