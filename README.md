@@ -44,7 +44,7 @@ If you are interested in building your own NixOS configuration, you may use this
 
 ## Manual Setup Required for Proton Drive Backups
 
-The automated backup of `~/Music`, `~/Documents`, and `~/Pictures` to Proton Drive via rclone (see `modules/services/rclone-protondrive.nix`) requires some manual setup:
+The automated backup of `~/Music`, and `~/Documents` to Proton Drive via rclone (see `modules/services/rclone-protondrive.nix`) requires some manual setup:
 
 1. **Create and configure your Proton Drive remote in rclone:**
 	- rclone is installed automatically by the NixOS configuration.

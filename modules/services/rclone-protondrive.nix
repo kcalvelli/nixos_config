@@ -1,42 +1,53 @@
-in {
-{ config, pkgs, lib, ... }:
+{ 
+  config, 
+  pkgs, 
+  lib, 
+  ... 
+}:
 
 # Automated backup of ~/Music, ~/Documents, and ~/Pictures to Proton Drive using rclone
 let
   syncDirs = [
-    "${config.users.users.keith.home}/Music"
-    "${config.users.users.keith.home}/Documents"
-    "${config.users.users.keith.home}/Pictures"
+  "${config.users.users.keith.home}/Music"
+  "${config.users.users.keith.home}/Documents"
   ];
   rcloneConfig = "/home/keith/.config/rclone/rclone.conf"; # Path to rclone config file (must be set up manually)
   remote = "protondrive"; # Name of the remote as defined in rclone.conf
   serviceName = "rclone-protondrive-backup";
-  logFile = "/var/log/rclone-protondrive-backup.log";
-  syncCmd =
-    let
-      syncs = lib.concatMapStringsSep "\n" (dir:
-        "${pkgs.rclone}/bin/rclone sync --config ${rcloneConfig} --log-file ${logFile} --log-level INFO '${dir}' '${remote}:backup/${lib.last (lib.splitString "/" dir)}'"
-      ) syncDirs;
-    in syncs;
+  syncCmds =
+  map (dir:
+    [
+    "${pkgs.rclone}/bin/rclone"
+    "sync"
+    "--config" "${rcloneConfig}"
+    dir
+    "${remote}:${lib.last (lib.splitString "/" dir)}"
+    ]
+  ) syncDirs;
 in
 {
-  environment.systemPackages = [ pkgs.rclone ];
+  environment.systemPackages = with pkgs; [ 
+    rclone
+    rclone-ui 
+  ];
 
   systemd.services.${serviceName} = {
-    description = "Backup user data to Proton Drive using rclone";
-    serviceConfig = {
-      Type = "oneshot";
-      User = "keith";
-      ExecStart = "/run/current-system/sw/bin/bash -c '${syncCmd}'";
-    };
+  description = "Backup user data to Proton Drive using rclone";
+  serviceConfig = {
+    Type = "oneshot";
+    User = "keith";
+    # Run each sync as an ExecStartPre, then a no-op ExecStart
+    "ExecStart" = "/run/current-system/sw/bin/true";
+    "ExecStartPre" = map (args: [ args ]) syncCmds;
+  };
   };
 
   systemd.timers.${serviceName} = {
-    description = "Daily backup of user data to Proton Drive at 3am";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "03:00";
-      Persistent = true;
-    };
+  description = "Daily backup of user data to Proton Drive at 3am";
+  wantedBy = [ "timers.target" ];
+  timerConfig = {
+    OnCalendar = "03:00";
+    Persistent = true;
+  };
   };
 }
