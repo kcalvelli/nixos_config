@@ -41,7 +41,7 @@
   home-manager.sharedModules = with inputs.self.homeModules; [workstation];
 
   # Hate to put this here, but I only want nextcloud on one machine now since I am also using syncthing
-  system.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     nextcloud-client
   ];
 
