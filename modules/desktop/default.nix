@@ -39,6 +39,8 @@
     # Enable to test new features in Brave
     # inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
+    # Note-taking
+    obsidian
 
     # Proton apps
     protonvpn-gui
