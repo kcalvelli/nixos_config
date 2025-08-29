@@ -49,6 +49,13 @@
     lssecret
     openssl
 
+    # Archive tools
+    p7zip 
+    unzip 
+    unrar
+    xarchiver 
+    
+
     # FlakeHub
     inputs.fh.packages.${system}.default
   ];
