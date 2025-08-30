@@ -48,6 +48,9 @@
 
     # Social apps
     discord
+    
+    # Markdown Editor
+    typora
 
     # Streaming/Recording
     (wrapOBS {
