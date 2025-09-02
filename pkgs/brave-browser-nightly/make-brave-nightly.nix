@@ -1,3 +1,4 @@
+
 {
   lib,
   stdenv,
@@ -37,7 +38,7 @@
   libuuid,
   libxkbcommon,
   libxshmfence,
-  mesa,
+  libgbm,
   nspr,
   nss,
   pango,
@@ -49,33 +50,42 @@
   coreutils,
   xorg,
   zlib,
+
   # Darwin dependencies
   unzip,
   makeWrapper,
+
   # command line arguments which are always set e.g "--disable-gpu"
-  commandLineArgs ? "--password-store=gnome-libsecret",
+  commandLineArgs ? "",
+
   # Necessary for USB audio devices.
   pulseSupport ? stdenv.hostPlatform.isLinux,
   libpulseaudio,
+
   # For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
   libGL,
+
   # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
   libvaSupport ? stdenv.hostPlatform.isLinux,
   libva,
   enableVideoAcceleration ? libvaSupport,
+
   # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
   vulkanSupport ? true,
   addDriverRunpath,
   enableVulkan ? vulkanSupport,
-}: {
+}: 
+
+{
   pname,
   version,
   hash,
   url,
   platform,
-}: let
-  inherit
-    (lib)
+}:
+
+ let
+  inherit (lib)
     optional
     optionals
     makeLibraryPath
@@ -86,8 +96,7 @@
     escapeShellArg
     ;
 
-  deps =
-    [
+  deps = [
       alsa-lib
       at-spi2-atk
       at-spi2-core
@@ -118,7 +127,7 @@
       libxshmfence
       libXtst
       libuuid
-      mesa
+      libgbm
       nspr
       nss
       pango
@@ -131,20 +140,22 @@
       libkrb5
       qt6.qtbase
     ]
-    ++ optional pulseSupport libpulseaudio ++ optional libvaSupport libva;
+    ++ optional pulseSupport libpulseaudio 
+    ++ optional libvaSupport libva;
 
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
   binpath = makeBinPath deps;
 
   enableFeatures =
     optionals enableVideoAcceleration [
-      "VaapiVideoDecodeLinuxGL"
+      "VaapiVideoDecoder"
       "VaapiVideoEncoder"
     ]
     ++ optional enableVulkan "Vulkan";
 
-  disableFeatures =
-    ["OutdatedBuildDetector"] # disable automatic updates
+  disableFeatures = [
+    "OutdatedBuildDetector"
+  ] # disable automatic updates
     # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
     ++ optionals enableVideoAcceleration ["UseChromeOSDirectVideoDecoder"];
 in
@@ -183,12 +194,8 @@ in
       adwaita-icon-theme
     ];
 
-    unpackPhase =
-      if stdenv.hostPlatform.isLinux
-      then "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner"
-      else "unzip $src";
-
     installPhase = lib.optionalString stdenv.hostPlatform.isLinux ''
+
       runHook preInstall
 
       mkdir -p $out $out/bin
@@ -242,9 +249,21 @@ in
       ln -sf ${xdg-utils}/bin/xdg-mime $out/opt/brave.com/brave-nightly/xdg-mime
 
       runHook postInstall
+    ''
+
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      runHook preInstall
+
+      mkdir -p $out/{Applications,bin}
+
+      cp -r . "$out/Applications/Brave Browser.app"
+
+      makeWrapper "$out/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" $out/bin/brave
+
+      runHook postInstall
     '';
 
-    preFixup = ''
+    preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
       # Add command line args to wrapGApp.
       gappsWrapperArgs+=(
         --prefix LD_LIBRARY_PATH : ${rpath}
@@ -257,7 +276,7 @@ in
       }
         ${
         optionalString (enableFeatures != []) ''
-          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+,WaylandWindowDecorations}}"
+          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+,WaylandWindowDecorations --enable-wayland-ime=true --gtk-version=4}}"
         ''
       }
         ${

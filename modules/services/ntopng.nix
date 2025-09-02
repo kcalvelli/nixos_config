@@ -18,9 +18,12 @@ in {
     (lib.mkIf cfg.ntop.enable {
       services.ntopng = {
         enable = true;
+        extraConfig = ''
+          --geoip-db-dir=/home/keith/.config/ntopng/geoip
+        '';
       };
 
-      services.caddy.virtualHosts."ntop.${domain}.${tailnet}" = {
+      services.caddy.virtualHosts."${domain}.${tailnet}" = {
         extraConfig = ''
           reverse_proxy http://localhost:3000
           encode gzip

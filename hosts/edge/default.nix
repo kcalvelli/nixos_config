@@ -34,7 +34,7 @@
 
   # Enable services
   services.caddy-proxy.enable = true;
-  services.openwebui.enable = true;
+  #services.openwebui.enable = true;
   services.ntop.enable = true;
 
   # Use workstation configuration for Home Manager

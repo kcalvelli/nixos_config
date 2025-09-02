@@ -37,7 +37,7 @@
     # Browser
     brave
     # Enable to test new features in Brave
-    # inputs.self.packages.${pkgs.system}.brave-browser-nightly
+    inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
     # Note-taking
     obsidian
@@ -48,7 +48,7 @@
 
     # Social apps
     discord
-    
+
     # Markdown Editor
     typora
 
