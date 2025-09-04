@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }: {
   # Import necessary modules
@@ -32,10 +33,13 @@
   # Since we dual boot with Windows, we need to set the clock to localtime
   time.hardwareClockInLocalTime = true;
 
-  # Enable services
+  # Enable services - caddy proxy isn't working great (my setup fault, I haven't messed with it much) so only enable one at a time.
   services.caddy-proxy.enable = true;
   #services.openwebui.enable = true;
-  services.ntop.enable = true;
+  #services.ntop.enable = true;
+  services.hass = {
+    enable = true;
+  };
 
   # Use workstation configuration for Home Manager
   home-manager.sharedModules = with inputs.self.homeModules; [workstation];

@@ -1,9 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs, 
+  ...
+}: {
   # Import necessary service modules
   imports = [
     ./openwebui.nix
     ./caddy.nix
     ./ntopng.nix
     ./rclone-protondrive.nix
+    ./home-assistant.nix
+    ./mqtt.nix
+    ./govee2mqtt.nix
   ];
 }

@@ -12,6 +12,7 @@
     ./boot.nix
     ./printing.nix
     ./sound.nix
+    ./bluetooth.nix
   ];
 
   # Privacy configuration

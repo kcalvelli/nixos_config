@@ -21,6 +21,7 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.containers.enable {
       virtualisation = {
+        oci-containers.backend = lib.mkDefault "podman";
         podman = {
           enable = true;
           dockerCompat = true;
