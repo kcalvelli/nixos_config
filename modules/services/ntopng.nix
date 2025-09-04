@@ -20,14 +20,19 @@ in {
         enable = true;
         extraConfig = ''
           --geoip-db-dir=/home/keith/.config/ntopng/geoip
+          --http-prefix=/ntopng
         '';
       };
 
       services.caddy.virtualHosts."${domain}.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://localhost:3000
-          encode gzip
-        '';
+          @ntopRoot path /ntopng
+          redir @ntopRoot /ntopng/ 301
+
+          handle /ntopng/* {
+            reverse_proxy http://127.0.0.1:3000
+          }
+      '';
       };
     })
   ];

@@ -46,8 +46,9 @@ in {
       };
       services.caddy.virtualHosts."${domain}.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://localhost:8080
-          encode gzip
+          handle_path /ai/* {
+            reverse_proxy http://127.0.0.1:8080
+        }
         '';
       };
     })
