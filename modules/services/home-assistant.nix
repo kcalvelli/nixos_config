@@ -1,4 +1,5 @@
-{ config
+{ 
+  config
 , lib
 , pkgs
 , inputs
@@ -45,7 +46,10 @@ in
         "homekit"
         "homekit_controller"
         "sonos"
-        "govee"
+        "google"
+        "google_photos"
+        "google_maps"
+      
       ];
 
       config = {
@@ -97,9 +101,13 @@ in
     };
 
     #############################
-    # MQTT (your local broker module)
+    # MQTT (your local broker module) 
     #############################
     services.mqtt.enable = true;
+    services.govee2mqtt = {
+      enable = true;
+      environmentFile = "/etc/govee2mqtt.env"; # Create this file with your Govee API key
+    };
 
     # let HA hear mDNS and SSDP broadcasts
     networking.firewall.allowedUDPPorts = [ 5353 1900 ];

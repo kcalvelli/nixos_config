@@ -10,6 +10,5 @@
     ./rclone-protondrive.nix
     ./home-assistant.nix
     ./mqtt.nix
-    ./govee2mqtt.nix
   ];
 }
