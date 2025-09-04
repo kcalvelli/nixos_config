@@ -1,19 +1,17 @@
-
 # nixos_config
 
-This repository contains a modular, flake-based NixOS configuration for multiple hosts and user environments. It is designed for flexibility, reproducibility, and ease of customization, supporting both desktop and workstation setups.
+This repository contains my personal, modular, flake-based NixOS configuration for multiple hosts. It is tailored for a KDE Plasma workstation setup, with additional modules for hardware, networking, gaming, development, and automated backups.
 
-## Features
 
-- **Flake-based**: Uses Nix flakes for reliable and reproducible builds.
-- **Host-specific configs**: Each machine (e.g., `edge`, `pangolin`) has its own configuration under `hosts/`.
-- **Modular system**: System, hardware, networking, services, and user modules are organized under `modules/` for easy reuse and extension.
-- **Home Manager integration**: User environments are managed with Home Manager modules in `home/`.
-- **Desktop Environments**: Supports KDE Plasma 6 (see `modules/desktop/plasma.nix`) and Cosmic.
+## Key Features
+
+- **KDE Plasma 6**: Primary desktop environment, with SDDM, Wayland, Flatpak, and a curated set of KDE applications.
+- **Modular Structure**: System, hardware, networking, services, graphics, gaming, and development modules for easy customization and reuse.
+- **Home Manager Integration**: User environments managed via Home Manager modules in `home/`.
 - **Custom Packages**: Local package definitions in `pkgs/` for software not available in upstream Nixpkgs or with custom patches.
-- **Gaming, security, and development modules**: Easily enable/disable features per host or user.
-- **Wayland and SDDM**: Modern display stack with Wayland and SDDM support.
-- **Flatpak and AppImage**: Optional support for additional app sources.
+- **Automated Backups**: Rclone-based backup of important directories to Proton Drive, scheduled via systemd.
+- **Per-host Configuration**: Each machine (e.g., `edge`, `pangolin`) has its own config under `hosts/`.
+
 
 ## Directory Structure
 
@@ -24,27 +22,52 @@ This repository contains a modular, flake-based NixOS configuration for multiple
 - `pkgs/` — Custom and third-party package definitions
 - `README.md` — This file
 
-## Usage Notice
+
+## Usage Notice & Caution
 
 **This repository is highly customized for my personal NixOS systems and is not intended to be used directly on other machines.**
 
-If you are interested in building your own NixOS configuration, you may use this repository as a reference for structure, modularization, and flake-based workflows. Please review the modules and package definitions to adapt them to your own needs and hardware. Many settings, packages, and modules are tailored specifically for my workflow and hardware, and may not be suitable for general use without significant modification.
+You may use this repository as a reference for structure, modularization, and flake-based workflows. Many settings, packages, and modules are tailored specifically for my workflow and hardware, and may not be suitable for general use without significant modification.
 
-## Adding/Updating Packages
-
-- Add new packages to `pkgs/` as needed. Use overlays or callPackage as appropriate.
-- For custom or third-party software, update the `sha256` after the first build as prompted by Nix.
-
+**Caution:** No secrets (passwords, API keys, tokens, etc.) are included in this configuration by design. For the system to be fully functional, you must perform custom setup outside of NixOS (such as creating environment files, rclone configs, or other secret management). This is a deliberate security measure—review all modules and set up secrets manually as needed.
 
 ## Notable Modules
 
 - `modules/desktop/plasma.nix`: KDE Plasma 6 desktop configuration, including SDDM, Flatpak, and curated KDE apps.
+- `modules/services/rclone-protondrive.nix`: Automated backup to Proton Drive using rclone and systemd.
 - `home/terminal.nix`: Unified terminal, shell, and prompt configuration (Vim, Fish, Starship, Ghostty, etc).
 - `pkgs/`: Custom package definitions, including some Qt-based software and other utilities.
 
+## Services That Can Be Enabled
+
+The following services can be enabled in your configuration, and many can be reverse proxied through Caddy:
+
+- **Caddy Proxy** (`services.caddy-proxy.enable`): Secure reverse proxy for web services.
+- **OpenWebUI** (`services.openwebui.enable`): AI web interface, reverse proxied at `/ai/*`.
+- **Home Assistant** (`services.hass.enable`): Home automation platform, reverse proxied at `/`.
+- **ntopng** (`services.ntop.enable`): Network monitoring, reverse proxied at `/ntopng/*`.
+- **MQTT Broker** (`services.mqtt.enable`): Local Mosquitto broker for IoT and automation.
+- **Matter Server** (`services.matter-server.enable`): Smart home protocol support.
+- **Wyoming Voice Containers**: Whisper, Piper, OpenWakeWord (for Home Assistant voice pipelines).
+- **Rclone Proton Drive Backup**: Automated backup of `~/Music` and `~/Documents` to Proton Drive.
+- **KDEConnect** (`programs.kdeconnect.enable`): Device integration.
+- **Partition Manager** (`programs.partition-manager.enable`): Disk/partition management.
+- **Flatpak** (`services.flatpak.enable`): Universal Linux app support.
+- **Bluetooth, Printing, Sound, Networking, Firewall, SSH, etc.**: Standard NixOS services.
+
+### Example Caddy Reverse Proxy Paths
+
+- `/ai/*` → OpenWebUI (port 8080)
+- `/ntopng/*` → ntopng (port 3000)
+- `/` → Home Assistant (port 8123)
+
+## Tailscale Networking
+
+This configuration uses Tailscale for secure networking and reverse proxying. **Note:** Your personal Tailscale domain (e.g., `taile0fb4.ts.net`) is hardcoded in the services configuration for Caddy, Home Assistant, OpenWebUI, ntopng, and other reverse-proxied services. If you fork or reuse this configuration, you must update the domain to match your own Tailscale network.
+
 ## Manual Setup Required for Proton Drive Backups
 
-The automated backup of `~/Music`, and `~/Documents` to Proton Drive via rclone (see `modules/services/rclone-protondrive.nix`) requires some manual setup:
+The automated backup of `~/Music` and `~/Documents` to Proton Drive via rclone requires some manual setup:
 
 1. **Create and configure your Proton Drive remote in rclone:**
 	- rclone is installed automatically by the NixOS configuration.
@@ -67,7 +90,7 @@ The automated backup of `~/Music`, and `~/Documents` to Proton Drive via rclone 
 	  ```
 
 4. **Logs:**
-	- Backup logs are written to `/var/log/rclone-protondrive-backup.log`.
+	- Backup logs are written to `~/.local/share/rclone/backup.log`.
 
 **Note:** The backup will only work if the rclone remote is set up and working. This process does not create or configure the rclone remote for you.
 
