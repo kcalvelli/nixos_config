@@ -58,6 +58,7 @@
         ./hosts
         ./modules
         ./home
+        ./devshell.nix
       ];
     };
 }
