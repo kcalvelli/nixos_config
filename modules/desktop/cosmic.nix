@@ -4,7 +4,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Define Cosmic options
   options.cosmic = {
     enable = lib.mkEnableOption "Enable Cosmic desktop environment";
@@ -13,9 +14,12 @@
   # Configure Cosmic if enabled
   config = lib.mkIf config.cosmic.enable {
 
-    services.desktopManager.cosmic.enable = true;
-    services.displayManager.cosmic-greeter.enable = true;
-    services.flatpak.enable = true;
+    services = {
+      desktopManager.cosmic.enable = true;
+      displayManager.cosmic-greeter.enable = true;
+      flatpak.enable = true;
+    };
+
     environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
     programs = {
@@ -24,7 +28,7 @@
       gnome-disks.enable = true;
       seahorse.enable = true;
       corectrl.enable = true;
-    };    
+    };
 
     environment.systemPackages = with pkgs; [
       forecast

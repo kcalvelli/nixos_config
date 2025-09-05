@@ -2,9 +2,10 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Import necessary modules
-  imports = [inputs.nixos-hardware.nixosModules.common-gpu-amd];
+  imports = [ inputs.nixos-hardware.nixosModules.common-gpu-amd ];
 
   # Hardware configuration
   hardware = {
@@ -57,6 +58,6 @@
   };
 
   # Linux AMDGPU Controller
-  systemd.packages = with pkgs; [lact];
-  systemd.services.lactd.wantedBy = ["multi-user.target"];
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 }

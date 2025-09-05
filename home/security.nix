@@ -1,9 +1,4 @@
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
   # Enable and configure GPG
   programs.gpg = {
     enable = true;

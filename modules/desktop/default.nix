@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # Import Cosmic configuration
   imports = [
     #./cosmic.nix
@@ -54,7 +55,12 @@
 
     # Streaming/Recording
     (wrapOBS {
-      plugins = with obs-studio-plugins; [ wlrobs obs-gstreamer obs-move-transition obs-backgroundremoval ];
+      plugins = with obs-studio-plugins; [
+        wlrobs
+        obs-gstreamer
+        obs-move-transition
+        obs-backgroundremoval
+      ];
     })
   ];
 

@@ -1,4 +1,5 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   # Import user-specific configurations
   imports = [
     ./keith.nix

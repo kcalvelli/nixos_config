@@ -1,9 +1,9 @@
 {
-  lib,
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Import necessary modules
   imports = [
     inputs.vscode-server.nixosModules.default

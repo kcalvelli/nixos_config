@@ -1,10 +1,12 @@
-{ 
-  config, 
-  lib, 
-  pkgs, 
-  ... }:
-let cfg = config.services;
-in {
+{
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.services;
+in
+{
   options.services.mqtt.enable = lib.mkEnableOption "Local Mosquitto MQTT broker (localhost only)";
 
   config = lib.mkIf cfg.mqtt.enable {
@@ -20,7 +22,7 @@ in {
           port = 1883;
           address = "::1";
           settings.allow_anonymous = true;
-        }        
+        }
       ];
     };
     # No firewall ports: local-only

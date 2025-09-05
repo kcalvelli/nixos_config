@@ -1,12 +1,13 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.virt;
-in {
+in
+{
   # Create options to enable containers and virtualisation
   options = {
     virt.containers = {

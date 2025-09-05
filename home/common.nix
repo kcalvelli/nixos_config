@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./security.nix # Security settings
     ./browser.nix # Brave browser configuration

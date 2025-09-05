@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Samba service configuration
   services.samba = {
     enable = true;

@@ -1,7 +1,4 @@
 {
-  pkgs, 
-  ...
-}: {
   # Import necessary service modules
   imports = [
     ./openwebui.nix

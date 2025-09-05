@@ -1,12 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.hardware;
-in {
+in
+{
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -46,7 +47,7 @@ in {
           "rcu_nocbs=1-8"
         ];
 
-        kernelModules = ["kvm-amd"];
+        kernelModules = [ "kvm-amd" ];
 
         extraModulePackages = [
         ];
@@ -60,7 +61,7 @@ in {
             "usb_storage"
             "sd_mod"
           ];
-          kernelModules = [];
+          kernelModules = [ ];
         };
       };
       services.power-profiles-daemon.enable = lib.mkForce false;

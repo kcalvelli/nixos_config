@@ -1,6 +1,8 @@
-{inputs, ...}: let
+{ inputs, ... }:
+let
   # Define a function to create a NixOS system configuration
-  nixosSystem = args:
+  nixosSystem =
+    args:
     inputs.nixpkgs.lib.nixosSystem (
       {
         specialArgs = {
@@ -9,15 +11,16 @@
       }
       // args
     );
-in {
+in
+{
   flake.nixosConfigurations = {
     edge = nixosSystem {
       system = "x86_64-linux";
-      modules = [./edge];
+      modules = [ ./edge ];
     };
     pangolin = nixosSystem {
       system = "x86_64-linux";
-      modules = [./pangolin];
+      modules = [ ./pangolin ];
     };
   };
 }

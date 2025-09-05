@@ -1,4 +1,3 @@
-
 {
   lib,
   stdenv,
@@ -74,7 +73,7 @@
   vulkanSupport ? true,
   addDriverRunpath,
   enableVulkan ? vulkanSupport,
-}: 
+}:
 
 {
   pname,
@@ -84,7 +83,7 @@
   platform,
 }:
 
- let
+let
   inherit (lib)
     optional
     optionals
@@ -97,51 +96,51 @@
     ;
 
   deps = [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      dbus
-      expat
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      gtk4
-      libdrm
-      libX11
-      libGL
-      libxkbcommon
-      libXScrnSaver
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libxshmfence
-      libXtst
-      libuuid
-      libgbm
-      nspr
-      nss
-      pango
-      pipewire
-      udev
-      wayland
-      xorg.libxcb
-      zlib
-      snappy
-      libkrb5
-      qt6.qtbase
-    ]
-    ++ optional pulseSupport libpulseaudio 
-    ++ optional libvaSupport libva;
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    cairo
+    cups
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    gtk4
+    libdrm
+    libX11
+    libGL
+    libxkbcommon
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libxshmfence
+    libXtst
+    libuuid
+    libgbm
+    nspr
+    nss
+    pango
+    pipewire
+    udev
+    wayland
+    xorg.libxcb
+    zlib
+    snappy
+    libkrb5
+    qt6.qtbase
+  ]
+  ++ optional pulseSupport libpulseaudio
+  ++ optional libvaSupport libva;
 
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
   binpath = makeBinPath deps;
@@ -155,46 +154,48 @@
 
   disableFeatures = [
     "OutdatedBuildDetector"
-  ] # disable automatic updates
-    # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
-    ++ optionals enableVideoAcceleration ["UseChromeOSDirectVideoDecoder"];
+  ]
+  # disable automatic updates
+  # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
+  ++ optionals enableVideoAcceleration [ "UseChromeOSDirectVideoDecoder" ];
 in
-  stdenv.mkDerivation {
-    inherit pname version;
+stdenv.mkDerivation {
+  inherit pname version;
 
-    src = fetchurl {
-      inherit url hash;
-    };
+  src = fetchurl {
+    inherit url hash;
+  };
 
-    dontConfigure = true;
-    dontBuild = true;
-    dontPatchELF = true;
-    doInstallCheck = stdenv.hostPlatform.isLinux;
+  dontConfigure = true;
+  dontBuild = true;
+  dontPatchELF = true;
+  doInstallCheck = stdenv.hostPlatform.isLinux;
 
-    nativeBuildInputs =
-      lib.optionals stdenv.hostPlatform.isLinux [
-        dpkg
-        # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
-        # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
-        (buildPackages.wrapGAppsHook3.override {makeWrapper = buildPackages.makeShellWrapper;})
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        unzip
-        makeWrapper
-      ];
-
-    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-      # needed for GSETTINGS_SCHEMAS_PATH
-      glib
-      gsettings-desktop-schemas
-      gtk3
-      gtk4
-
-      # needed for XDG_ICON_DIRS
-      adwaita-icon-theme
+  nativeBuildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      dpkg
+      # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
+      # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
+      (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      unzip
+      makeWrapper
     ];
 
-    installPhase = lib.optionalString stdenv.hostPlatform.isLinux ''
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    # needed for GSETTINGS_SCHEMAS_PATH
+    glib
+    gsettings-desktop-schemas
+    gtk3
+    gtk4
+
+    # needed for XDG_ICON_DIRS
+    adwaita-icon-theme
+  ];
+
+  installPhase =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
 
       runHook preInstall
 
@@ -263,69 +264,65 @@ in
       runHook postInstall
     '';
 
-    preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-      # Add command line args to wrapGApp.
-      gappsWrapperArgs+=(
-        --prefix LD_LIBRARY_PATH : ${rpath}
-        --prefix PATH : ${binpath}
-        --suffix PATH : ${
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    # Add command line args to wrapGApp.
+    gappsWrapperArgs+=(
+      --prefix LD_LIBRARY_PATH : ${rpath}
+      --prefix PATH : ${binpath}
+      --suffix PATH : ${
         lib.makeBinPath [
           xdg-utils
           coreutils
         ]
       }
-        ${
-        optionalString (enableFeatures != []) ''
-          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+,WaylandWindowDecorations --enable-wayland-ime=true --gtk-version=4}}"
-        ''
-      }
-        ${
-        optionalString (disableFeatures != []) ''
-          --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
-        ''
-      }
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto}}"
-        ${optionalString vulkanSupport ''
+      ${optionalString (enableFeatures != [ ]) ''
+        --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+,WaylandWindowDecorations --enable-wayland-ime=true --gtk-version=4}}"
+      ''}
+      ${optionalString (disableFeatures != [ ]) ''
+        --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
+      ''}
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto}}"
+      ${optionalString vulkanSupport ''
         --prefix XDG_DATA_DIRS  : "${addDriverRunpath.driverLink}/share"
       ''}
-        --add-flags ${escapeShellArg commandLineArgs}
-      )
+      --add-flags ${escapeShellArg commandLineArgs}
+    )
+  '';
+
+  installCheckPhase = ''
+    # Bypass upstream wrapper which suppresses errors
+    $out/opt/brave.com/brave-nightly/brave-browser-nightly --version
+  '';
+
+  passthru.updateScript = ./update.sh;
+
+  meta = {
+    homepage = "https://brave.com/";
+    description = "Privacy-oriented browser for Desktop and Laptop computers";
+    changelog =
+      "https://github.com/brave/brave-browser/blob/master/CHANGELOG_DESKTOP.md#"
+      + lib.replaceStrings [ "." ] [ "" ] version;
+    longDescription = ''
+      Brave browser blocks the ads and trackers that slow you down,
+      chew up your bandwidth, and invade your privacy. Brave lets you
+      contribute to your favorite creators automatically.
     '';
-
-    installCheckPhase = ''
-      # Bypass upstream wrapper which suppresses errors
-      $out/opt/brave.com/brave-nightly/brave-browser-nightly --version
-    '';
-
-    passthru.updateScript = ./update.sh;
-
-    meta = {
-      homepage = "https://brave.com/";
-      description = "Privacy-oriented browser for Desktop and Laptop computers";
-      changelog =
-        "https://github.com/brave/brave-browser/blob/master/CHANGELOG_DESKTOP.md#"
-        + lib.replaceStrings ["."] [""] version;
-      longDescription = ''
-        Brave browser blocks the ads and trackers that slow you down,
-        chew up your bandwidth, and invade your privacy. Brave lets you
-        contribute to your favorite creators automatically.
-      '';
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
-      license = lib.licenses.mpl20;
-      maintainers = with lib.maintainers; [
-        uskudnik
-        rht
-        jefflabonte
-        nasirhm
-        buckley310
-        matteopacini
-      ];
-      platforms = [
-        "aarch64-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
-      mainProgram = "brave-browser-nightly";
-    };
-  }
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.mpl20;
+    maintainers = with lib.maintainers; [
+      uskudnik
+      rht
+      jefflabonte
+      nasirhm
+      buckley310
+      matteopacini
+    ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    mainProgram = "brave-browser-nightly";
+  };
+}

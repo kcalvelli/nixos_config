@@ -1,4 +1,4 @@
-{lib, ...}: {
+{
   # Enable real-time capabilities for PipeWire
   security.rtkit.enable = true;
 

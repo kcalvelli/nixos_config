@@ -1,8 +1,4 @@
 {
-  inputs,
-  pkgs,
-  ...
-}: {
   # Define the user for the system
   users.users = {
     keith = {
@@ -27,10 +23,12 @@
 
   # Home Manager configuration for the user
   home-manager.users = {
-    keith = {pkgs, ...}: {
-      home.stateVersion = "24.05";
-      home.homeDirectory = "/home/keith";
-      home.username = "keith";
+    keith = {
+      home = {
+        stateVersion = "24.05";
+        homeDirectory = "/home/keith";
+        username = "keith";
+      };
 
       programs.git = {
         enable = true;
@@ -80,6 +78,6 @@
 
   # Learn to trust yourself
   nix.settings = {
-    trusted-users = ["keith"];
+    trusted-users = [ "keith" ];
   };
 }

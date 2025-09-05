@@ -1,17 +1,13 @@
 {
-  inputs,
-  pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./avahi.nix # Avahi service configuration
     ./samba.nix # Samba service configuration
     ./tailscale.nix # Tailscale service configuration
   ];
-
-  # Reduce wpa_supplicant CTRL-EVENT-SIGNAL-CHANGE spam
-  systemd.services.wpa_supplicant.serviceConfig.LogLevelMax = 2;
 
   networking = {
     networkmanager.enable = true;
@@ -19,7 +15,10 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [5355 21118];
+      allowedTCPPorts = [
+        5355
+        21118
+      ];
       # Open ports for kdeconnect protocol.  Currently using valent nightly from flatpak on cosmic.
       allowedTCPPortRanges = [
         {
@@ -27,7 +26,7 @@
           to = 1764;
         }
       ];
-      allowedUDPPorts = [5355];
+      allowedUDPPorts = [ 5355 ];
       allowedUDPPortRanges = [
         {
           from = 1714;
@@ -44,14 +43,18 @@
     openssh.enable = true;
   };
 
-  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd = {
+    services = {
+      wpa_supplicant.serviceConfig.LogLevelMax = 2;
+      NetworkManager-wait-online.enable = false;
+      systemd-networkd-wait-online.enable = lib.mkForce false;
+    };
+  };
+
   programs.mtr.enable = true;
-  # 
+  #
   #programs.ssh.startAgent = true;
 
   # For RTL-SDR
   #hardware.rtl-sdr.enable = true;
-
-  # Causes switch to fail if this is not set
-  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 }

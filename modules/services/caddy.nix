@@ -1,13 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: let
-  cfg = config.services;
-  hostName = config.networking.hostName;
-  tailnet = "taile0fb4.ts.net";
-in {
+}:
+let
+  cfg = config.services.caddy-proxy;
+in
+{
   # Define options for caddy-proxy service
   options = {
     services.caddy-proxy = {
@@ -17,7 +16,7 @@ in {
 
   # Configuration for caddy-proxy service
   config = lib.mkMerge [
-    (lib.mkIf cfg.caddy-proxy.enable {
+    (lib.mkIf cfg.enable {
       services.caddy = {
         enable = true;
         globalConfig = ''

@@ -1,13 +1,14 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services;
   domain = config.networking.hostName;
   tailnet = "taile0fb4.ts.net";
-in {
+in
+{
   options = {
     services.ntop = {
       enable = lib.mkEnableOption "ntop";
@@ -32,7 +33,7 @@ in {
           handle /ntopng/* {
             reverse_proxy http://127.0.0.1:3000
           }
-      '';
+        '';
       };
     })
   ];

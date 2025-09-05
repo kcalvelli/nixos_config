@@ -1,14 +1,13 @@
 {
   config,
-  inputs,
-  pkgs,
   ...
-}: {
+}:
+{
   # Configure firewall settings for Tailscale
   networking = {
     firewall = {
-      trustedInterfaces = [config.services.tailscale.interfaceName]; # Allow Tailscale interface through the firewall
-      allowedUDPPorts = [config.services.tailscale.port]; # Allow UDP ports used by Tailscale
+      trustedInterfaces = [ config.services.tailscale.interfaceName ]; # Allow Tailscale interface through the firewall
+      allowedUDPPorts = [ config.services.tailscale.port ]; # Allow UDP ports used by Tailscale
     };
   };
 

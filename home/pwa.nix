@@ -1,8 +1,8 @@
 {
-  config,
   pkgs,
   ...
-}: {
+}:
+{
   # PWA Desktop entries
   # If you are not me, do not use this
   xdg.desktopEntries = {
@@ -112,7 +112,7 @@
       icon = "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default";
       terminal = false;
       type = "Application";
-      mimeType = ["x-scheme-handler/mailto"];
+      mimeType = [ "x-scheme-handler/mailto" ];
       settings = {
         StartupWMClass = "crx_dnbnnnhjocpglknpbaaajdkbapeamick";
         Actions = "New-event;New-message;Open-calendar";
@@ -139,7 +139,7 @@
       terminal = false;
       type = "Application";
       settings = {
-      StartupWMClass = "crx_oiocllghmdadfpahmllbbhkgjfmaidmm";
+        StartupWMClass = "crx_oiocllghmdadfpahmllbbhkgjfmaidmm";
       };
     };
     "brave-cicjgplghpdkjlhjlppobdmdkjlpfpml-Default" = {
@@ -246,20 +246,20 @@
       settings = {
         StartupWMClass = "crx_oijgmambjjhcpfnploolbhpnehlkheid";
       };
-    };    
+    };
   };
 
   systemd.user.services.clear-pwa-desktop-entries = {
     Unit = {
       Description = "Clear PWA Desktop Entries";
-      After = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
     };
     Service = {
       Type = "oneshot";
       ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/rm -f $HOME/.local/share/applications/brave-*.desktop'";
     };
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 }

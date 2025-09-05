@@ -4,7 +4,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Define Cosmic options
   options.plasma = {
     enable = lib.mkEnableOption "Enable Plasma desktop environment";
@@ -13,15 +14,21 @@
   # Configure Plasma if enabled
   config = lib.mkIf config.plasma.enable {
 
-    services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
+    services = {
+      desktopManager.plasma6.enable = true;
+      displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
+      flatpak.enable = true;
     };
-    services.flatpak.enable = true;    
 
-    # Force KDE's ssh-askpass over Seahorse's
-    programs.ssh.askPassword = lib.mkForce "${pkgs.plasma5Packages.ksshaskpass}/bin/ksshaskpass";    
+    programs = {
+      # Force KDE's ssh-askpass over Seahorse's
+      ssh.askPassword = lib.mkForce "${pkgs.plasma5Packages.ksshaskpass}/bin/ksshaskpass";
+      kdeconnect.enable = true;
+      partition-manager.enable = true;
+    };
 
     environment.systemPackages = with pkgs; [
       kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
@@ -42,10 +49,6 @@
       krita # Digital painting application
       kdePackages.calligra # Office suite
     ];
-
-    programs.kdeconnect.enable = true;
-    programs.partition-manager.enable = true;
-
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with inputs.self.homeModules; [

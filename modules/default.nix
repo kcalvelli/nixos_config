@@ -1,4 +1,4 @@
-{...}: {
+{
   # Define all the modules that are available in the system
   flake.nixosModules = {
     system = ./system;

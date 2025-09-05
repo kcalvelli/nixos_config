@@ -45,13 +45,13 @@
 
   };
 
-  outputs = inputs @ {
-    nixpkgs,
-    flake-parts,
-    systems,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs@{
+      flake-parts,
+      systems,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
       imports = [
         ./pkgs

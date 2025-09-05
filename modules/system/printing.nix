@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   # Enable and configure printing services
   services.printing = {
     enable = true;

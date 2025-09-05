@@ -1,4 +1,4 @@
-{...}: {
+{
   # Avahi networking configuration
   services.avahi = {
     enable = true;
