@@ -43,6 +43,11 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    # For dev shells
+    zig-overlay.url = "github:mitchellh/zig-overlay";
+    fenix.url = "github:nix-community/fenix";
+
+
   };
 
   outputs =
