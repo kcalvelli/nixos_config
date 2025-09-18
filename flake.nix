@@ -47,7 +47,6 @@
     zig-overlay.url = "github:mitchellh/zig-overlay";
     fenix.url = "github:nix-community/fenix";
 
-
   };
 
   outputs =
@@ -66,6 +65,7 @@
       };
             
       imports = [
+        inputs.devshell.flakeModule
         ./pkgs
         ./hosts
         ./modules
