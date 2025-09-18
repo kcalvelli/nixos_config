@@ -1,17 +1,26 @@
+# devshells/rust.nix
 {
   pkgs,
-  inputs,   # <- this is inputs'
+  inputs,   # this is inputs'
   system
 }:
 let
-  mkShell     = inputs.devshell.legacyPackages.${system}.mkShell;
-  fenixPkgs   = inputs.fenix.packages.${system};
-  toolchain   = fenixPkgs.stable.toolchain;   # or .default.toolchain / toolchainOf { date = "..."; }
-  rustAnalyzer = fenixPkgs.rust-analyzer;
+  mkShell   = inputs.devshell.legacyPackages.${system}.mkShell;
+  fenixPkgs = inputs.fenix.packages.${system};
+  toolchain = fenixPkgs.stable.toolchain;   # or .default.toolchain for nightly
 in
 mkShell {
   name = "rust";
-  packages = [ toolchain rustAnalyzer pkgs.pkg-config pkgs.openssl pkgs.cmake pkgs.python3 ];
+
+  # IMPORTANT: do NOT add a separate rust-analyzer here if the toolchain includes it.
+  packages = [
+    toolchain
+    pkgs.pkg-config
+    pkgs.openssl
+    pkgs.cmake
+    pkgs.python3
+  ];
+
   commands = [
     { name = "check"; command = "cargo check";                 help = "Type-check"; }
     { name = "test";  command = "cargo test";                  help = "Run tests"; }
