@@ -42,6 +42,10 @@
 
     # AI tools
     claude-code
+
+    # Github CLI
+    gh
+    gh-copilot
   ];
 
   # Enable and configure development services
