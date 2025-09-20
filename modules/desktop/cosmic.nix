@@ -20,7 +20,13 @@
       flatpak.enable = true;
     };
 
-    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+    environment.sessionVariables = {
+      COSMIC_DATA_CONTROL_ENABLED = 1;
+      QT_QPA_PLATFORMTHEME = "gnome";            # route Qt theming via GNOME
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1"; # let Qt use server-side decos on Wayland
+      # Optional: prefer Wayland, fall back to XWayland if needed
+      QT_QPA_PLATFORM = "wayland;xcb";
+    };
 
     programs = {
       evince.enable = true;
@@ -48,6 +54,13 @@
       adw-gtk3
       gnome-firmware
 
+      # For Qt apps to look better in Cosmic
+      qgnomeplatform
+      qgnomeplatform-qt6
+      adwaita-qt6
+      gsettings-desktop-schemas
+      adwaita-icon-theme
+      
       # Utilities
       qalculate-gtk
 
