@@ -7,10 +7,11 @@
 {
   # Import Cosmic configuration
   imports = [
-    #./cosmic.nix
-    ./plasma.nix
+    ./cosmic.nix
+    #./plasma.nix
   ];
-  plasma.enable = lib.mkDefault true;
+  cosmic.enable = true;
+  #plasma.enable = lib.mkDefault true;
   # Disabling Cosmic for now, as it is not ready yet
   # Uncomment the following lines to enable Cosmic when ready
   #specialisation.cosmic.configuration = {

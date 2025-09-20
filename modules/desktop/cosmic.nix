@@ -28,6 +28,9 @@
       gnome-disks.enable = true;
       seahorse.enable = true;
       corectrl.enable = true;
+
+      # Open Kdeconnect ports
+      kdeconnect.enable = true;      
     };
 
     environment.systemPackages = with pkgs; [
@@ -51,7 +54,11 @@
       # Graphics apps
       pinta
       shotwell
-
     ];
+
+    # Enable some homeManager stuff
+    home-manager.sharedModules = with inputs.self.homeModules; [
+      cosmic
+    ];    
   };
 }
