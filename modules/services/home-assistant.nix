@@ -96,11 +96,11 @@ in
         };
       };
 
-      mqtt.enable = true;
-      govee2mqtt = {
-        enable = true;
-        environmentFile = "/etc/govee2mqtt.env"; # Create this file with your Govee API key
-      };
+      #mqtt.enable = true;
+      #govee2mqtt = {
+      #  enable = true;
+      #  environmentFile = "/etc/govee2mqtt.env"; # Create this file with your Govee API key
+      #};
     };
 
     # let HA hear mDNS and SSDP broadcasts
