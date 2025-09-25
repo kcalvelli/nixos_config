@@ -6,10 +6,6 @@
   ... 
 }:
 {
-  imports = [
-    inputs.cosmic-manager.homeManagerModules.cosmic-manager
-  ];
-
   # KDE Connect (daemon + tray)
   services.kdeconnect = {
     enable = true;

@@ -6,7 +6,6 @@
   # Import necessary modules
   imports = [
     ./disks.nix
-    inputs.home-manager.nixosModules.default
   ]
   ++ (with inputs.self.nixosModules; [
     system

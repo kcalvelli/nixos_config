@@ -3,6 +3,8 @@
   # Import user-specific configurations
   imports = [
     ./keith.nix
+    # Import Home Manager's NixOS module here once for the entire tree
+    inputs.home-manager.nixosModules.default
   ];
 
   # Configure home-manager

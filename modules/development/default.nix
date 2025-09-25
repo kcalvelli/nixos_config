@@ -42,6 +42,7 @@
 
     # AI tools
     claude-code
+    codex
 
     # Github CLI
     gh

@@ -17,14 +17,15 @@ in
     #############################
     # Home Assistant core
     #############################
-    services = {
-      home-assistant = {
-        enable = true;
+    services =
+      {
+        home-assistant = {
+          enable = true;
 
-        # Keep HA behind Caddy; don't open 8123 to the LAN
-        openFirewall = false;
+          # Keep HA behind Caddy; don't open 8123 to the LAN
+          openFirewall = false;
 
-        extraComponents = [
+          extraComponents = [
           "default_config"
           "frontend"
           "conversation"
@@ -49,9 +50,9 @@ in
           "google_photos"
           "google_maps"
 
-        ];
+          ];
 
-        config = {
+          config = {
           homeassistant = { };
 
           http = {
@@ -84,24 +85,25 @@ in
           # the default pipeline via the HA UI so it references those providers.
         };
       };
-      matter-server.enable = true;
+        matter-server.enable = true;
 
-      caddy = {
-        enable = true;
-        virtualHosts."${domain}.${tailnet}" = {
-          extraConfig = ''
-            encode gzip
-            reverse_proxy http://127.0.0.1:8123
-          '';
+        #mqtt.enable = true;
+        #govee2mqtt = {
+        #  enable = true;
+        #  environmentFile = "/etc/govee2mqtt.env"; # Create this file with your Govee API key
+        #};
+      }
+      // lib.mkIf cfg.enable {
+        caddy = {
+          enable = true;
+          virtualHosts."${domain}.${tailnet}" = {
+            extraConfig = ''
+              encode gzip
+              reverse_proxy http://127.0.0.1:8123
+            '';
+          };
         };
       };
-
-      #mqtt.enable = true;
-      #govee2mqtt = {
-      #  enable = true;
-      #  environmentFile = "/etc/govee2mqtt.env"; # Create this file with your Govee API key
-      #};
-    };
 
     # let HA hear mDNS and SSDP broadcasts
     networking.firewall.allowedUDPPorts = [

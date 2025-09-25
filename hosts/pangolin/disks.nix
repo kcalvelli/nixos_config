@@ -6,8 +6,6 @@
     options = [
       "noatime"
       "nodiratime"
-      "data=writeback"
-      "commit=60"
       "discard"
     ];
   };

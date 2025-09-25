@@ -11,7 +11,6 @@
 
   networking = {
     networkmanager.enable = true;
-    useNetworkd = true;
     useDHCP = false;
     firewall = {
       enable = true;

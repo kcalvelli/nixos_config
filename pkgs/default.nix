@@ -16,7 +16,6 @@
           brave-browser-nightly
           networkmanagerapplet
           cosmic-ext-applet-clipboard-manager
-          examine
           ;
       };
 
@@ -34,6 +33,5 @@
     brave-browser-nightly = prev.callPackage ./brave-browser-nightly { };
     networkmanagerapplet = prev.callPackage ./networkmanagerapplet { };
     cosmic-ext-applet-clipboard-manager = prev.callPackage ./cosmic-ext-applet-clipboard-manager { };
-    examine = prev.callPackage ./examine { };
   };
 }

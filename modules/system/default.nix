@@ -57,6 +57,6 @@
     xarchiver
 
     # FlakeHub
-    inputs.fh.packages.${system}.default
+    inputs.fh.packages.${pkgs.stdenv.system}.default
   ];
 }
