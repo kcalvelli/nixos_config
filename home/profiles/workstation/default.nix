@@ -1,7 +1,7 @@
 {
   # Import common configurations
   imports = [
-    ./common.nix
+    ../common
     ./solaar.nix
     ./gaming.nix
   ];

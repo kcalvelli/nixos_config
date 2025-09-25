@@ -19,13 +19,7 @@
         5355
         21118
       ];
-      # Open ports for kdeconnect protocol.  Currently using valent nightly from flatpak on cosmic.
-      allowedTCPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
+
       allowedUDPPorts = [ 5355 ];
       allowedUDPPortRanges = [
         {

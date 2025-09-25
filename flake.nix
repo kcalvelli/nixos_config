@@ -47,6 +47,14 @@
     "zig-overlay".url = "github:mitchellh/zig-overlay";
     fenix.url = "github:nix-community/fenix";
 
+    # Cosmic manager
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };      
   };
 
   outputs =
