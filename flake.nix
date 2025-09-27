@@ -60,9 +60,7 @@
       systems = import systems;
 
       perSystem = { pkgs, ... }: {
-        # Pick one:
         formatter = pkgs.nixpkgs-fmt;
-        # formatter = pkgs.alejandra;
       };
             
       imports = [

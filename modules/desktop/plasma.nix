@@ -6,7 +6,7 @@
   ...
 }:
 {
-  # Define Cosmic options
+  # Define Plasma options
   options.plasma = {
     enable = lib.mkEnableOption "Enable Plasma desktop environment";
   };

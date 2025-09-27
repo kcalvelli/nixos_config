@@ -32,10 +32,11 @@
       file-roller.enable = true;
       gnome-disks.enable = true;
       seahorse.enable = true;
-      corectrl.enable = true;
-
-      # Open Kdeconnect ports
-      kdeconnect.enable = true;      
+      corectrl.enable = true;    
+      kdeconnect = {
+        enable = true;
+        package = pkgs.valent;
+      };
     };
 
     environment.systemPackages = with pkgs; [
