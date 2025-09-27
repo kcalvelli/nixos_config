@@ -168,6 +168,8 @@
       icon = "brave-jnpecgipniidlgicjocehkhajgdnjekh-Default";
       terminal = false;
       type = "Application";
+      categories = [ "Network" "Email" ];
+      mimeType = [ "x-scheme-handler/mailto" ];
       settings = {
         StartupWMClass = "crx_jnpecgipniidlgicjocehkhajgdnjekh";
       };
@@ -188,6 +190,15 @@
       icon = "brave-ojibjkjikcpjonjjngfkegflhmffeemk-Default";
       terminal = false;
       type = "Application";
+      categories = [ "Office" "Calendar" ];
+      mimeType = [ 
+        "x-scheme-handler/webcal"
+        "x-scheme-handler/webcals"
+        "text/calendar"            # .ics
+        "application/ics"          # sometimes used
+        "application/x-ics"        # sometimes used
+        "text/x-vcalendar"         # legacy
+       ];
       settings = {
         StartupWMClass = "crx_ojibjkjikcpjonjjngfkegflhmffeemk";
       };

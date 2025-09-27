@@ -15,7 +15,10 @@
   config = lib.mkIf config.cosmic.enable {
 
     services = {
-      desktopManager.cosmic.enable = true;
+      desktopManager.cosmic = {
+        enable = true;
+        xwayland.enable = true;
+      };
       displayManager.cosmic-greeter.enable = true;
       flatpak.enable = true;
     };
