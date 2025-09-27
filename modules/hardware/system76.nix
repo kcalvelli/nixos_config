@@ -35,8 +35,6 @@ in
           "splash"
           "systemd.show_status=false"
           "i8042.noaux"
-          "nohz_full=1-8"
-          "rcu_nocbs=1-8"
         ];
         blacklistedKernelModules = [ "psmouse" ];
         initrd.availableKernelModules = [

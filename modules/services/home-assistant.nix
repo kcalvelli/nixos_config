@@ -23,9 +23,6 @@ in
         "sonos" "google" "google_photos" "google_maps"
       ];
     in {
-      #############################
-      # Home Assistant core
-      #############################
       services.home-assistant = {
         enable = true;
         # Keep HA behind Caddy; don't open 8123 to the LAN
@@ -75,35 +72,35 @@ in
       #############################
       # Wyoming Voice (always on)
       #############################
-      virtualisation.oci-containers.containers = {
-        wyoming-whisper = {
-          image = "rhasspy/wyoming-whisper:latest";
-          autoStart = true;
-          ports = [ "127.0.0.1:10300:10300" ];
-          volumes = [
-            "/var/lib/wyoming/whisper:/data"
-            "/var/cache/wyoming/hf:/root/.cache/huggingface"
-          ];
-          cmd = [ "--model" "small-int8" "--language" "en" ];
-        };
+      #virtualisation.oci-containers.containers = {
+      #  wyoming-whisper = {
+      #    image = "rhasspy/wyoming-whisper:latest";
+      #    autoStart = true;
+      #    ports = [ "127.0.0.1:10300:10300" ];
+      #    volumes = [
+      #      "/var/lib/wyoming/whisper:/data"
+      #      "/var/cache/wyoming/hf:/root/.cache/huggingface"
+      #    ];
+      #    cmd = [ "--model" "small-int8" "--language" "en" ];
+      #  };
 
-        wyoming-piper = {
-          image = "rhasspy/wyoming-piper:latest";
-          autoStart = true;
-          ports = [ "127.0.0.1:10200:10200" ];
-          volumes = [ "/var/lib/wyoming/piper:/data" ];
-          cmd = [ "--voice" "en_US-lessac-medium" ];
-        };
+      #  wyoming-piper = {
+      #    image = "rhasspy/wyoming-piper:latest";
+      #    autoStart = true;
+      #    ports = [ "127.0.0.1:10200:10200" ];
+      #    volumes = [ "/var/lib/wyoming/piper:/data" ];
+      #    cmd = [ "--voice" "en_US-lessac-medium" ];
+      #  };
 
-        wyoming-openwakeword = {
-          image = "rhasspy/wyoming-openwakeword:latest";
-          autoStart = true;
-          ports = [ "127.0.0.1:10400:10400" ];
-          cmd = [ "--preload-model" "ok_nabu" ];
-          volumes = [ "/var/lib/wyoming/openwakeword:/data" ];
-          extraOptions = [ "--pull=always" ];
-        };
-      };
+      #  wyoming-openwakeword = {
+      #    image = "rhasspy/wyoming-openwakeword:latest";
+      #    autoStart = true;
+      #    ports = [ "127.0.0.1:10400:10400" ];
+      #    cmd = [ "--preload-model" "ok_nabu" ];
+      #    volumes = [ "/var/lib/wyoming/openwakeword:/data" ];
+      #    extraOptions = [ "--pull=always" ];
+      #  };
+      #};
     }
   );
 }

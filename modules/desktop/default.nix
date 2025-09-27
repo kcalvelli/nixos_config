@@ -39,7 +39,7 @@
     # Browser
     brave
     # Enable to test new features in Brave
-    inputs.self.packages.${pkgs.system}.brave-browser-nightly
+    #inputs.self.packages.${pkgs.system}.brave-browser-nightly
 
     # Note-taking
     obsidian
@@ -53,6 +53,9 @@
 
     # Markdown Editor
     typora
+
+    # File syncing
+    nextcloud-client
 
     # Streaming/Recording
     (wrapOBS {

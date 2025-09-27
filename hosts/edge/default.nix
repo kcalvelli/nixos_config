@@ -37,17 +37,12 @@
   services = {
     caddy-proxy.enable = true;
     # openwebui.enable = true;
-    ntop.enable = true;
+    # ntop.enable = true;
     hass.enable = true;
   };
 
   # Use workstation configuration for Home Manager
   home-manager.sharedModules = with inputs.self.homeModules; [ workstation ];
-
-  # Hate to put this here, but I only want nextcloud on one machine now since I am also using syncthing
-  environment.systemPackages = with pkgs; [
-    nextcloud-client
-  ];
 
   # Define Hostname
   networking = {

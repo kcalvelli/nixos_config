@@ -55,11 +55,10 @@
         general = {
           softrealtime = "auto";
           inhibit_screensaver = 1;
-          renice = 15;
+          renice = 5;
         };
         gpu = {
           apply_gpu_optimisations = "accept-responsibility";
-          gpu_device = 1;
           amd_performance_level = "high";
         };
         custom = {
