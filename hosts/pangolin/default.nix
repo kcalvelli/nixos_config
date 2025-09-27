@@ -1,5 +1,6 @@
 {
-  inputs,
+  homeModules,
+  selfModules,
   ...
 }:
 {
@@ -7,7 +8,7 @@
   imports = [
     ./disks.nix
   ]
-  ++ (with inputs.self.nixosModules; [
+  ++ (with selfModules; [
     system
     desktop
     development
@@ -27,7 +28,7 @@
   virt.containers.enable = true;
 
   # Use laptop configuration for Home Manager
-  home-manager.sharedModules = with inputs.self.homeModules; [ laptop ];
+  home-manager.sharedModules = with homeModules; [ laptop ];
 
   # Define Hostname
   networking = {

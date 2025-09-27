@@ -11,9 +11,6 @@ in
   # Import necessary modules
   imports = [
     ./common.nix
-    inputs.nixos-hardware.nixosModules.common-cpu-amd
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
   ];
 
   # Define options for System76 hardware

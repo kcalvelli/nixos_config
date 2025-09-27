@@ -1,6 +1,7 @@
 {
   lib,
-  inputs,
+  homeModules,
+  selfPkgs,
   pkgs,
   config,
   ...
@@ -42,9 +43,9 @@
     environment.systemPackages = with pkgs; [
 
       # Overlay of networkmanagerapplet that does not include appindicator
-      inputs.self.packages.${pkgs.system}.networkmanagerapplet
-      inputs.self.packages.${pkgs.system}.cosmic-ext-applet-clipboard-manager
-      
+      selfPkgs.${pkgs.system}.networkmanagerapplet
+      selfPkgs.${pkgs.system}.cosmic-ext-applet-clipboard-manager
+
       # System apps
       baobab
       adw-gtk3
@@ -70,7 +71,7 @@
     ];
 
     # Enable some homeManager stuff
-    home-manager.sharedModules = with inputs.self.homeModules; [
+    home-manager.sharedModules = with homeModules; [
       cosmic
     ];    
   };

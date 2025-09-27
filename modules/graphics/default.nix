@@ -4,9 +4,6 @@
   ...
 }:
 {
-  # Import necessary modules
-  imports = [ inputs.nixos-hardware.nixosModules.common-gpu-amd ];
-
   # Hardware configuration
   hardware = {
     graphics = {

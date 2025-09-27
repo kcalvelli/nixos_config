@@ -1,6 +1,6 @@
 {
   lib,
-  inputs,
+  homeModules,
   pkgs,
   config,
   ...
@@ -51,7 +51,7 @@
     ];
 
     # Enable some homeManager stuff
-    home-manager.sharedModules = with inputs.self.homeModules; [
+    home-manager.sharedModules = with homeModules; [
       plasma
     ];
   };

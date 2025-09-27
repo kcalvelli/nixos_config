@@ -5,10 +5,6 @@
   ...
 }:
 {
-  imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
-  ];
-
   # Boot configuration
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

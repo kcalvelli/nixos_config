@@ -6,7 +6,6 @@
 {
   # Import necessary modules
   imports = [
-    inputs.determinate.nixosModules.default
     ./local.nix
     ./nix.nix
     ./boot.nix
@@ -55,8 +54,5 @@
     unzip
     unrar
     xarchiver
-
-    # FlakeHub
-    inputs.fh.packages.${pkgs.stdenv.system}.default
   ];
 }

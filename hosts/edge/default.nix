@@ -1,5 +1,6 @@
 {
-  inputs,
+  homeModules,
+  selfModules,
   pkgs,
   ...
 }:
@@ -8,7 +9,7 @@
   imports = [
     ./disks.nix
   ]
-  ++ (with inputs.self.nixosModules; [
+  ++ (with selfModules; [
     system
     desktop
     development
@@ -42,7 +43,7 @@
   };
 
   # Use workstation configuration for Home Manager
-  home-manager.sharedModules = with inputs.self.homeModules; [ workstation ];
+  home-manager.sharedModules = with homeModules; [ workstation ];
 
   # Define Hostname
   networking = {

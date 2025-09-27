@@ -4,11 +4,6 @@
   ...
 }:
 {
-  # Import necessary modules
-  imports = [
-    inputs.vscode-server.nixosModules.default
-  ];
-
   # Define system packages for development
   environment.systemPackages = with pkgs; [
     # Editor and IDE tools
