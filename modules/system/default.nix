@@ -54,5 +54,8 @@
     unzip
     unrar
     xarchiver
+
+    # Flakehub CLI
+    fh
   ];
 }

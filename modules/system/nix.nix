@@ -1,6 +1,5 @@
 {
   lib,
-  fh,
   ...
 }:
 {
@@ -39,8 +38,6 @@
     };
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
-
-  environment.systemPackages = [ fh ];
 
   # Set system state version
   system.stateVersion = "24.05"; # Ensure compatibility with NixOS 24.05

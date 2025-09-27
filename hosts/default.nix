@@ -12,7 +12,6 @@
           selfModules = inputs.self.nixosModules;
           homeModules = inputs.self.homeModules;
           selfPkgs = inputs.self.packages;
-          fh = inputs.fh.packages.aarch64-linux.default;
         };
       }
       // args
@@ -43,7 +42,7 @@ in
         inputs.nixos-hardware.nixosModules.common-gpu-amd
         inputs.nixos-hardware.nixosModules.common-cpu-amd
         inputs.nixos-hardware.nixosModules.common-pc-ssd
-        inputs.nixos-hardware.nixosModules.common-pc-laptop      
+        inputs.nixos-hardware.nixosModules.common-pc-laptop 
         ./pangolin 
       ];
     };
