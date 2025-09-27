@@ -1,7 +1,7 @@
 {
   lib,
-  homeModules,
   selfPkgs,
+  homeModules,
   pkgs,
   config,
   ...

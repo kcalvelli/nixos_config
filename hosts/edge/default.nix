@@ -1,6 +1,6 @@
 {
-  homeModules,
   selfModules,
+  homeModules,
   pkgs,
   ...
 }:

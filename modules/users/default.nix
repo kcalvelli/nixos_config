@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 {
   # Import user-specific configurations
   imports = [
