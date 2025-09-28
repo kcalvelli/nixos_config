@@ -20,8 +20,15 @@
       gitsigns-nvim
       telescope-nvim
       telescope-fzf-native-nvim
-      nvim-treesitter
+
+      # Treesitter with Nix-bundled parsers to avoid runtime writes
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+        p.lua p.vim p.vimdoc p.nix p.rust p.zig p.python
+        p.javascript p.typescript p.tsx p.json p.yaml p.toml
+        p.bash p.markdown
+      ]))
       nvim-treesitter-textobjects
+
       nvim-lspconfig
       nvim-cmp
       cmp-nvim-lsp
@@ -128,13 +135,18 @@
         })
         pcall(require("telescope").load_extension, "fzf")
 
-        -- Treesitter
+        -- Treesitter (Nix-bundled parsers; no runtime installs)
         require("nvim-treesitter.configs").setup({
           highlight = { enable = true },
           indent = { enable = true },
           incremental_selection = { enable = true },
           textobjects = { select = { enable = true } },
-          ensure_installed = { "lua", "vim", "vimdoc", "nix", "rust", "zig", "python", "javascript", "typescript", "tsx", "json", "yaml", "toml", "bash", "markdown" },
+
+          auto_install = false,
+          sync_install = false,
+          ensure_installed = {},  -- parsers supplied by Nix
+          -- If you ever want runtime installs:
+          -- parser_install_dir = vim.fn.stdpath("data") .. "/parsers",
         })
 
         -- Completion
@@ -194,7 +206,8 @@
         lsp.nixd.setup({ capabilities = capabilities, on_attach = on_attach })
         lsp.zls.setup({ capabilities = capabilities, on_attach = on_attach })
         lsp.pyright.setup({ capabilities = capabilities, on_attach = on_attach })
-        lsp.tsserver.setup({ capabilities = capabilities, on_attach = on_attach }) -- typescript-language-server
+        -- tsserver deprecated -> ts_ls
+        lsp.ts_ls.setup({ capabilities = capabilities, on_attach = on_attach })
         lsp.lua_ls.setup({
           capabilities = capabilities, on_attach = on_attach,
           settings = { Lua = { diagnostics = { globals = {"vim"} }, workspace = { checkThirdParty = false } } }
@@ -243,13 +256,17 @@
           nix = true, rust = true, zig = true, python = true, javascript = true, typescript = true, lua = true,
         }
 
-        -- Claude via CodeCompanion (supports Anthropic/OpenAI). Requires $ANTHROPIC_API_KEY.
+        -- Claude via CodeCompanion (new adapters.http API). Requires $ANTHROPIC_API_KEY.
         require("codecompanion").setup({
           adapters = {
-            anthropic = function() return { name = "anthropic", env = { api_key = os.getenv("ANTHROPIC_API_KEY") } } end,
+            http = {
+              anthropic = {
+                opts = { api_key = os.getenv("ANTHROPIC_API_KEY") },
+              },
+            },
           },
           strategies = {
-            chat = { adapter = "anthropic", roles = { llm = "claude-3-5-sonnet" } },
+            chat   = { adapter = "anthropic", roles = { llm = "claude-3-5-sonnet" } },
             inline = { adapter = "anthropic", roles = { llm = "claude-3-5-sonnet" } },
           },
           display = { chat = { window = { border = "rounded" } } },
