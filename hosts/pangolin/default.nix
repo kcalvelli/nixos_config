@@ -1,5 +1,5 @@
 {
-  selfModules,
+  nixosModules,
   homeModules,
   ...
 }:
@@ -8,7 +8,7 @@
   imports = [
     ./disks.nix
   ]
-  ++ (with selfModules; [
+  ++ (with nixosModules; [
     system
     desktop
     development

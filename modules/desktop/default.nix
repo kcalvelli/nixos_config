@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  myPkgs,
   ...
 }:
 {
@@ -9,6 +10,7 @@
     ./cosmic.nix
     #./plasma.nix
   ];
+
   cosmic.enable = true;
   #plasma.enable = lib.mkDefault true;
   # Disabling Cosmic for now, as it is not ready yet
@@ -18,10 +20,20 @@
   #  plasma.enable = lib.mkForce false;
   #};
 
+  programs = {
+    dconf.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-curses;
+    };    
+  };
+
   # Services needed by all WMs/DEs
   services = {
     udisks2.enable = true;
     system76-scheduler.enable = true;
+    dbus.packages = [ pkgs.gcr ];
   };
 
   # Environment variables
@@ -38,7 +50,7 @@
     # Browser
     brave
     # Enable to test new features in Brave
-    #selfPkgs.${pkgs.system}.brave-browser-nightly
+    myPkgs.brave-browser-nightly
 
     # Note-taking
     obsidian

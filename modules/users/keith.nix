@@ -1,3 +1,8 @@
+{ 
+  lib, 
+  pkgs, 
+  ... 
+}:
 {
   # Define the user for the system
   users.users = {
@@ -51,27 +56,6 @@
         "path" = "/home/keith/Pictures";
         "writable" = "yes";
         "guest ok" = "no";
-      };
-    };
-  };
-
-  # User specific syncthing configuration
-  services.syncthing = {
-    enable = true;
-    user = "keith";
-    configDir = "/home/keith/.config/syncthing";
-    settings.folders = {
-      "Music" = {
-        path = "/home/keith/Music";
-        rescanIntervalS = 3600;
-      };
-      "Pictures" = {
-        path = "/home/keith/Pictures";
-        rescanIntervalS = 3600;
-      };
-      "Documents" = {
-        path = "/home/keith/Documents";
-        rescanIntervalS = 3600;
       };
     };
   };

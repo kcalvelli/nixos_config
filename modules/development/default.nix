@@ -12,15 +12,12 @@
     # Nix development tools
     devenv
     nil # Nix LSP
-    nixfmt-rfc-style
 
     # Shell and terminal tools
     starship
     fish
     bat # Better cat
     eza # Better ls
-    ripgrep # Fast search
-    fd # Better find
     jq # JSON processor
     fzf # Fuzzy finder
 
@@ -52,40 +49,6 @@
   # Configure development programs
   programs = {
     direnv.enable = true;
-
-    git = {
-      enable = true;
-      config = {
-        init.defaultBranch = "main";
-        pull.rebase = true;
-        push.autoSetupRemote = true;
-        core = {
-          editor = "vim";
-          autocrlf = "input";
-        };
-      };
-    };
-
-    # Configure starship prompt
-    starship = {
-      enable = true;
-      settings = {
-        add_newline = true;
-        character = {
-          success_symbol = "[➜](bold green)";
-          error_symbol = "[✗](bold red)";
-        };
-      };
-    };
-
-    # Configure fish shell
-    fish = {
-      enable = true;
-      interactiveShellInit = ''
-        set -U fish_greeting # Disable greeting
-        fish_vi_key_bindings # Use vi key bindings
-      '';
-    };
 
     # Launch Fish when interactive shell is detected
     bash = {

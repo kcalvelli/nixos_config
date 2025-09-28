@@ -1,5 +1,6 @@
 { 
   inputs, 
+  self,
   ... 
 }: let
   # Define a function to create a NixOS system configuration
@@ -8,10 +9,10 @@
     inputs.nixpkgs.lib.nixosSystem (
       {
         specialArgs = {
-          #inherit inputs;
-          selfModules = inputs.self.nixosModules;
-          homeModules = inputs.self.homeModules;
-          selfPkgs = inputs.self.packages;
+          inherit inputs;
+          inherit (self) nixosModules; # NixOS modules
+          inherit (self) homeModules; # Home Manager modules
+          myPkgs = self.packages.${args.system};
         };
       }
       // args
@@ -22,7 +23,7 @@ in
     edge = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.vscode-server.nixosModules.default
@@ -35,7 +36,7 @@ in
     pangolin = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.vscode-server.nixosModules.default

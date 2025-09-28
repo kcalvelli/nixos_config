@@ -1,6 +1,6 @@
 {
   lib,
-  selfPkgs,
+  myPkgs,
   homeModules,
   pkgs,
   config,
@@ -43,8 +43,8 @@
     environment.systemPackages = with pkgs; [
 
       # Overlay of networkmanagerapplet that does not include appindicator
-      selfPkgs.${pkgs.system}.networkmanagerapplet
-      selfPkgs.${pkgs.system}.cosmic-ext-applet-clipboard-manager
+      myPkgs.networkmanagerapplet
+      myPkgs.cosmic-ext-applet-clipboard-manager
 
       # System apps
       baobab

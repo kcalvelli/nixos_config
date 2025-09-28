@@ -13,16 +13,6 @@
     ./bluetooth.nix
   ];
 
-  # Privacy configuration
-  programs = {
-    gnupg.agent = {
-      enable = true;
-    };
-  };
-
-  # Enable dbus with gcr package
-  services.dbus.packages = [ pkgs.gcr ];
-
   # System packages
   environment.systemPackages = with pkgs; [
     # Common apps

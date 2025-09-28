@@ -1,6 +1,6 @@
 {
-  selfModules,
   homeModules,
+  nixosModules,
   pkgs,
   ...
 }:
@@ -9,7 +9,7 @@
   imports = [
     ./disks.nix
   ]
-  ++ (with selfModules; [
+  ++ (with nixosModules; [
     system
     desktop
     development
