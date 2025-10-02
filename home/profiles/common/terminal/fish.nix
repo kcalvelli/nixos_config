@@ -45,30 +45,6 @@
         bind \cf '_fzf_file'
       end
 
-      # Copilot & Claude toggles (drive Starship badges)
-      function copilot-on;  set -gx GITHUB_COPILOT_ENABLED 1;    echo "Copilot: ON";  end
-      function copilot-off; set -e  GITHUB_COPILOT_ENABLED;      echo "Copilot: OFF"; end
-      function claude-on;   set -gx CLAUDE_CODE_ENABLED 1;       echo "Claude: ON";   end
-      function claude-off;  set -e  CLAUDE_CODE_ENABLED;         echo "Claude: OFF";  end
-
-      # Copilot CLI helpers (requires: gh ext install github/copilot)
-      function co-suggest --description 'Copilot: suggest for last cmd'
-        gh copilot suggest -t shell (history | head -n1)
-      end
-      function co-explain --description 'Copilot: explain a command'
-        if test (count $argv) -eq 0
-          echo "Usage: co-explain <command>"; return 2
-        end
-        gh copilot explain -- $argv
-      end
-      abbr -a co  'gh copilot suggest -t shell'
-      abbr -a cot 'gh copilot suggest -t terminal'
-      abbr -a coe 'gh copilot explain'
-
-      # Claude CLI shortcuts (if installed)
-      abbr -a cl   'claude -s "You are a concise coding assistant."'
-      abbr -a clex 'claude -t explain --'
-
       # Git QoL
       abbr -a gs  'git status -sb'
       abbr -a ga  'git add -A'

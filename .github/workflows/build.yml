@@ -24,6 +24,7 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64-linux
             host: pangolin
+      max-parallel: 1
     name: "Build ${{ matrix.host }} (${{ matrix.arch }})"
     runs-on: ${{ matrix.os }}
     permissions:

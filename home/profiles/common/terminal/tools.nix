@@ -15,12 +15,7 @@
       enableBashIntegration = true;
       extraOptions = [ "--group-directories-first" "--header" ];
     };  
-    bat = {
-      enable = true;
-      config = {
-          theme = "TwoDark";
-      };
-    };
+
     ripgrep.enable = true;
     fd.enable = true;
     fzf.enable = true;
