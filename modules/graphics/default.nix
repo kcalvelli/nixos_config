@@ -17,7 +17,7 @@
     };
     amdgpu = {
       initrd.enable = true;
-      overdrive.enable = true;
+     # overdrive.enable = true;
     };
   };
 
@@ -45,8 +45,8 @@
     mesa-demos
     wayland-utils
 
-    rocmPackages.clr
-    rocmPackages.rocminfo
+    #rocmPackages.clr
+    #rocmPackages.rocminfo
   ];
 
   environment.variables = {
@@ -54,6 +54,6 @@
   };
 
   # Linux AMDGPU Controller
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
+  #systemd.packages = with pkgs; [ lact ];
+  #systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 }
