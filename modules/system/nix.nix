@@ -21,11 +21,10 @@
       ];
       auto-optimise-store = true;
       substituters = [
-        "https://cosmic.cachix.org/"
+        "https://cache.flakehub.com"
       ];
       trusted-public-keys = [
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       ];
       trusted-users = [ "root" ];
     };

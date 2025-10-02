@@ -50,7 +50,7 @@ jobs:
 
       - uses: DeterminateSystems/flakehub-push@main
         with:
-          visibility: "private"
+          visibility: "public"
           name: "kcalvelli/nixos_config"
           rolling: "true"
           include-output-paths: true
