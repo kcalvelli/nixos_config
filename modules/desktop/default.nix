@@ -50,7 +50,7 @@
     # Browser
     brave
     # Enable to test new features in Brave
-    myPkgs.brave-browser-nightly
+    #myPkgs.brave-browser-nightly
 
     # Note-taking
     obsidian
@@ -81,8 +81,6 @@
 
   # Fonts
   fonts.packages = with pkgs; [
-    inter
     nerd-fonts.fira-code
-    nerd-fonts.noto
   ];
 }

@@ -22,14 +22,14 @@
     fzf # Fuzzy finder
 
     # Version control
-    github-desktop
-    git-lfs
+    #github-desktop
+    #git-lfs
 
-    # Build tools and compilers
-    gcc
-    gnumake
-    cmake
-    pkg-config
+    # Build tools and compilers - if needed, load them in devshells
+    #gcc
+    #gnumake
+    #cmake
+    #pkg-config
 
     # AI tools
     claude-code

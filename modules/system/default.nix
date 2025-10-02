@@ -47,4 +47,13 @@
     # Flakehub CLI
     fh
   ];
+
+  # Build smaller systems
+  documentation.enable = false;
+  documentation.nixos.enable = false;
+  documentation.dev.enable = false;
+  programs.command-not-found.enable = false;
+
+
+
 }

@@ -10,6 +10,6 @@
     enableAllFirmware = true;
   };
 
-  # Enable firmware updates
-  services.fwupd.enable = true;
+  # Disable firmware updates
+  services.fwupd.enable = false;
 }
