@@ -10,7 +10,6 @@
       cosmic = ./cosmic;
       workstation = ./profiles/workstation;
       laptop = ./profiles/laptop;
-      lazyvim = ./inputs/lazyvim;
     };
   };
 }
