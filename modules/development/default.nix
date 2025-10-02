@@ -32,8 +32,8 @@
     #pkg-config
 
     # AI tools
-    claude-code
-    codex
+    #claude-code
+    #codex
 
     # Github CLI
     gh
