@@ -26,7 +26,7 @@
         };
       };  
       extraConfig = {
-        core.pager = lib.mkForce "delta";
+        core.pager = lib.mkForce "${pkgs.delta}/bin/delta";
         init.defaultBranch = "main";
         pull.ff = "only";
         push.default = "current";
