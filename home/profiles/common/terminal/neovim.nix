@@ -7,12 +7,4 @@
     viAlias = true;
     vimAlias = true;
   };
-  programs.lazyvim = {
-    enable = true;
-    extras = {
-      lang = {
-        nix.enable = true;
-      };
-    };
-  };
 }

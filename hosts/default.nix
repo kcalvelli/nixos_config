@@ -24,7 +24,6 @@ in
       system = "x86_64-linux";
       modules = [ 
         inputs.home-manager.nixosModules.home-manager
-        inputs.LazyVim.homeManagerModules.default
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.vscode-server.nixosModules.default
@@ -38,7 +37,6 @@ in
       system = "x86_64-linux";
       modules = [ 
         inputs.home-manager.nixosModules.home-manager
-        inputs.LazyVim.homeManagerModules.default
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
         inputs.vscode-server.nixosModules.default
