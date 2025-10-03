@@ -15,18 +15,8 @@ concurrency:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            arch: x86_64-linux
-            host: edge
-          - os: ubuntu-latest
-            arch: x86_64-linux
-            host: pangolin
-      max-parallel: 1
-    name: "Build ${{ matrix.host }} (${{ matrix.arch }})"
-    runs-on: ${{ matrix.os }}
+    name: "Build all hosts (x86_64-linux)"
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
@@ -47,10 +37,20 @@ jobs:
         with:
           determinate: true      
       - uses: DeterminateSystems/flakehub-cache-action@main
-      - run: nix build .#nixosConfigurations.${{ matrix.host }}.${NIX_TARGET}
-      - uses: DeterminateSystems/flakehub-push@main
-        with:
-          visibility: "public"
-          name: "kcalvelli/nixos_config"
-          rolling: "true"
-          include-output-paths: true
+      - name: Build hosts
+        run: |
+          set -euo pipefail
+          for host in edge pangolin; do
+            nix build ".#nixosConfigurations.${host}.${NIX_TARGET}" --out-link "result-${host}"
+          done
+      - name: Push to FlakeHub
+        env:
+          FLAKEHUB_API_TOKEN: ${{ secrets.FLAKEHUB_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          fh push \
+            --visibility public \
+            --name kcalvelli/nixos_config \
+            --rolling \
+            --include-output-paths result-edge \
+            --include-output-paths result-pangolin
