@@ -41,6 +41,7 @@ jobs:
         run: |
           set -euo pipefail
           for host in edge pangolin; do
+            rm -f "result-${host}"
             nix build ".#nixosConfigurations.${host}.${NIX_TARGET}" --out-link "result-${host}"
           done
       - name: Push to FlakeHub
@@ -50,6 +51,3 @@ jobs:
           visibility: public
           rolling: true
           include-output-paths: true
-          output-paths: |
-            result-edge
-            result-pangolin
