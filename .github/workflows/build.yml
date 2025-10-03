@@ -6,9 +6,6 @@ on:
     paths: ['**/*.nix', 'flake.nix', 'flake.lock']
   workflow_dispatch:
 
-env:
-  NIX_TARGET: config.system.build.toplevel
-
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -22,28 +19,18 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - if: runner.os == 'Linux'
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
+
+      - uses: wimpysworld/nothing-but-nix@main
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
-          determinate: true      
+          determinate: true 
+               
       - uses: DeterminateSystems/flakehub-cache-action@main
-      - name: Build hosts
-        run: |
-          set -euo pipefail
-          for host in edge pangolin; do
-            rm -f "result-${host}"
-            nix build ".#nixosConfigurations.${host}.${NIX_TARGET}" --out-link "result-${host}"
-          done
+
+      - run: nix build .#nixosConfigurations.edge.config.system.build.toplevel
+      - run: nix build .#nixosConfigurations.pangolin.config.system.build.toplevel
+
       - name: Push to FlakeHub
         uses: DeterminateSystems/flakehub-push@main
         with:
