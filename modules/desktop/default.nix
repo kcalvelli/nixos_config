@@ -68,6 +68,9 @@
     # File syncing
     nextcloud-client
 
+    # Video editing
+    shotcut
+
     # Streaming/Recording
     (wrapOBS {
       plugins = with obs-studio-plugins; [
