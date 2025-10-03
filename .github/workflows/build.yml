@@ -48,18 +48,6 @@ jobs:
           determinate: true      
       - uses: DeterminateSystems/flakehub-cache-action@main
       - run: nix build .#nixosConfigurations.${{ matrix.host }}.${NIX_TARGET}
-
-  flakehub-publish:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          determinate: true
       - uses: DeterminateSystems/flakehub-push@main
         with:
           visibility: "public"
