@@ -48,7 +48,11 @@
     "zig-overlay".url = "github:mitchellh/zig-overlay";
     fenix.url = "github:nix-community/fenix";   
      
-    lazyvim.url = "github:pfassina/lazyvim-nix"; 
+    lazyvim = {
+      url = "github:matadaniel/LazyVim-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
+
   };
 
   outputs =

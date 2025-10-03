@@ -7,4 +7,7 @@
     viAlias = true;
     vimAlias = true;
   };
+  programs.lazyvim = {
+    enable = true;
+  };
 }
