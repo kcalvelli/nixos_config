@@ -50,7 +50,7 @@
     # Browser
     brave
     # Enable to test new features in Brave
-    myPkgs.brave-browser-nightly
+    #myPkgs.brave-browser-nightly
 
     # Note-taking
     obsidian
