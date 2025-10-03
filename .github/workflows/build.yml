@@ -49,6 +49,7 @@ jobs:
           name: kcalvelli/nixos_config
           visibility: public
           rolling: true
-          include-output-paths: |
+          include-output-paths: true
+          output-paths: |
             result-edge
             result-pangolin
