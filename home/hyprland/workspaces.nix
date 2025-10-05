@@ -18,6 +18,8 @@
         "7,name:7"
         "8,name:8"
       ];
+
+      #gestures.workspace_swipe = "true";
     };
   };
 }

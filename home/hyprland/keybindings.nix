@@ -38,8 +38,8 @@
       "SUPER,RIGHT,workspace,+1"
       "SUPER,DOWN,workspace,+1"   
 
-      # Overview
-      "SUPER,W, overview:toggle, all"   
+      # Hyprexpo toggle
+      "SUPER, TAB, hyprexpo:expo, toggle"  
     ];
     # ---- function-key bindings (audio/brightness) ----
     bindl = [

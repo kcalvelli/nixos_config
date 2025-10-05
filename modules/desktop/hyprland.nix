@@ -69,6 +69,13 @@
 
       nautilus
     ];
+    
+    environment = {
+      sessionVariables = {
+        QT_QPA_PLATFORMTHEME = "qt6ct";
+        QT_QPA_PLATFORMTHEME_QT6 = "qt6ct";
+      };
+    };    
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [

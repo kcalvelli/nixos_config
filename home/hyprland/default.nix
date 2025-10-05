@@ -1,5 +1,6 @@
 { 
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -17,6 +18,7 @@
     # optional, but nice: run Hyprland as user service + enable XWayland
     systemd.enable = true;
     xwayland.enable = true; 
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     settings = {
       # ---- exec-once ----
@@ -27,7 +29,7 @@
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
         # Start DankMaterialShell
         "dms run"
-      ];   
+      ];  
     };
   };
     
