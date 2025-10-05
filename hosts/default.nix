@@ -9,7 +9,7 @@
     inputs.nixpkgs.lib.nixosSystem (
       {
         specialArgs = {
-          inherit inputs;
+          inherit inputs self;
           inherit (self) nixosModules; # NixOS modules
           inherit (self) homeModules; # Home Manager modules
           myPkgs = self.packages.${args.system};
@@ -23,6 +23,7 @@ in
     edge = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
+        #inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
@@ -36,6 +37,7 @@ in
     pangolin = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
+        #inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote

@@ -1,4 +1,7 @@
-{ ... }:
+{ 
+  inputs,
+  self,
+  ... }:
 {
   # Import user-specific configurations
   imports = [
@@ -9,5 +12,8 @@
   home-manager = {
     useGlobalPkgs = true; # Don't create another instance of nixpkgs
     useUserPackages = true; # Install user packages directly to the user's profile
+    extraSpecialArgs = {
+      inherit inputs self;   
+    };
   };
 }

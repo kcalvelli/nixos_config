@@ -8,10 +8,12 @@
   # Import Cosmic configuration
   imports = [
     ./cosmic.nix
+    ./hyprland.nix
     #./plasma.nix
   ];
 
   cosmic.enable = true;
+  hyprland.enable = true;
   #plasma.enable = lib.mkDefault true;
   # Disabling Cosmic for now, as it is not ready yet
   # Uncomment the following lines to enable Cosmic when ready
@@ -41,6 +43,7 @@
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      NIXOS_OZONE_WL = "1";
     };
   };
 
@@ -65,8 +68,9 @@
     # Markdown Editor
     typora
 
-    # File syncing
+    # File send/sync
     nextcloud-client
+    localsend
 
     # Video editing
     shotcut

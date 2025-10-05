@@ -53,6 +53,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
 
+    # Hyprland with Shell
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  
+    hyprland.url = "github:hyprwm/Hyprland";
+    
   };
 
   outputs =
