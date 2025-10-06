@@ -29,7 +29,15 @@
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
         # Start DankMaterialShell
         "dms run"
-      ];  
+      ]; 
+      decoration = {
+          rounding = 7;
+      }; 
+      general = {
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 0;
+      };
     };
   };
     

@@ -2,11 +2,13 @@
   config, 
   pkgs, 
   lib, 
+  inputs,
   ... 
 }:
 {
   programs.ghostty = {
     enable = true;
+    package = inputs.ghostty.packages.${pkgs.system}.default;
     enableFishIntegration = true;
     installVimSyntax = true;
     settings = {

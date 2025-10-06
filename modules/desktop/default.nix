@@ -47,6 +47,18 @@
     };
   };
 
+    programs = {
+      #evince.enable = true;
+      file-roller.enable = true;
+      gnome-disks.enable = true;
+      seahorse.enable = true;
+      corectrl.enable = true;    
+      kdeconnect = {
+        enable = true;
+        package = pkgs.valent;
+      };
+    };
+    
   # Desktop apps common to all WMs/DEs
   environment.systemPackages = with pkgs; [
 
@@ -69,11 +81,17 @@
     typora
 
     # File send/sync
-    nextcloud-client
     localsend
 
     # Video editing
     shotcut
+
+    # Graphics apps
+    pinta
+    shotwell
+
+    baobab
+    gnome-firmware
 
     # Streaming/Recording
     (wrapOBS {

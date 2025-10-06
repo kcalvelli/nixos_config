@@ -18,7 +18,7 @@
       "SUPER, B, exec, brave"
       "SUPER, Q, killactive"
       "SUPER, F, exec, nautilus"
-      "SUPER, Enter, exec, ghostty"
+      "SUPER, T, exec, ghostty"
       # Night mode toggle
       "SUPERSHIFT, N, exec, dms ipc call night toggle"
 

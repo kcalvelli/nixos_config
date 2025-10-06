@@ -27,18 +27,6 @@
     environment.sessionVariables = {
       COSMIC_DATA_CONTROL_ENABLED = 1;
     };
-  
-    programs = {
-      #evince.enable = true;
-      file-roller.enable = true;
-      gnome-disks.enable = true;
-      seahorse.enable = true;
-      corectrl.enable = true;    
-      kdeconnect = {
-        enable = true;
-        package = pkgs.valent;
-      };
-    };
 
     environment.systemPackages = with pkgs; [
 
@@ -47,16 +35,10 @@
       myPkgs.cosmic-ext-applet-clipboard-manager
 
       # System apps
-      baobab
       adw-gtk3
-      gnome-firmware
       
       # Utilities
       qalculate-gtk
-
-      # Graphics apps
-      pinta
-      shotwell
 
       # Extra Cosmic apps
       cosmic-reader # pdf viewer
@@ -67,7 +49,6 @@
       cosmic-ext-calculator
       cosmic-player    
       examine  
-
     ];
 
     # Enable some homeManager stuff

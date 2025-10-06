@@ -72,7 +72,16 @@
           follows = "hyprland";
         };
       };
-    };    
+    }; 
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty?ref=refs/tags/tip";
+      inputs = {
+        #flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };   
   };
 
   outputs =
