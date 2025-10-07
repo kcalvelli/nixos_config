@@ -15,7 +15,7 @@
 
   programs.dankMaterialShell = {
     enable = true;
-    enableSystemd = true;
+    # enableSystemd = true;
   };
   
   wayland.windowManager.hyprland = {
@@ -30,7 +30,7 @@
       "exec-once" = [
         "bash -c 'wl-paste --watch cliphist store &'"
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
-        #"dms run"
+        "dms run"
       ];     
     };
   };
