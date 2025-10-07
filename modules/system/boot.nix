@@ -7,17 +7,37 @@
   # Boot configuration
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    tmp.useTmpfs = true; # fewer SSD writes
 
+    # Quiet boot
+    kernelParams = [
+      "quiet"
+      "loglevel=0"
+      "splash"
+      "systemd.show_status=false"
+      "psi=1"
+    ];
+
+    # Network & kernel tunables (conservative + effective)
     kernel.sysctl = {
-      # Network Optimizations
-      "net.core.rmem_max" = 1048576; # Sets the maximum receive socket buffer size to 1MB
-      "net.core.wmem_max" = 1048576; # Sets the maximum send socket buffer size to 1MB
-      "net.ipv4.tcp_window_scaling" = 1; # Enables TCP window scaling
-      "net.ipv4.tcp_rmem" = "4096 87380 1048576"; # Sets the minimum, default, and maximum TCP receive buffer sizes
-      "net.ipv4.tcp_wmem" = "4096 65536 1048576"; # Sets the minimum, default, and maximum TCP send buffer sizes
-      "net.core.netdev_max_backlog" = 5000; # Sets the maximum number of packets allowed to queue when the interface receives packets faster than the kernel can process them
-      "net.ipv4.tcp_congestion_control" = "bbr"; # Uses BBR congestion control algorithm to reduce latency and increase throughput
-      "net.ipv6.conf.all.disable_ipv6" = 0; # Enables IPv6 for accessing IPv6-only networks or future-proofing
+      # BBR likes fq as default qdisc
+      "net.core.default_qdisc" = "fq";
+      "net.ipv4.tcp_congestion_control" = "bbr";
+
+      # Reasonable buffers; let autotuning grow as needed
+      "net.core.rmem_max" =  2500000;
+      "net.core.wmem_max" =  2500000;
+      "net.ipv4.tcp_rmem"  = "4096  87380  2500000";
+      "net.ipv4.tcp_wmem"  = "4096  65536  2500000";
+
+      # Keep, but 5000 can be loud on weak NICs—leave as-is if it helps
+      "net.core.netdev_max_backlog" = 5000;
+
+      # IPv6 enabled (0 == enabled). You can drop this since enabled is default.
+      "net.ipv6.conf.all.disable_ipv6" = 0;
+
+      # Optional: small wins
+      "net.ipv4.tcp_fastopen" = 3;       # enable TFO for clients+servers
     };
 
     loader = {
@@ -49,9 +69,6 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 30;
+    memoryPercent = 25;
   };
-
-  # Enable UDisks2 service
-  services.udisks2.enable = true;
 }

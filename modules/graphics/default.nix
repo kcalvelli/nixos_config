@@ -1,59 +1,49 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  ...
-}:
-{
-  # Hardware configuration
+  # --- GPU / Graphics ---
   hardware = {
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        mesa
-        libva
-        vaapiVdpau
-        libvdpau-va-gl
+        mesa          # OpenGL + RADV Vulkan for AMD
+        libva         # VA-API
+        vulkan-loader # Core Vulkan ICD loader (harmless to keep)
       ];
     };
+
     amdgpu = {
       initrd.enable = true;
-     # overdrive.enable = true;
+      # overdrive.enable = true;   # enable only if you actually use it
     };
   };
 
-  # Boot parameters for optimal AMD GPU performance
-  boot = {
-    kernelParams = [
-      "amdgpu.dc=1" # Enable Display Core
-      "amdgpu.gpu_recovery=1" # Better stability
-      "amdgpu.vm_update_mode=0" # Performance optimization
-    ];
-  };
+  # --- Kernel params (minimal + stable) ---
+  boot.kernelParams = [
+    "amdgpu.gpu_recovery=1"  # good stability safety net
+  ];
 
-  # System packages for graphics
+  # --- Tools you actually use (no debug layers) ---
   environment.systemPackages = with pkgs; [
-    # GPU monitoring and management
     radeontop
     corectrl
     lact
     amdgpu_top
     clinfo
-
-    vulkan-tools
-    vulkan-loader
-    vulkan-validation-layers
-    mesa-demos
     wayland-utils
-
-    #rocmPackages.clr
-    #rocmPackages.rocminfo
+    # vulkan-tools         # uncomment if you want vkcube/vulkaninfo for debugging
+    # vulkan-validation-layers  # leave commented: can cause issues when globally active
+    # mesa-demos               # optional OpenGL demos
+    # rocmPackages.clr         # only if you need OpenCL/HIP compute
+    # rocmPackages.rocminfo
   ];
 
+  # --- Sensible defaults for GTK4 on Wayland ---
   environment.variables = {
     HIP_PLATFORM = "amd";
+    GSK_RENDERER = "ngl";  # force GTK4 to OpenGL path (stable on wlroots/Hyprland)
   };
 
-  # Linux AMDGPU Controller
-  #systemd.packages = with pkgs; [ lact ];
-  #systemd.services.lactd.wantedBy = [ "multi-user.target" ];
+  # Gives CoreCtrl polkit integration (fan/clock controls without sudo)
+  programs.corectrl.enable = true;
 }

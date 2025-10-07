@@ -70,7 +70,7 @@
         ---
         - MouseGesture: Mouse Up
         - KeyPress:
-          - [Super_L, w]
+          - [Super_L, q]
           - click
         ...
         ---

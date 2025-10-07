@@ -46,6 +46,10 @@
 
     # Flakehub CLI
     fh
+
+    lm_sensors
+    smartmontools
+ 
   ];
 
   # Build smaller systems

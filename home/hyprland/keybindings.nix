@@ -36,7 +36,17 @@
       "SUPER,LEFT,workspace,-1"
       "SUPER,UP,workspace,-1"
       "SUPER,RIGHT,workspace,+1"
-      "SUPER,DOWN,workspace,+1"   
+      "SUPER,DOWN,workspace,+1" 
+
+      # Move focused window to workspace N
+      "SUPERSHIFT,1,movetoworkspace,1"
+      "SUPERSHIFT,2,movetoworkspace,2"
+      "SUPERSHIFT,3,movetoworkspace,3"
+      "SUPERSHIFT,4,movetoworkspace,4"    
+      "SUPERSHIFT,5,movetoworkspace,5"
+      "SUPERSHIFT,6,movetoworkspace,6"
+      "SUPERSHIFT,7,movetoworkspace,7"
+      "SUPERSHIFT,8,movetoworkspace,8"  
     ];
     # ---- function-key bindings (audio/brightness) ----
     bindl = [

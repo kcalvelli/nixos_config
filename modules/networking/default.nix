@@ -16,15 +16,9 @@
       enable = true;
       allowedTCPPorts = [
         5355
-        21118
       ];
-
-      allowedUDPPorts = [ 5355 ];
-      allowedUDPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        }
+      allowedUDPPorts = [ 
+        5355 
       ];
     };
   };
@@ -32,6 +26,11 @@
   services = {
     resolved = {
       enable = true;
+      llmnr = "resolve"; 
+      dnssec = "allow-downgrade";
+      extraConfig = ''
+        MulticastDNS=no
+      '';      
     };
     openssh.enable = true;
   };
@@ -45,8 +44,6 @@
   };
 
   programs.mtr.enable = true;
-  #
-  #programs.ssh.startAgent = true;
 
   # For RTL-SDR
   #hardware.rtl-sdr.enable = true;

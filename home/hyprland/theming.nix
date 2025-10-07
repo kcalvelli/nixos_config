@@ -22,6 +22,9 @@
         gaps_out = 10;
         border_size = 0;
       };
+      misc = {
+        disable_splash_rendering = true;
+      };
     };
   };
   home.pointerCursor = {
