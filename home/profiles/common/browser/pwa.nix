@@ -1,14 +1,18 @@
 {
   pkgs,
+  lib,
   ...
 }:
+let 
+  braveExe = lib.getExe pkgs.brave;
+in 
 {
   # PWA Desktop entries
   # If you are not me, do not use this
   xdg.desktopEntries = {
     "brave-aghbiahbpaijignceidepookljebhfak-Default" = {
       name = "Google Drive";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=aghbiahbpaijignceidepookljebhfak";
+      exec = "${braveExe} --profile-directory=Default --app-id=aghbiahbpaijignceidepookljebhfak";
       icon = "brave-aghbiahbpaijignceidepookljebhfak-Default";
       terminal = false;
       type = "Application";
@@ -18,7 +22,7 @@
     };
     "brave-agimnkijcaahngcdmfeangaknmldooml-Default" = {
       name = "YouTube";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml";
+      exec = "${braveExe} --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml";
       icon = "brave-agimnkijcaahngcdmfeangaknmldooml-Default";
       terminal = false;
       type = "Application";
@@ -28,17 +32,17 @@
       actions = {
         "Subscriptions" = {
           name = "Subscriptions";
-          exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml --app-launch-url-for-shortcuts-menu-item=https://www.youtube.com/feed/subscriptions";
+          exec = "${braveExe} --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml --app-launch-url-for-shortcuts-menu-item=https://www.youtube.com/feed/subscriptions";
         };
         "Explore" = {
           name = "Explore";
-          exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml --app-launch-url-for-shortcuts-menu-item=https://www.youtube.com/feed/explore";
+          exec = "${braveExe} --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml --app-launch-url-for-shortcuts-menu-item=https://www.youtube.com/feed/explore";
         };
       };
     };
     "brave-ejhkdoiecgkmdpomoahkdihbcldkgjci-Default" = {
       name = "Element";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=ejhkdoiecgkmdpomoahkdihbcldkgjci";
+      exec = "${braveExe} --profile-directory=Default --app-id=ejhkdoiecgkmdpomoahkdihbcldkgjci";
       icon = "brave-ejhkdoiecgkmdpomoahkdihbcldkgjci-Default";
       terminal = false;
       type = "Application";
@@ -48,7 +52,7 @@
     };
     "brave-hpfldicfbfomlpcikngkocigghgafkph-Default" = {
       name = "Messages";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=hpfldicfbfomlpcikngkocigghgafkph";
+      exec = "${braveExe} --profile-directory=Default --app-id=hpfldicfbfomlpcikngkocigghgafkph";
       icon = "brave-hpfldicfbfomlpcikngkocigghgafkph-Default";
       terminal = false;
       type = "Application";
@@ -58,7 +62,7 @@
     };
     "brave-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default" = {
       name = "Google Meet";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan";
+      exec = "${braveExe} --profile-directory=Default --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan";
       icon = "brave-kjgfgldnnfoeklkmfkjfagphfepbbdan-Default";
       terminal = false;
       type = "Application";
@@ -68,7 +72,7 @@
     };
     "brave-mdpkiolbdkhdjpekfbkbmhigcaggjagi-Default" = {
       name = "Google Chat";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi";
+      exec = "${braveExe} --profile-directory=Default --app-id=mdpkiolbdkhdjpekfbkbmhigcaggjagi";
       icon = "brave-mdpkiolbdkhdjpekfbkbmhigcaggjagi-Default";
       terminal = false;
       type = "Application";
@@ -78,7 +82,7 @@
     };
     "brave-mnhkaebcjjhencmpkapnbdaogjamfbcj-Default" = {
       name = "Google Maps";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=mnhkaebcjjhencmpkapnbdaogjamfbcj";
+      exec = "${braveExe} --profile-directory=Default --app-id=mnhkaebcjjhencmpkapnbdaogjamfbcj";
       icon = "brave-mnhkaebcjjhencmpkapnbdaogjamfbcj-Default";
       terminal = false;
       type = "Application";
@@ -88,7 +92,7 @@
     };
     "brave-ncmjhecbjeaamljdfahankockkkdmedg-Default" = {
       name = "Google Photos";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=ncmjhecbjeaamljdfahankockkkdmedg";
+      exec = "${braveExe} --profile-directory=Default --app-id=ncmjhecbjeaamljdfahankockkkdmedg";
       icon = "brave-ncmjhecbjeaamljdfahankockkkdmedg-Default";
       terminal = false;
       type = "Application";
@@ -98,7 +102,7 @@
     };
     "brave-ibblmnobmgdmpoeblocemifbpglakpoi-Default" = {
       name = "Telegram Web";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=ibblmnobmgdmpoeblocemifbpglakpoi";
+      exec = "${braveExe} --profile-directory=Default --app-id=ibblmnobmgdmpoeblocemifbpglakpoi";
       icon = "brave-ibblmnobmgdmpoeblocemifbpglakpoi-Default";
       terminal = false;
       type = "Application";
@@ -108,7 +112,7 @@
     };
     "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default" = {
       name = "Outlook (PWA)";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick %U";
+      exec = "${braveExe} --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick %U";
       icon = "brave-dnbnnnhjocpglknpbaaajdkbapeamick-Default";
       terminal = false;
       type = "Application";
@@ -120,21 +124,21 @@
       actions = {
         "New-event" = {
           name = "New event";
-          exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
+          exec = "${braveExe} --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar/deeplink/compose";
         };
         "New-message" = {
           name = "New message";
-          exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
+          exec = "${braveExe} --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/mail/deeplink/compose";
         };
         "Open-calendar" = {
           name = "Open calendar";
-          exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
+          exec = "${braveExe} --profile-directory=Default --app-id=dnbnnnhjocpglknpbaaajdkbapeamick --app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com.mcas.ms/calendar";
         };
       };
     };
     "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default" = {
       name = "Microsoft Teams";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=oiocllghmdadfpahmllbbhkgjfmaidmm";
+      exec = "${braveExe} --profile-directory=Default --app-id=oiocllghmdadfpahmllbbhkgjfmaidmm";
       icon = "brave-oiocllghmdadfpahmllbbhkgjfmaidmm-Default";
       terminal = false;
       type = "Application";
@@ -144,7 +148,7 @@
     };
     "brave-cicjgplghpdkjlhjlppobdmdkjlpfpml-Default" = {
       name = "Sonos";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=cicjgplghpdkjlhjlppobdmdkjlpfpml";
+      exec = "${braveExe} --profile-directory=Default --app-id=cicjgplghpdkjlhjlppobdmdkjlpfpml";
       icon = "brave-cicjgplghpdkjlhjlppobdmdkjlpfpml-Default";
       terminal = false;
       type = "Application";
@@ -154,7 +158,7 @@
     };
     "brave-hkhckfoofhljcngmlnlojcbplgkcpcab-Default" = {
       name = "Proton Pass Web App";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=hkhckfoofhljcngmlnlojcbplgkcpcab";
+      exec = "${braveExe} --profile-directory=Default --app-id=hkhckfoofhljcngmlnlojcbplgkcpcab";
       icon = "brave-hkhckfoofhljcngmlnlojcbplgkcpcab-Default";
       terminal = false;
       type = "Application";
@@ -164,7 +168,7 @@
     };
     "brave-jnpecgipniidlgicjocehkhajgdnjekh-Default" = {
       name = "Proton Mail";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=jnpecgipniidlgicjocehkhajgdnjekh";
+      exec = "${braveExe} --profile-directory=Default --app-id=jnpecgipniidlgicjocehkhajgdnjekh";
       icon = "brave-jnpecgipniidlgicjocehkhajgdnjekh-Default";
       terminal = false;
       type = "Application";
@@ -176,7 +180,7 @@
     };
     "brave-fnnddiokljlbkmeppnclajginnfbffgb-Default" = {
       name = "Proton Drive";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=fnnddiokljlbkmeppnclajginnfbffgb";
+      exec = "${braveExe} --profile-directory=Default --app-id=fnnddiokljlbkmeppnclajginnfbffgb";
       icon = "brave-fnnddiokljlbkmeppnclajginnfbffgb-Default";
       terminal = false;
       type = "Application";
@@ -186,7 +190,7 @@
     };
     "brave-ojibjkjikcpjonjjngfkegflhmffeemk-Default" = {
       name = "Proton Calendar";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=ojibjkjikcpjonjjngfkegflhmffeemk";
+      exec = "${braveExe} --profile-directory=Default --app-id=ojibjkjikcpjonjjngfkegflhmffeemk";
       icon = "brave-ojibjkjikcpjonjjngfkegflhmffeemk-Default";
       terminal = false;
       type = "Application";
@@ -205,7 +209,7 @@
     };
     "brave-kdnccncfodjdpogfgcekohdeabddjfke-Default" = {
       name = "Proton Wallet";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=kdnccncfodjdpogfgcekohdeabddjfke";
+      exec = "${braveExe} --profile-directory=Default --app-id=kdnccncfodjdpogfgcekohdeabddjfke";
       icon = "brave-kdnccncfodjdpogfgcekohdeabddjfke-Default";
       terminal = false;
       type = "Application";
@@ -216,7 +220,7 @@
 
     "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
       name = "Photopea";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
+      exec = "${braveExe} --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
       icon = "brave-jdklklfpinionkgpmghaghehojplfjio-Default";
       terminal = false;
       type = "Application";
@@ -250,7 +254,7 @@
     };
     "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default" = {
       name = "Windows App";
-      exec = "/run/current-system/sw/bin/brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations --enable-wayland-ime=true --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder --ozone-platform-hint=auto --password-store=detect --gtk-version=4 --profile-directory=Default --app-id=oijgmambjjhcpfnploolbhpnehlkheid";
+      exec = "${braveExe} --profile-directory=Default --app-id=oijgmambjjhcpfnploolbhpnehlkheid";
       icon = "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default";
       terminal = false;
       type = "Application";

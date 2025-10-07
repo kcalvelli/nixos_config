@@ -58,13 +58,13 @@
         ---
         - MouseGesture: Mouse Right
         - KeyPress:
-          - [Control_L, Super_L, Right]
+          - [Super_L, Right]
           - click
         ...
         ---
         - MouseGesture: Mouse Left
         - KeyPress:
-          - [Control_L, Super_L, Left]
+          - [Super_L, Left]
           - click
         ...
         ---
@@ -76,7 +76,7 @@
         ---
         - MouseGesture: Mouse Down
         - KeyPress:
-          - [Alt_L, space]
+          - [Super_L, space]
           - click
         ...
         ---

@@ -1,0 +1,27 @@
+[0;1;32m●[0m polkit.service - Authorization Manager
+     Loaded: loaded (]8;;file://edge/etc/systemd/system/polkit.service\/etc/systemd/system/polkit.service]8;;\; linked; preset: ignored)
+    Drop-In: /nix/store/6d0n3ka7vls8miv36gxgv7wn5kp5izyf-system-units/polkit.service.d
+             └─]8;;file://edge/nix/store/6d0n3ka7vls8miv36gxgv7wn5kp5izyf-system-units/polkit.service.d/overrides.conf\overrides.conf]8;;\
+     Active: [0;1;32mactive (running)[0m since Mon 2025-10-06 16:20:17 EDT; 1h 49min ago
+ Invocation: 5c02fdb5ac0046a48efce47448f4b4bb
+       Docs: ]8;;man:polkit(8)\man:polkit(8)]8;;\
+   Main PID: 14497 (polkitd)
+     Status: "[0;1;36mProcessing requests...[0m"
+         IP: 0B in, 0B out
+         IO: 0B read, 0B written
+      Tasks: 4[0;38;5;245m (limit: 38239)[0m
+     Memory: 3.4M (peak: 5.6M)
+        CPU: 399ms
+     CGroup: /system.slice/polkit.service
+             └─[0;38;5;245m14497 /nix/store/jmfhfnkf7s5zqx4vjqnsgw29j25r08hk-polkit-126/lib/polkit-1/polkitd --no-debug[0m
+
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mCollecting garbage unconditionally...[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mLoading rules from directory /etc/polkit-1/rules.d[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mLoading rules from directory /run/polkit-1/rules.d[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mError opening rules directory: Error opening directory “/run/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mLoading rules from directory /usr/local/share/polkit-1/rules.d[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mError opening rules directory: Error opening directory “/usr/local/share/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mLoading rules from directory /run/current-system/sw/share/polkit-1/rules.d[0m
+Oct 06 18:06:32 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mFinished loading, compiling and executing 6 rules[0m
+Oct 06 18:07:12 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mUnregistered Authentication Agent for unix-session:10 (system bus name :1.1253, object path /org/mate/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8) (disconnected from bus)[0m
+Oct 06 18:07:20 edge polkitd[14497]: [0;1;39m[0;1;31m[0;1;39mRegistered Authentication Agent for unix-session:13 (system bus name :1.1342 [/nix/store/wr1vyzphwwnmc7byjvf7lfnb5himkc03-mate-polkit-1.28.1/libexec/polkit-mate-authentication-agent-1], object path /org/mate/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8)[0m

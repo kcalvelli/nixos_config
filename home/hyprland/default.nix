@@ -8,10 +8,15 @@
     ./monitors.nix
     ./keybindings.nix
     ./workspaces.nix
-    ./overview.nix
+    #./overview.nix
+    ./theming.nix
+    ./apps.nix
   ];
 
-  programs.dankMaterialShell.enable = true;
+  programs.dankMaterialShell = {
+    enable = true;
+    #enableSystemd = true;
+  };
   
   wayland.windowManager.hyprland = {
     enable = true;
@@ -23,38 +28,10 @@
     settings = {
       # ---- exec-once ----
       "exec-once" = [
-        # Clipboard history (cliphist) watcher
-        ''bash -c "wl-paste --watch cliphist store &"''
-        # Polkit agent (NixOS path; replace with another agent if you prefer)
+        "bash -c 'wl-paste --watch cliphist store &'"
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
-        # Start DankMaterialShell
         "dms run"
-      ]; 
-      decoration = {
-          rounding = 7;
-      }; 
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 0;
-      };
+      ];     
     };
   };
-    
-  home.packages = with pkgs; [
-      fuzzel
-      playerctl
-      pavucontrol
-      brightnessctl
-      grimblast
-      hyprpicker
-      wayvnc
-      wl-clipboard
-      wtype
-      matugen
-      cava
-      colloid-gtk-theme
-      colloid-icon-theme
-
-  ];
 }

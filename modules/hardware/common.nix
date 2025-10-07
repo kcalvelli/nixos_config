@@ -9,7 +9,4 @@
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     enableAllFirmware = true;
   };
-
-  # Disable firmware updates
-  services.fwupd.enable = false;
 }

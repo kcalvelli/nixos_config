@@ -12,7 +12,7 @@
     #./plasma.nix
   ];
 
-  cosmic.enable = true;
+  cosmic.enable = false;
   hyprland.enable = true;
   #plasma.enable = lib.mkDefault true;
   # Disabling Cosmic for now, as it is not ready yet
@@ -22,76 +22,62 @@
   #  plasma.enable = lib.mkForce false;
   #};
 
-  programs = {
-    dconf.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
-    };    
+  # Wayland environment always
+  environment = {
+    sessionVariables = {
+      NIXOS_OZONE_WL             = "1";
+      OZONE_PLATFORM             = "wayland";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    };
   };
+
+  # programs = {
+  #   dconf.enable = true;
+  #   gnupg.agent = {
+  #     enable = true;
+  #     enableSSHSupport = false;
+  #     pinentryPackage = pkgs.pinentry-curses;
+  #   };    
+  # };
 
   # Services needed by all WMs/DEs
   services = {
     udisks2.enable = true;
     system76-scheduler.enable = true;
     dbus.packages = [ pkgs.gcr ];
-  };
-
-  # Environment variables
-  environment = {
-    sessionVariables = {
-      MOZ_ENABLE_WAYLAND = "1";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      NIXOS_OZONE_WL = "1";
-    };
-  };
-
-    programs = {
-      #evince.enable = true;
-      file-roller.enable = true;
-      gnome-disks.enable = true;
-      seahorse.enable = true;
-      corectrl.enable = true;    
-      kdeconnect = {
+    gvfs.enable = true;
+    flatpak.enable = true;
+    gnome = {
+      gnome-keyring = {
         enable = true;
-        package = pkgs.valent;
       };
     };
+    fwupd.enable = true;
+  };
+  
+  programs = {
+    evince.enable = true;
+    file-roller.enable = true;
+    gnome-disks.enable = true;
+    seahorse.enable = true;
+    corectrl.enable = true;    
+  };
     
+  xdg = {
+    mime.enable = true;
+    icons.enable = true;
+    portal = {
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
+  };
+
   # Desktop apps common to all WMs/DEs
   environment.systemPackages = with pkgs; [
-
-    # Browser
-    brave
-    # Enable to test new features in Brave
-    #myPkgs.brave-browser-nightly
-
-    # Note-taking
-    obsidian
-
-    # Proton apps
+    # VPN apps
     protonvpn-gui
     protonvpn-cli
-
-    # Social apps
-    discord
-
-    # Markdown Editor
-    typora
-
-    # File send/sync
-    localsend
-
-    # Video editing
-    shotcut
-
-    # Graphics apps
-    pinta
-    shotwell
-
-    baobab
-    gnome-firmware
 
     # Streaming/Recording
     (wrapOBS {
@@ -102,10 +88,5 @@
         obs-backgroundremoval
       ];
     })
-  ];
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
   ];
 }

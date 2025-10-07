@@ -13,6 +13,7 @@
           inherit (self) nixosModules; # NixOS modules
           inherit (self) homeModules; # Home Manager modules
           myPkgs = self.packages.${args.system};
+          dmsPkgs = inputs.dankMaterialShell.packages.${args.system};
         };
       }
       // args
@@ -23,7 +24,7 @@ in
     edge = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        #inputs.dankMaterialShell.nixosModules.greeter
+        inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
@@ -37,7 +38,7 @@ in
     pangolin = nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        #inputs.dankMaterialShell.nixosModules.greeter
+        inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
         inputs.determinate.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote

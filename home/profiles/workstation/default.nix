@@ -9,8 +9,4 @@
     ./solaar.nix
     ./gaming.nix
   ];
-
-  home.packages = with pkgs; [
-        nextcloud-client
-  ];
 }
