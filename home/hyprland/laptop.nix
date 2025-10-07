@@ -1,7 +1,7 @@
 # hyprland/laptop.nix
 { lib, ... }:
 
-{
+lib.mkIf (config.wayland.windowManager.hyprland.enable or false) {
   wayland.windowManager.hyprland = {
     # DMS-safe: no exec-once, no SUPER/FX keybinds, no visuals changed.
     settings = {
