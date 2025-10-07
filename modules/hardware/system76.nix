@@ -12,7 +12,6 @@ in
     (lib.mkIf cfg.system76.enable {
       # --- System76 hardware integration ---
       hardware.system76 = {
-        enable = true;
         firmware-daemon.enable = true;
         power-daemon.enable = true;
       };
