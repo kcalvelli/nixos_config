@@ -33,11 +33,15 @@
     size = 24;
     gtk.enable = true;
     x11.enable = true;
+    dotIcons.enable = true;
   };  
 
   gtk = {
     enable = true;
-
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
     theme = {
       package = pkgs.colloid-gtk-theme;
       name    = "Colloid";   # or "Colloid-Dark", "Colloid-Teal-Dark", etc.

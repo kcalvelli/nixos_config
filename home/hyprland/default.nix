@@ -32,7 +32,10 @@
         "bash -c 'wl-paste --watch cliphist store &'"
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
         "dms run"
-      ];     
+      ];  
+      cursor = {
+        no_hardware_cursors = true;
+      };         
     };
   };
 }
