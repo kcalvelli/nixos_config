@@ -60,7 +60,8 @@
     file-roller.enable = true;
     gnome-disks.enable = true;
     seahorse.enable = true;
-    corectrl.enable = true;    
+    corectrl.enable = true;   
+    kdeconnect.enable = true; 
   };
     
   xdg = {
