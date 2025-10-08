@@ -35,8 +35,8 @@ in
       };
 
       # --- Input devices ---
-      services.xserver = {
-        synaptics.enable = false;
+      services = {
+        xserver.synaptics.enable = false;
         libinput.enable = true;
       };
     })
