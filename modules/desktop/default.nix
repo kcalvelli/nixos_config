@@ -8,7 +8,7 @@
   # Import Cosmic configuration
   imports = [
     ./cosmic.nix
-    ./hyprland.nix
+    ./wm.nix
     #./plasma.nix
   ];
 

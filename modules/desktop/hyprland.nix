@@ -41,7 +41,7 @@
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
-      hyprland
+      wm
       dankMaterialShell
     ];    
   };

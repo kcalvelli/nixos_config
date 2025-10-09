@@ -8,7 +8,7 @@
     homeModules = {
       plasma = ./plasma;
       cosmic = ./cosmic;
-      hyprland = ./hyprland;
+      wm = ./wm;
       workstation = ./profiles/workstation;
       laptop = ./profiles/laptop;
       lazyvim = inputs.lazyvim.homeManagerModules.default;
