@@ -8,7 +8,6 @@
 {
   imports = [ 
     ./hyprland.nix
-    #./niri.nix
   ];
 
   # Define WM options
