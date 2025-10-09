@@ -29,10 +29,14 @@
       wayvnc
       xwayland-satellite  
       brightnessctl    
+      colloid-icon-theme
+      adwaita-icon-theme
+      papirus-icon-theme      
     ];  
     
     environment.sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct"; # or "qt6ct"
+      QT_QPA_PLATFORMTHEME = "qt6ct";
+      GDK_SCALE = "1";
     };
 
     # Enable some homeManager stuff

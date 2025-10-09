@@ -21,6 +21,8 @@
     matugen
     colloid-gtk-theme
     colloid-icon-theme
+    adwaita-icon-theme
+    papirus-icon-theme
     inter
     material-symbols
     kdePackages.qt6ct
