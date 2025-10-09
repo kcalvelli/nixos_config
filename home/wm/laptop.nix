@@ -1,4 +1,4 @@
-# hyprland/laptop.nix
+# wm/laptop.nix
 { lib, config, ... }:
 
 lib.mkIf (config.wayland.windowManager.hyprland.enable or false) {
