@@ -9,12 +9,12 @@
   # Import Cosmic configuration
   imports = [
     ./cosmic.nix
-    ./hyprland.nix
+    ./wm.nix
     #./plasma.nix
   ];
 
   cosmic.enable = false;
-  hyprland.enable = true;
+  wm.enable = true;
   #plasma.enable = lib.mkDefault true;
   # Disabling Cosmic for now, as it is not ready yet
   # Uncomment the following lines to enable Cosmic when ready

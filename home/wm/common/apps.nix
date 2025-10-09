@@ -38,16 +38,5 @@
   services.kdeconnect = {
     enable = true;
     indicator = true;
-  };
-
- wayland.windowManager.hyprland = {
-
-    settings = {
-      # ---- exec-once ----
-      "exec-once" = [
-        "solaar -w hide" 
-        "nextcloud --background"  # starts minimized to the tray
-      ];     
-    };
   };  
 }

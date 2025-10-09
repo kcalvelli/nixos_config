@@ -5,28 +5,7 @@
   ... 
 }:
 {
-  wayland.windowManager.hyprland = {
-    settings = {
-      decoration = {
-        rounding = 7;
-        dim_inactive = true;
-        shadow = {
-          enabled = true;
-        };
-        blur = {
-          enabled = true;
-        };
-      }; 
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 0;
-      };
-      misc = {
-        disable_splash_rendering = true;
-      };
-    };
-  };
+  # Theming for all WMs
   home.pointerCursor = {
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice";
