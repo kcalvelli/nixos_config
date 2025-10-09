@@ -28,17 +28,6 @@ in
         '';
       };
 
-      # --- Power & thermal management ---
-      powerManagement = {
-        enable = true;
-        cpuFreqGovernor = lib.mkDefault "schedutil"; 
-      };
-
-      # --- Input devices ---
-      services = {
-        xserver.synaptics.enable = false;
-        libinput.enable = true;
-      };
     })
   ];
 }

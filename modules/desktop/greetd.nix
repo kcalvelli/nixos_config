@@ -1,8 +1,10 @@
 { 
   pkgs, 
+  lib,
+  config,
   ... 
 }:
-{
+lib.mkIf config.hyprland.enable {
   # Dedicated system user for the greeter
   users.groups.greeter = { };
   users.users.greeter = {

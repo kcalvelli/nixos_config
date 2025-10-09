@@ -53,6 +53,13 @@
       };
     };
     fwupd.enable = true;
+    dconf.enable = true;
+    upower.enable = true;
+    libinput.enable = true;
+    acpid.enable = true;
+    services.power-profiles-daemon.enable = lib.mkDefault (
+      !config.hardware.system76.power-daemon.enable
+    );
   };
   
   programs = {
