@@ -11,6 +11,7 @@
     #./overview.nix
     ./theming.nix
     ./apps.nix
+    ./material-code-theme.nix
   ];
 
   programs.dankMaterialShell = {
