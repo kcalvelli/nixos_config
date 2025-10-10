@@ -8,6 +8,7 @@
 {
   imports = [ 
     ./hyprland.nix
+    ./niri.nix
   ];
 
   # Define WM options
@@ -43,10 +44,11 @@
         compositor.name = "niri";
         configHome = "/home/keith"; # Hardcoded for now
       };
-      niri.enable = true;
+      xwayland.enable = true;
     };    
 
     hyprland.enable = true;
+    #niri.enable = true;
 
     # Add system packages for utilities, graphics, and theming
     environment.systemPackages = with pkgs; [
@@ -68,7 +70,6 @@
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
       wm
-      dankMaterialShell
     ];    
   };
 }

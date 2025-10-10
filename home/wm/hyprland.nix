@@ -2,8 +2,7 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = true;
-    xwayland.enable = true; 
+    systemd.enable = true; 
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     settings = {
@@ -98,7 +97,7 @@
         "3, vertical, fullscreen"
         "2, pinchout, scale: 0.5, float, float"
         "2, pinchin, scale: 0.5, float, tile"
-        "3, swipe, mod: $mainMod, resize"
+        "3, swipe, mod: SUPER, resize"
       ];
 
       # ---- Monitor setup ----

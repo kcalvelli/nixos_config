@@ -43,7 +43,7 @@
   };
 
   # Use workstation configuration for Home Manager
-  home-manager.sharedModules = with homeModules; [ workstation lazyvim ];
+  home-manager.sharedModules = with homeModules; [ workstation ];
 
   # Define Hostname
   networking = {
