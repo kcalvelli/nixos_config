@@ -64,7 +64,7 @@
     
     environment.sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt6ct";
-      GDK_SCALE = "1";
+      #GDK_SCALE = "1";
     };
 
     # Enable some homeManager stuff

@@ -6,12 +6,12 @@
   ...
 }:
 {
-  # Define Hyprland options
+  # Define Niri options
   options.niri = {
     enable = lib.mkEnableOption "Enable Niri";
   };
 
-  # Configure Hyprland if enabled
+  # Configure Niri if enabled
   config = lib.mkIf config.niri.enable {  
     programs = {
       niri = {
