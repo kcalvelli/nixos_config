@@ -48,7 +48,7 @@
     };    
 
     hyprland.enable = true;
-    #niri.enable = true;
+    niri.enable = true;
 
     # Add system packages for utilities, graphics, and theming
     environment.systemPackages = with pkgs; [
