@@ -2,8 +2,9 @@
   description = "AxiOS";
 
   inputs = {
+    #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs";
 
     # FlakeHub/Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
@@ -64,7 +65,7 @@
 
     # Hyprland with Shell
     quickshell = {
-      url = "github:quickshell-mirror/quickshell";
+      url = "g`ithub:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -74,27 +75,14 @@
       inputs.quickshell.follows = "quickshell";
     };  
 
-    Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-
-      # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
-      inputs.hyprland.follows = "hyprland";
-    };  
-
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-        
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs = {
-        hyprland = {
-          follows = "hyprland";
-        };
-      };
     };   
   };
 

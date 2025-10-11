@@ -14,6 +14,8 @@
 
     # Nix settings
     settings = {
+      substitute = true;
+      builders-use-substitutes = true;
       download-buffer-size = 256 * 1024 * 1024;
       experimental-features = [
         "nix-command"
@@ -22,7 +24,13 @@
       auto-optimise-store = true;
       extra-substituters = [
         "https://cache.flakehub.com"
+        "https://hyprland.cachix.org"
       ];
+      extra-trusted-substituters = [
+        "https://cache.flakehub.com"
+        "https://hyprland.cachix.org"
+      ];
+      
       extra-trusted-public-keys = [
         "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
         "cache.flakehub.com-4:Asi8qIv291s0aYLyH6IOnr5Kf6+OF14WVjkE6t3xMio="
@@ -32,8 +40,9 @@
         "cache.flakehub.com-8:moO+OVS0mnTjBTcOUh2kYLQEd59ExzyoW1QgQ8XAARQ="
         "cache.flakehub.com-9:wChaSeTI6TeCuV/Sg2513ZIM9i0qJaYsF+lZCXg0J6o="
         "cache.flakehub.com-10:2GqeNlIp6AKp4EF2MVbE1kBOp9iBSyo0UPR9KoR0o1Y="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
-      trusted-users = [ "root" ];
+      trusted-users = [ "root" "keith" ];
     };
   };
 
