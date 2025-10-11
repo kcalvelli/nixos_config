@@ -20,9 +20,17 @@
       spawn-at-startup = [
         {command = ["wl-paste" "--watch" "cliphist" "store"];}
         {command = ["wl-paste" "--type text" "--watch" "cliphist" "store"];}
+        {
+          command = [
+            "$ghostty"
+            "--gtk-single-instance=true"     # reuse one resident process
+            "--initial-window=false"         # start with no window
+            "--quit-after-last-window-closed=false"  # keep the process alive
+          ];
+        }        
       
         # For overview backdrop
-        { command = [ "bash" "-lc" ''
+        { command = [ "bash" "-c" ''
           set -e
           wp="$HOME/Pictures/Wallpapers/New/current.jpg"
           cache="$HOME/.cache/niri"
@@ -46,7 +54,7 @@
         '' ]; }
         
         # 2) Start swaybg *after* outputs + file are ready
-        { command = [ "bash" "-lc" ''
+        { command = [ "bash" "-c" ''
           set -e
           blurred="$HOME/.cache/niri/overview-blur.jpg"
         
@@ -74,7 +82,13 @@
           enable = true;
         };
         background-color = "transparent";
-        default-column-width = {proportion = 0.5;};
+        preset-column-widths = [
+          # proportions are fractions of the output width (gaps considered)
+          { proportion = 1.0; }
+          { proportion = 0.75; }
+          { proportion = 0.5; }
+          { proportion = 0.25; }
+        ];
         tab-indicator = {
           hide-when-single-tab = true;
           place-within-column = true;
@@ -139,8 +153,71 @@
            {is-floating = true;}
          ];
          shadow.enable = true;
-        }        
-      ];
+        }       
+        {
+          matches = [
+            { app-id = ".*"; }   # regex: all apps
+          ];
+          open-maximized = true;
+        }
+      
+        # 2) Specific: Google Messages PWA — float, centered, iMessage-ish size
+        {
+          matches = [
+            { app-id = "^brave-hpfldicfbfomlpcikngkocigghgafkph-Default$"; }
+          ];
+      
+          # Explicitly override the global rule:
+          open-maximized = false;
+          open-floating  = true;
+      
+          # Size on open (pixels)
+          default-column-width  = { fixed = 900; };
+          default-window-height = { fixed = 700; };
+      
+          # Optional: pin position instead of center (comment out if not needed)
+          default-floating-position = { x = 5; y = 5; relative-to = "top-left"; };
+        } 
+        {
+          matches = [
+            { app-id = "^org\\.gnome\\.Nautilus$"; }
+          ];
+        
+          # Override the global maximized rule
+          open-maximized = false;
+          open-floating  = true;      # centers by default
+        
+          # A comfortable size for quick file tasks
+          default-column-width  = { fixed = 1200; };
+          default-window-height = { fixed = 900; };
+        
+          # Optional: pin a corner instead of center
+          # default-floating-position = { x = 0; y = 0; relative-to = "top-right"; };
+        }  
+        # Drop-down Ghostty: float, full width, short height, stick to the top center
+        {
+          matches = [ { app-id = "^com\\.kc\\.dropterm$"; } ];
+        
+          open-floating = true;
+        
+          # Size/position: full width, 420px tall, tucked under your 4px bar
+          default-column-width  = { proportion = 1.0; };
+          default-window-height = { fixed = 420; };
+          default-floating-position = { x = 0; y = 4; relative-to = "top"; };
+        
+          # --- Remove border/outline/shadow (per-window) ---
+          border     = { enable = false; };
+          focus-ring = { enable = false; };
+          shadow     = { enable = false; };
+        }
+  
+        # Normal Ghostty windows: leave as you like (example: keep maximized-by-default off)
+        {
+          matches = [ { app-id = "^com\\.mitchellh\\.ghostty$"; } ];
+          # no open-floating here, so they tile/maximize per your global rules
+        }              
+     ];         
+
 
       # Keybindings      
       binds = {
@@ -164,6 +241,11 @@
         "Mod+J".action.focus-window-down = [];
         "Mod+K".action.focus-window-up = [];
         "Mod+L".action.focus-column-right = [];
+
+        "Mod+Left".action.focus-column-left = [];
+        "Mod+Down".action.focus-window-down = [];
+        "Mod+Up".action.focus-window-up = [];
+        "Mod+Right".action.focus-column-right = [];
     
         "Mod+Ctrl+Left".action.move-column-left = [];
         "Mod+Ctrl+Down".action.move-window-down = [];
@@ -175,6 +257,7 @@
         "Mod+Shift+L".action.move-column-right = [];
         
         # --- Move focused window to workspace N ---
+        "Mod+Shift+0".action."move-window-to-workspace" = [ 0 ];
         "Mod+Shift+1".action."move-window-to-workspace" = [ 1 ];
         "Mod+Shift+2".action."move-window-to-workspace" = [ 2 ];
         "Mod+Shift+3".action."move-window-to-workspace" = [ 3 ];
@@ -182,9 +265,11 @@
         "Mod+Shift+5".action."move-window-to-workspace" = [ 5 ];
         "Mod+Shift+6".action."move-window-to-workspace" = [ 6 ];
         "Mod+Shift+7".action."move-window-to-workspace" = [ 7 ];
-        "Mod+Shift+8".action."move-window-to-workspace" = [ 8 ];  
+        "Mod+Shift+8".action."move-window-to-workspace" = [ 8 ];
+        "Mod+Shift+9".action."move-window-to-workspace" = [ 9 ];  
 
         # --- Move focused column to workspace N ---
+        "Mod+Ctrl+Shift+0".action.move-column-to-workspace = "0";
         "Mod+Ctrl+Shift+1".action.move-column-to-workspace = "1";
         "Mod+Ctrl+Shift+2".action.move-column-to-workspace = "2";
         "Mod+Ctrl+Shift+3".action.move-column-to-workspace = "3";
@@ -193,10 +278,12 @@
         "Mod+Ctrl+Shift+6".action.move-column-to-workspace = "6";
         "Mod+Ctrl+Shift+7".action.move-column-to-workspace = "7";
         "Mod+Ctrl+Shift+8".action.move-column-to-workspace = "8";
+        "Mod+Ctrl+Shift+9".action.move-column-to-workspace = "9";
 
         # --- Column width adjustment ---
         "Mod+Minus".action.set-column-width = "-10%";
         "Mod+Equal".action.set-column-width = "+10%";
+        "Mod+W".action.switch-preset-column-width = [];
 
         # --- Window consume/expel within columns ---
         "Mod+Shift+Comma".action.consume-window-into-column = {};
@@ -216,6 +303,12 @@
 
         # --- Column management ---
         "Mod+backslash".action.maximize-column = [];
+        "Mod+WheelScrollRight".action.focus-column-or-monitor-right = { };
+        "Mod+WheelScrollLeft".action.focus-column-or-monitor-left = { };
+        "Mod+Ctrl+WheelScrollRight".action.move-column-right-or-to-monitor-right = { };
+        "Mod+Ctrl+WheelScrollLeft".action.move-column-left-or-to-monitor-left = { };           
+
+        # --- Tabbed display ---
         "Mod+T".action.toggle-column-tabbed-display = [];
 
         # --- Floating ---
@@ -240,10 +333,7 @@
           action.move-column-to-workspace-up = { };
         };
         
-        "Mod+WheelScrollRight".action.focus-column-or-monitor-right = { };
-        "Mod+WheelScrollLeft".action.focus-column-or-monitor-left = { };
-        "Mod+Ctrl+WheelScrollRight".action.move-column-right-or-to-monitor-right = { };
-        "Mod+Ctrl+WheelScrollLeft".action.move-column-left-or-to-monitor-left = { };    
+ 
 
         # --- Volume control with thumb wheel ---
         "Mod+Shift+WheelScrollLeft".action.spawn = [
@@ -262,7 +352,23 @@
         # Screenshot
         "Mod+Ctrl+S".action.screenshot-screen = {write-to-disk = true;};
         "Mod+Alt+S".action.screenshot-screen = {};
-        "Mod+Shift+S".action.screenshot = {};        
+        "Mod+Shift+S".action.screenshot = {};    
+
+        # Quake style drop down terminal using ghostty
+        "Mod+grave".action.spawn = [ 
+              "${pkgs.bash}/bin/bash" "-c"
+              ''
+                {
+                  # Find ONLY ghostty PIDs, then filter to our class
+                  pids="$(${pkgs.procps}/bin/pgrep -a ghostty | ${pkgs.gnugrep}/bin/grep -F -- --class=com.kc.dropterm | ${pkgs.coreutils}/bin/cut -d" " -f1)"
+                  if [ -n "$pids" ]; then
+                    ${pkgs.procps}/bin/kill $pids
+                  else
+                    exec ${pkgs.ghostty}/bin/ghostty --class=com.kc.dropterm --window-decoration=none
+                  fi
+                } 
+              ''
+        ];      
       };
     };  
   };
