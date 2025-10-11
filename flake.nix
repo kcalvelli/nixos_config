@@ -3,8 +3,9 @@
 
   inputs = {
     #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # FlakeHub/Determinate
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
