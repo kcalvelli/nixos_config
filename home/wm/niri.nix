@@ -102,7 +102,7 @@
       };
 
       overview = {
-        zoom = 0.25;
+        #zoom = 0.25;
       };
 
       input = {
