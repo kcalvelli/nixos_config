@@ -18,13 +18,14 @@
     localsend
 
     # Video Editing
-    shotcut
+    pitivi
 
-    # Graphics Apps
+    # Graphics and video Apps
     pinta
     shotwell
     loupe
     inkscape
+    celluloid
 
     # Disk Utilities
     baobab
