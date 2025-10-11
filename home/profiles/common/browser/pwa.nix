@@ -218,40 +218,41 @@ in
       };
     };
 
-    "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
-      name = "Photopea";
-      exec = "${braveExe} --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
-      icon = "brave-jdklklfpinionkgpmghaghehojplfjio-Default";
-      terminal = false;
-      type = "Application";
-      mimeType = [
-        "application/pdf"
-        "image/ai"
-        "image/bmp"
-        "image/cdr"
-        "image/eps"
-        "image/gif"
-        "image/jp2"
-        "image/jpeg"
-        "image/jpx"
-        "image/png"
-        "image/psb"
-        "image/psd"
-        "image/pxd"
-        "image/sketch"
-        "image/svg+xml"
-        "image/tiff"
-        "image/vnd-ms.dds"
-        "image/webp"
-        "image/x-icon"
-        "image/x-tga"
-        "image/xcf"
-        "image/xd"
-      ];
-      settings = {
-        StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
-      };
-    };
+    # "brave-jdklklfpinionkgpmghaghehojplfjio-Default" = {
+    #   name = "Photopea";
+    #   exec = "${braveExe} --profile-directory=Default --app-id=jdklklfpinionkgpmghaghehojplfjio %U";
+    #   icon = "brave-jdklklfpinionkgpmghaghehojplfjio-Default";
+    #   terminal = false;
+    #   type = "Application";
+    #   mimeType = [
+    #     "application/pdf"
+    #     "image/ai"
+    #     "image/bmp"
+    #     "image/cdr"
+    #     "image/eps"
+    #     "image/gif"
+    #     "image/jp2"
+    #     "image/jpeg"
+    #     "image/jpx"
+    #     "image/png"
+    #     "image/psb"
+    #     "image/psd"
+    #     "image/pxd"
+    #     "image/sketch"
+    #     "image/svg+xml"
+    #     "image/tiff"
+    #     "image/vnd-ms.dds"
+    #     "image/webp"
+    #     "image/x-icon"
+    #     "image/x-tga"
+    #     "image/xcf"
+    #     "image/xd"
+    #   ];
+    #   settings = {
+    #     StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
+    #   };
+    # };
+    
     "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default" = {
       name = "Windows App";
       exec = "${braveExe} --profile-directory=Default --app-id=oijgmambjjhcpfnploolbhpnehlkheid";

@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }:
+{ inputs, pkgs, lib, config, ... }:
 {
   imports = [ 
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
@@ -20,6 +20,49 @@
       spawn-at-startup = [
         {command = ["wl-paste" "--watch" "cliphist" "store"];}
         {command = ["wl-paste" "--type text" "--watch" "cliphist" "store"];}
+      
+        # For overview backdrop
+        { command = [ "bash" "-lc" ''
+          set -e
+          wp="$HOME/Pictures/Wallpapers/New/current.jpg"
+          cache="$HOME/.cache/niri"
+          blurred="$cache/overview-blur.jpg"
+          hashf="$cache/overview-blur.sha256"
+        
+          mkdir -p "$cache"
+        
+          if [ -r "$wp" ]; then
+            cur="$(sha256sum "$(readlink -f "$wp")" | cut -d" " -f1)"
+            old="$( [ -f "$hashf" ] && cat "$hashf" || echo )"
+            if [ ! -s "$blurred" ] || [ "$cur" != "$old" ]; then
+              convert "$wp" -filter Gaussian -blur 0x18 "$blurred"
+              printf '%s\n' "$cur" > "$hashf"
+            fi
+          else
+            # full-size fallback so swaybg never fails if the symlink isn’t ready yet
+            convert -size 1920x1080 xc:black "$blurred"
+            echo placeholder > "$hashf"
+          fi
+        '' ]; }
+        
+        # 2) Start swaybg *after* outputs + file are ready
+        { command = [ "bash" "-lc" ''
+          set -e
+          blurred="$HOME/.cache/niri/overview-blur.jpg"
+        
+          # Wait for niri to have at least one output and for the blurred file to be non-empty
+          for i in $(seq 1 100); do
+            if niri msg outputs >/dev/null 2>&1 && [ -s "$blurred" ]; then
+              break
+            fi
+            sleep 0.05
+          done
+        
+          # Tiny grace period so Overview/backdrop is definitely initialized
+          sleep 0.25
+        
+          exec swaybg --mode stretch --image "$blurred"
+        '' ]; }
       ];
 
       layout = {
@@ -30,6 +73,7 @@
         focus-ring = {
           enable = true;
         };
+        background-color = "transparent";
         default-column-width = {proportion = 0.5;};
         tab-indicator = {
           hide-when-single-tab = true;
@@ -41,6 +85,10 @@
           width = 4.0;
           length.total-proportion = 0.1;
         };        
+      };
+
+      overview = {
+        zoom = 0.25;
       };
 
       input = {
@@ -60,6 +108,13 @@
         warp-mouse-to-focus.enable = true;
         workspace-auto-back-and-forth = true;
       };
+
+      layer-rules = [
+        {
+          matches = [ { namespace = "^wallpaper$"; } ];
+          place-within-backdrop = true;
+        }
+      ];
 
       window-rules = [
         {
@@ -87,7 +142,6 @@
         # --- App launches ---
         "Mod+B".action.spawn = [ "brave" ];
         "Mod+E".action.spawn = [ "nautilus" ];
-        "Mod+T".action.spawn = [ "ghostty" ];
         "Mod+Return".action.spawn = "ghostty";
         
         # --- Workspace: jump directly (1..8) ---
@@ -157,7 +211,7 @@
 
         # --- Column management ---
         "Mod+backslash".action.maximize-column = [];
-        "Mod+Shift+T".action.toggle-column-tabbed-display = [];
+        "Mod+T".action.toggle-column-tabbed-display = [];
 
         # --- Floating ---
         "Mod+Shift+Z".action."toggle-window-floating" = [];

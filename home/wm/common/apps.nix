@@ -31,8 +31,9 @@
     # Utilities
     qalculate-gtk
 
-    # File manager
-    nautilus
+    # For overview backdrop
+    swaybg
+    imagemagick
   ];
 
   services.kdeconnect = {

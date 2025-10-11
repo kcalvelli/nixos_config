@@ -60,6 +60,9 @@
     power-profiles-daemon.enable = lib.mkDefault (
       !config.hardware.system76.power-daemon.enable
     );
+    gnome = {
+      sushi.enable = true;
+    };
   };
   
   programs = {
@@ -70,6 +73,8 @@
     corectrl.enable = true;   
     kdeconnect.enable = true; 
     dconf.enable = true;    
+    nautilus-open-any-terminal.enable = true;
+    nautilus-open-any-terminal.terminal = "ghostty";
   };
     
   xdg = {
@@ -87,6 +92,10 @@
     # VPN apps
     protonvpn-gui
     protonvpn-cli
+
+    # File manager
+    nautilus
+    code-nautilus
 
     # Streaming/Recording
     (wrapOBS {
