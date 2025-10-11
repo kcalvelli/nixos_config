@@ -34,6 +34,14 @@
         homeDirectory = "/home/keith";
         username = "keith";
       };
+      #Home Manager’s own nixpkgs (Option B: independent from system)
+       nixpkgs = {
+         config = {
+           allowUnfree = true;
+           allowBroken = false;
+           allowUnsupportedSystem = false;
+         };
+      };      
 
       programs.git = {
         enable = true;
