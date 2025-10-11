@@ -13,7 +13,6 @@
           inherit (self) nixosModules; # NixOS modules
           inherit (self) homeModules; # Home Manager modules
           myPkgs = self.packages.${args.system};
-          dmsPkgs = inputs.dankMaterialShell.packages.${args.system};
         };
       }
       // args

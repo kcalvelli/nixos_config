@@ -11,8 +11,8 @@
 
   programs.dankMaterialShell = {
     enable = true;
-    quickshell.package = inputs.quickshell.packages.${pkgs.system}.default;
-    # enableSystemd = true;  
+    #quickshell.package = inputs.quickshell.packages.${pkgs.system}.default;
+    enableSystemd = true;  
   };  
 }
 

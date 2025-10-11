@@ -69,9 +69,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "quickshell": [
-          "quickshell"
-        ]
+        "quickshell": "quickshell"
       },
       "locked": {
         "lastModified": 1760207838,
@@ -1201,21 +1199,22 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
+          "dankMaterialShell",
           "nixpkgs"
         ]
       },
       "locked": {
         "lastModified": 1760169785,
         "narHash": "sha256-Hqz81LLMBE++3tUgK4nh2wvQKwMsu3PdRNgkgdFzZVo=",
-        "owner": "quickshell-mirror",
-        "repo": "quickshell",
+        "ref": "refs/heads/master",
         "rev": "f12f0e7c7d883f737ac45b88c5993090b3c87cce",
-        "type": "github"
+        "revCount": 692,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
       "original": {
-        "owner": "quickshell-mirror",
-        "repo": "quickshell",
-        "type": "github"
+        "type": "git",
+        "url": "https://git.outfoxxed.me/quickshell/quickshell"
       }
     },
     "root": {
@@ -1235,7 +1234,6 @@
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
-        "quickshell": "quickshell",
         "systems": "systems_3",
         "vscode-server": "vscode-server",
         "zig-overlay": "zig-overlay"

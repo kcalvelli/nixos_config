@@ -8,7 +8,7 @@
     dankMaterialShell = {
       niri = {
         enableKeybinds = true;
-        enableSpawn = true;
+        #enableSpawn = true;
       };
     }; 
     niri.settings = {
