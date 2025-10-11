@@ -109,6 +109,11 @@
         workspace-auto-back-and-forth = true;
       };
 
+      switch-events.lid-close.action.spawn = [
+        "systemctl"
+        "suspend"
+      ];
+
       layer-rules = [
         {
           matches = [ { namespace = "^wallpaper$"; } ];
