@@ -7,17 +7,17 @@
 }:
 {
   imports = [ 
-    ./hyprland.nix
+    #./hyprland.nix
     ./niri.nix
   ];
 
-  # Define WM options
-  options.wm = {
-    enable = lib.mkEnableOption "Enable Wayland window managers";
+  # Define Wayland options
+  options.wayland = {
+    enable = lib.mkEnableOption "Enable Wayland compisitors and related services";
   };
 
-  # Configure wm if enabled
-  config = lib.mkIf config.wm.enable {  
+  # Configure wayland if enabled
+  config = lib.mkIf config.wayland.enable {  
 
     # Greeter configuration:
     # - Defines a system group and user named "greeter" for use by the display manager greeter.
@@ -47,7 +47,7 @@
       xwayland.enable = true;
     };    
 
-    hyprland.enable = true;
+    #hyprland.enable = true;
     niri.enable = true;
 
     # Add system packages for utilities, graphics, and theming
@@ -69,7 +69,7 @@
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
-      wm
+      wayland
     ];    
   };
 }

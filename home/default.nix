@@ -8,7 +8,7 @@
     homeModules = {
       plasma = ./plasma;
       cosmic = ./cosmic;
-      wm = ./wm;
+      wayland = ./wayland;
       workstation = ./profiles/workstation;
       laptop = ./profiles/laptop;
     };

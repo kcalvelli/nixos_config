@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 {
   wayland.windowManager.hyprland = {
-    enable = true;
+    #enable = true;
     systemd.enable = true; 
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
