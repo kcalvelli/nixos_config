@@ -12,10 +12,7 @@
     discord
 
     # Markdown Editors
-    typora
-
-    # File Send/Sync Tools
-    localsend
+    typora    # File Send/Sync Tools
 
     # Video Editing
     pitivi

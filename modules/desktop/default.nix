@@ -75,6 +75,10 @@
     dconf.enable = true;    
     nautilus-open-any-terminal.enable = true;
     nautilus-open-any-terminal.terminal = "ghostty";
+    localsend = {
+      enable = true;
+      openFirewall = true;  
+    };
   };
     
   xdg = {
