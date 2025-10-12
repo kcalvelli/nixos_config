@@ -14,7 +14,7 @@
       "exec-once" = [
         "bash -c 'wl-paste --watch cliphist store' &"  # clipboard manager
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
-        #"dms run"
+        "dms run"
         "solaar -w hide" 
         "nextcloud --background"  # starts minimized to the tray
       ];  
