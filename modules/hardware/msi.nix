@@ -39,16 +39,16 @@ in
         ];
       };
 
-      # Desktop-friendly power policy (fine on Ryzen)
+      # Desktop performance power policy
       powerManagement = {
         enable = true;
-        cpuFreqGovernor = lib.mkDefault "schedutil";
+        cpuFreqGovernor = "performance"; # Performance governor for desktop development
       };
 
-      # Useful, real services
+      # Desktop services
       services = {
-        fstrim.enable = true; # weekly TRIM
-        irqbalance.enable = true;
+        fstrim.enable = true; # weekly TRIM for SSD
+        irqbalance.enable = true; # Better multi-core interrupt handling
         power-profiles-daemon.enable = lib.mkForce false; # not useful on desktops
       };
     })
