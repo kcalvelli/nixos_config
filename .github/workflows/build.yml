@@ -26,10 +26,15 @@ jobs:
         with:
           determinate: true 
                
-      - uses: DeterminateSystems/flakehub-cache-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - run: nix build .#nixosConfigurations.edge.config.system.build.toplevel
-      - run: nix build .#nixosConfigurations.pangolin.config.system.build.toplevel
+      - name: Build edge configuration
+        run: |
+          nix build .#nixosConfigurations.edge.config.system.build.toplevel --print-out-paths
+
+      - name: Build pangolin configuration
+        run: |
+          nix build .#nixosConfigurations.pangolin.config.system.build.toplevel --print-out-paths
 
       - name: Push to FlakeHub
         uses: DeterminateSystems/flakehub-push@main
@@ -38,3 +43,8 @@ jobs:
           visibility: public
           rolling: true
           include-output-paths: true
+          
+      - name: Copy closures to FlakeHub cache
+        run: |
+          nix copy --to https://cache.flakehub.com .#nixosConfigurations.edge.config.system.build.toplevel
+          nix copy --to https://cache.flakehub.com .#nixosConfigurations.pangolin.config.system.build.toplevel
