@@ -42,7 +42,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 │   └── virtualisation/ # VM and container support
 ├── home/              # Home Manager user configurations
 ├── devshells/         # Development environment definitions
-└── pkgs/              # Custom package definitions
+└── pkgs/              # Custom package definitions (auto-discovered)
 ```
 
 ## Key Features
@@ -60,6 +60,16 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 If you want to explore this configuration, start by reading `flake.nix` to understand the input structure and see how modules are composed. Then browse through `modules/` to see how different system aspects are configured.
 
 To adapt portions for your own use, extract only the specific modules or patterns you need, understand what they do, and modify them for your hardware and preferences. Never apply this configuration directly to your system without thorough review and customization.
+
+### Adding Custom Packages
+
+Custom packages are automatically discovered from the `pkgs/` directory. To add a new package:
+
+1. Create a new directory in `pkgs/` (e.g., `pkgs/my-package/`)
+2. Add a `default.nix` file in that directory with your package definition
+3. The package will be automatically added to flake outputs and available as `pkgs.my-package`
+
+No manual registration needed - the build system scans for all directories containing `default.nix` and adds them automatically.
 
 ## Dependencies
 
