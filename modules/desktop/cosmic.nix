@@ -1,5 +1,4 @@
 { lib
-, myPkgs
 , homeModules
 , pkgs
 , config
@@ -30,8 +29,8 @@
     environment.systemPackages = with pkgs; [
 
       # Overlay of networkmanagerapplet that does not include appindicator
-      myPkgs.networkmanagerapplet
-      myPkgs.cosmic-ext-applet-clipboard-manager
+      networkmanagerapplet
+      cosmic-ext-applet-clipboard-manager
 
       # System apps
       adw-gtk3

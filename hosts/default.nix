@@ -12,7 +12,6 @@ let
           inherit inputs self;
           inherit (self) nixosModules; # NixOS modules
           inherit (self) homeModules; # Home Manager modules
-          myPkgs = self.packages.${args.system};
         };
       }
       // args
