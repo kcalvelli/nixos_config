@@ -1,6 +1,11 @@
-{ inputs, pkgs, lib, config, ... }:
+{ inputs
+, pkgs
+, lib
+, config
+, ...
+}:
 {
-  imports = [ 
+  imports = [
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
@@ -10,68 +15,80 @@
         enableKeybinds = true;
         enableSpawn = true;
       };
-    }; 
+    };
     niri.settings = {
       prefer-no-csd = true;
       xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite}";
       screenshot-path = "~/Pictures/Screenshots/Screenshot-from-%Y-%m-%d-%H-%M-%S.png";
       hotkey-overlay.skip-at-startup = true;
-      
+
       spawn-at-startup = [
-        {command = ["wl-paste" "--watch" "cliphist" "store"];}
-        {command = ["wl-paste" "--type text" "--watch" "cliphist" "store"];}
+        { command = [ "wl-paste" "--watch" "cliphist" "store" ]; }
+        { command = [ "wl-paste" "--type text" "--watch" "cliphist" "store" ]; }
         #{command = ["qs" "-c" "DankMaterialShell"];}
         {
           command = [
             "$ghostty"
-            "--gtk-single-instance=true"     # reuse one resident process
-            "--initial-window=false"         # start with no window
-            "--quit-after-last-window-closed=false"  # keep the process alive
+            "--gtk-single-instance=true" # reuse one resident process
+            "--initial-window=false" # start with no window
+            "--quit-after-last-window-closed=false" # keep the process alive
           ];
-        }        
-      
+        }
+
         # For overview backdrop
-        { command = [ "bash" "-c" ''
-          set -e
-          wp="$HOME/Pictures/Wallpapers/New/current.jpg"
-          cache="$HOME/.cache/niri"
-          blurred="$cache/overview-blur.jpg"
-          hashf="$cache/overview-blur.sha256"
+        {
+          command = [
+            "bash"
+            "-c"
+            ''
+              set -e
+              wp="$HOME/Pictures/Wallpapers/New/current.jpg"
+              cache="$HOME/.cache/niri"
+              blurred="$cache/overview-blur.jpg"
+              hashf="$cache/overview-blur.sha256"
         
-          mkdir -p "$cache"
+              mkdir -p "$cache"
         
-          if [ -r "$wp" ]; then
-            cur="$(sha256sum "$(readlink -f "$wp")" | cut -d" " -f1)"
-            old="$( [ -f "$hashf" ] && cat "$hashf" || echo )"
-            if [ ! -s "$blurred" ] || [ "$cur" != "$old" ]; then
-              convert "$wp" -filter Gaussian -blur 0x18 "$blurred"
-              printf '%s\n' "$cur" > "$hashf"
-            fi
-          else
-            # full-size fallback so swaybg never fails if the symlink isn’t ready yet
-            convert -size 1920x1080 xc:black "$blurred"
-            echo placeholder > "$hashf"
-          fi
-        '' ]; }
-        
+              if [ -r "$wp" ]; then
+                cur="$(sha256sum "$(readlink -f "$wp")" | cut -d" " -f1)"
+                old="$( [ -f "$hashf" ] && cat "$hashf" || echo )"
+                if [ ! -s "$blurred" ] || [ "$cur" != "$old" ]; then
+                  convert "$wp" -filter Gaussian -blur 0x18 "$blurred"
+                  printf '%s\n' "$cur" > "$hashf"
+                fi
+              else
+                # full-size fallback so swaybg never fails if the symlink isn’t ready yet
+                convert -size 1920x1080 xc:black "$blurred"
+                echo placeholder > "$hashf"
+              fi
+            ''
+          ];
+        }
+
         # 2) Start swaybg *after* outputs + file are ready
-        { command = [ "bash" "-c" ''
-          set -e
-          blurred="$HOME/.cache/niri/overview-blur.jpg"
+        {
+          command = [
+            "bash"
+            "-c"
+            ''
+              set -e
+              blurred="$HOME/.cache/niri/overview-blur.jpg"
         
-          # Wait for niri to have at least one output and for the blurred file to be non-empty
-          for i in $(seq 1 100); do
-            if niri msg outputs >/dev/null 2>&1 && [ -s "$blurred" ]; then
-              break
-            fi
-            sleep 0.05
-          done
+              # Wait for niri to have at least one output and for the blurred file to be non-empty
+              for i in $(seq 1 100); do
+                if niri msg outputs >/dev/null 2>&1 && [ -s "$blurred" ]; then
+                  break
+                fi
+                sleep 0.05
+              done
         
-          # Tiny grace period so Overview/backdrop is definitely initialized
-          sleep 0.25
+              # Tiny grace period so Overview/backdrop is definitely initialized
+              sleep 0.25
         
-          exec swaybg --mode stretch --image "$blurred"
-        '' ]; }
+              exec swaybg --mode stretch --image "$blurred"
+            ''
+          ];
+        }
       ];
 
       layout = {
@@ -99,7 +116,7 @@
           gaps-between-tabs = 10.0;
           width = 4.0;
           length.total-proportion = 0.1;
-        };        
+        };
       };
 
       overview = {
@@ -131,93 +148,95 @@
 
       layer-rules = [
         {
-          matches = [ { namespace = "^wallpaper$"; } ];
+          matches = [{ namespace = "^wallpaper$"; }];
           place-within-backdrop = true;
         }
       ];
 
       window-rules = [
         {
-         geometry-corner-radius = let
-           radius = 12.0;
-         in {
-           bottom-left = radius;
-           bottom-right = radius;
-           top-left = radius;
-           top-right = radius;
-         };
-         clip-to-geometry = true;
-         draw-border-with-background = false;
-        }  
-        {
-         matches = [
-           {is-floating = true;}
-         ];
-         shadow.enable = true;
-        }       
+          geometry-corner-radius =
+            let
+              radius = 12.0;
+            in
+            {
+              bottom-left = radius;
+              bottom-right = radius;
+              top-left = radius;
+              top-right = radius;
+            };
+          clip-to-geometry = true;
+          draw-border-with-background = false;
+        }
         {
           matches = [
-            { app-id = ".*"; }   # regex: all apps
+            { is-floating = true; }
+          ];
+          shadow.enable = true;
+        }
+        {
+          matches = [
+            { app-id = ".*"; } # regex: all apps
           ];
           open-maximized = true;
         }
-      
+
         # 2) Specific: Google Messages PWA — float, centered, iMessage-ish size
         {
           matches = [
             { app-id = "^brave-hpfldicfbfomlpcikngkocigghgafkph-Default$"; }
           ];
-      
+
           # Explicitly override the global rule:
           open-maximized = false;
-          open-floating  = true;
-      
+          open-floating = true;
+
           # Size on open (pixels)
-          default-column-width  = { fixed = 900; };
+          default-column-width = { fixed = 900; };
           default-window-height = { fixed = 700; };
-      
+
           # Optional: pin position instead of center (comment out if not needed)
           default-floating-position = { x = 5; y = 5; relative-to = "top-left"; };
-        } 
+        }
         {
           matches = [
             { app-id = "^org\\.gnome\\.Nautilus$"; }
           ];
-        
+
           # Override the global maximized rule
           open-maximized = false;
-          open-floating  = true;      # centers by default
-        
+          open-floating = true; # centers by default
+
           # A comfortable size for quick file tasks
-          default-column-width  = { fixed = 1200; };
+          default-column-width = { fixed = 1200; };
           default-window-height = { fixed = 900; };
-        
+
           # Optional: pin a corner instead of center
           # default-floating-position = { x = 0; y = 0; relative-to = "top-right"; };
-        }  
+        }
         # Drop-down Ghostty: float, full width, short height, stick to the top center
         {
-          matches = [ { app-id = "^com\\.kc\\.dropterm$"; } ];
-        
+          matches = [{ app-id = "^com\\.kc\\.dropterm$"; }];
+
           open-floating = true;
-        
+
           # Size/position: full width, 420px tall, tucked under your 4px bar
-          default-column-width  = { proportion = 1.0; };
+          default-column-width = { proportion = 1.0; };
           default-window-height = { fixed = 420; };
           default-floating-position = { x = 0; y = 4; relative-to = "top"; };
-        
+
           # --- Remove border/outline/shadow (per-window) ---
-          border     = { enable = false; };
+          border = { enable = false; };
           focus-ring = { enable = false; };
-          shadow     = { enable = false; };
+          shadow = { enable = false; };
         }
-  
+
         # Normal Ghostty windows: leave as you like (example: keep maximized-by-default off)
         {
-          matches = [ { app-id = "^com\\.mitchellh\\.ghostty$"; } ];
+          matches = [{ app-id = "^com\\.mitchellh\\.ghostty$"; }];
           # no open-floating here, so they tile/maximize per your global rules
-        }              
-     ];         
+        }
+      ];
 
 
       # Keybindings      
@@ -226,7 +245,7 @@
         "Mod+B".action.spawn = [ "brave" ];
         "Mod+E".action.spawn = [ "nautilus" ];
         "Mod+Return".action.spawn = "ghostty";
-        
+
         # --- Workspace: jump directly (1..8) ---
         "Mod+1".action."focus-workspace" = [ 1 ];
         "Mod+2".action."focus-workspace" = [ 2 ];
@@ -235,28 +254,28 @@
         "Mod+5".action."focus-workspace" = [ 5 ];
         "Mod+6".action."focus-workspace" = [ 6 ];
         "Mod+7".action."focus-workspace" = [ 7 ];
-        "Mod+8".action."focus-workspace" = [ 8 ]; 
-        
-        # --- Navigation ---
-        "Mod+H".action.focus-column-left = [];
-        "Mod+J".action.focus-window-down = [];
-        "Mod+K".action.focus-window-up = [];
-        "Mod+L".action.focus-column-right = [];
+        "Mod+8".action."focus-workspace" = [ 8 ];
 
-        "Mod+Left".action.focus-column-left = [];
-        "Mod+Down".action.focus-window-down = [];
-        "Mod+Up".action.focus-window-up = [];
-        "Mod+Right".action.focus-column-right = [];
-    
-        "Mod+Ctrl+Left".action.move-column-left = [];
-        "Mod+Ctrl+Down".action.move-window-down = [];
-        "Mod+Ctrl+Up".action.move-window-up = [];
-        "Mod+Ctrl+Right".action.move-column-right = [];
-        "Mod+Shift+H".action.move-column-left = [];
-        "Mod+Shift+J".action.move-window-down = [];
-        "Mod+Shift+K".action.move-window-up = [];
-        "Mod+Shift+L".action.move-column-right = [];
-        
+        # --- Navigation ---
+        "Mod+H".action.focus-column-left = [ ];
+        "Mod+J".action.focus-window-down = [ ];
+        "Mod+K".action.focus-window-up = [ ];
+        "Mod+L".action.focus-column-right = [ ];
+
+        "Mod+Left".action.focus-column-left = [ ];
+        "Mod+Down".action.focus-window-down = [ ];
+        "Mod+Up".action.focus-window-up = [ ];
+        "Mod+Right".action.focus-column-right = [ ];
+
+        "Mod+Ctrl+Left".action.move-column-left = [ ];
+        "Mod+Ctrl+Down".action.move-window-down = [ ];
+        "Mod+Ctrl+Up".action.move-window-up = [ ];
+        "Mod+Ctrl+Right".action.move-column-right = [ ];
+        "Mod+Shift+H".action.move-column-left = [ ];
+        "Mod+Shift+J".action.move-window-down = [ ];
+        "Mod+Shift+K".action.move-window-up = [ ];
+        "Mod+Shift+L".action.move-column-right = [ ];
+
         # --- Move focused window to workspace N ---
         "Mod+Shift+0".action."move-window-to-workspace" = [ 0 ];
         "Mod+Shift+1".action."move-window-to-workspace" = [ 1 ];
@@ -267,7 +286,7 @@
         "Mod+Shift+6".action."move-window-to-workspace" = [ 6 ];
         "Mod+Shift+7".action."move-window-to-workspace" = [ 7 ];
         "Mod+Shift+8".action."move-window-to-workspace" = [ 8 ];
-        "Mod+Shift+9".action."move-window-to-workspace" = [ 9 ];  
+        "Mod+Shift+9".action."move-window-to-workspace" = [ 9 ];
 
         # --- Move focused column to workspace N ---
         "Mod+Ctrl+Shift+0".action.move-column-to-workspace = "0";
@@ -284,37 +303,37 @@
         # --- Column width adjustment ---
         "Mod+Minus".action.set-column-width = "-10%";
         "Mod+Equal".action.set-column-width = "+10%";
-        "Mod+W".action.switch-preset-column-width = [];
+        "Mod+W".action.switch-preset-column-width = [ ];
 
         # --- Window consume/expel within columns ---
-        "Mod+Shift+Comma".action.consume-window-into-column = {};
-        "Mod+Shift+Period".action.expel-window-from-column = {};        
+        "Mod+Shift+Comma".action.consume-window-into-column = { };
+        "Mod+Shift+Period".action.expel-window-from-column = { };
 
         # --- Consume/expel window left/right ---
-        "Mod+BracketLeft".action.consume-or-expel-window-left = [];
-        "Mod+BracketRight".action.consume-or-expel-window-right = [];        
-       
-      
+        "Mod+BracketLeft".action.consume-or-expel-window-left = [ ];
+        "Mod+BracketRight".action.consume-or-expel-window-right = [ ];
+
+
         # --- Overview ---
-        "Mod+O".action."toggle-overview" = [];
+        "Mod+Tab".action."toggle-overview" = [ ];
 
         # --- Window management ---
-        "Mod+Q".action."close-window" = [];   
-        "Mod+Shift+F".action."fullscreen-window" = [];
+        "Mod+Q".action."close-window" = [ ];
+        "Mod+Shift+F".action."fullscreen-window" = [ ];
 
         # --- Column management ---
-        "Mod+backslash".action.maximize-column = [];
+        "Mod+backslash".action.maximize-column = [ ];
         "Mod+WheelScrollRight".action.focus-column-or-monitor-right = { };
         "Mod+WheelScrollLeft".action.focus-column-or-monitor-left = { };
         "Mod+Ctrl+WheelScrollRight".action.move-column-right-or-to-monitor-right = { };
-        "Mod+Ctrl+WheelScrollLeft".action.move-column-left-or-to-monitor-left = { };           
+        "Mod+Ctrl+WheelScrollLeft".action.move-column-left-or-to-monitor-left = { };
 
         # --- Tabbed display ---
-        "Mod+T".action.toggle-column-tabbed-display = [];
+        "Mod+T".action.toggle-column-tabbed-display = [ ];
 
         # --- Floating ---
-        "Mod+Shift+Z".action."toggle-window-floating" = [];
-        "Mod+Z".action."switch-focus-between-floating-and-tiling" = [];
+        "Mod+Shift+Z".action."toggle-window-floating" = [ ];
+        "Mod+Z".action."switch-focus-between-floating-and-tiling" = [ ];
 
         # Wheel scroll:
         "Mod+WheelScrollDown" = {
@@ -333,44 +352,56 @@
           cooldown-ms = 150;
           action.move-column-to-workspace-up = { };
         };
-        
- 
+
+
 
         # --- Volume control with thumb wheel ---
         "Mod+Shift+WheelScrollLeft".action.spawn = [
-            "dms" "ipc" "audio" "increment" "3" 
-        ];        
+          "dms"
+          "ipc"
+          "audio"
+          "increment"
+          "3"
+        ];
         "Mod+Shift+WheelScrollRight".action.spawn = [
-            "dms" "ipc" "audio" "decrement" "3" 
+          "dms"
+          "ipc"
+          "audio"
+          "decrement"
+          "3"
         ];
         "Mod+Shift+M".action.spawn = [
-           "dms" "ipc" "audio" "mute"
-        ];          
+          "dms"
+          "ipc"
+          "audio"
+          "mute"
+        ];
 
         # --- Quit compositor (clean exit) ---
-        "Mod+Shift+E".action."quit" = [];         
+        "Mod+Shift+E".action."quit" = [ ];
 
         # Screenshot
-        "Mod+Ctrl+S".action.screenshot-screen = {write-to-disk = true;};
-        "Mod+Alt+S".action.screenshot-screen = {};
-        "Mod+Shift+S".action.screenshot = {};    
+        "Mod+Ctrl+S".action.screenshot-screen = { write-to-disk = true; };
+        "Mod+Alt+S".action.screenshot-screen = { };
+        "Mod+Shift+S".action.screenshot = { };
 
         # Quake style drop down terminal using ghostty
-        "Mod+grave".action.spawn = [ 
-              "${pkgs.bash}/bin/bash" "-c"
-              ''
-                {
-                  # Find ONLY ghostty PIDs, then filter to our class
-                  pids="$(${pkgs.procps}/bin/pgrep -a ghostty | ${pkgs.gnugrep}/bin/grep -F -- --class=com.kc.dropterm | ${pkgs.coreutils}/bin/cut -d" " -f1)"
-                  if [ -n "$pids" ]; then
-                    ${pkgs.procps}/bin/kill $pids
-                  else
-                    exec ${pkgs.ghostty}/bin/ghostty --class=com.kc.dropterm --window-decoration=none
-                  fi
-                } 
-              ''
-        ];      
+        "Mod+grave".action.spawn = [
+          "${pkgs.bash}/bin/bash"
+          "-c"
+          ''
+            {
+              # Find ONLY ghostty PIDs, then filter to our class
+              pids="$(${pkgs.procps}/bin/pgrep -a ghostty | ${pkgs.gnugrep}/bin/grep -F -- --class=com.kc.dropterm | ${pkgs.coreutils}/bin/cut -d" " -f1)"
+              if [ -n "$pids" ]; then
+                ${pkgs.procps}/bin/kill $pids
+              else
+                exec ${pkgs.ghostty}/bin/ghostty --class=com.kc.dropterm --window-decoration=none
+              fi
+            } 
+          ''
+        ];
       };
-    };  
+    };
   };
 }

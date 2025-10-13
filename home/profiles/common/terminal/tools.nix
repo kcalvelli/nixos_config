@@ -1,8 +1,7 @@
-{ 
-  config, 
-  pkgs, 
-  lib, 
-  ... 
+{ config
+, pkgs
+, lib
+, ...
 }:
 {
   # CLI helper programs 
@@ -14,7 +13,7 @@
       enableFishIntegration = true;
       enableBashIntegration = true;
       extraOptions = [ "--group-directories-first" "--header" ];
-    };  
+    };
 
     ripgrep.enable = true;
     fd.enable = true;

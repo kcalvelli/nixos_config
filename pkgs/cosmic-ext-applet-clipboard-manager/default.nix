@@ -1,11 +1,11 @@
-{
-  lib,
-  fetchFromGitHub,
-  libcosmicAppHook,
-  rustPlatform,
-  just,
-  stdenv,
-  nix-update-script,
+{ lib
+, fetchFromGitHub
+, libcosmicAppHook
+, rustPlatform
+, just
+, stdenv
+, nix-update-script
+,
 }:
 
 rustPlatform.buildRustPackage {

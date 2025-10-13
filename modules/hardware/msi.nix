@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
   cfg = config.hardware;
 in
@@ -19,7 +23,7 @@ in
       boot = {
         kernelModules = [
           "kvm-amd"
-          "nct6775"  # Super I/O sensors (fans/temps) for many MSI boards incl. MS-7C37
+          "nct6775" # Super I/O sensors (fans/temps) for many MSI boards incl. MS-7C37
         ];
 
         kernelParams = [
@@ -27,7 +31,12 @@ in
         ];
 
         initrd.availableKernelModules = [
-          "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"
+          "nvme"
+          "xhci_pci"
+          "ahci"
+          "usbhid"
+          "usb_storage"
+          "sd_mod"
         ];
       };
 
@@ -39,7 +48,7 @@ in
 
       # Useful, real services
       services = {
-        fstrim.enable = true;   # weekly TRIM
+        fstrim.enable = true; # weekly TRIM
         irqbalance.enable = true;
         power-profiles-daemon.enable = lib.mkForce false; # not useful on desktops
       };

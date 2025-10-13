@@ -1,25 +1,28 @@
-{ pkgs, inputs, ... }:
+{ pkgs
+, inputs
+, ...
+}:
 {
   wayland.windowManager.hyprland = {
     #enable = true;
-    systemd.enable = true; 
+    systemd.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     settings = {
       cursor = {
         no_hardware_cursors = true;
-      }; 
+      };
 
       # ---- exec-once ----
       "exec-once" = [
-        "bash -c 'wl-paste --watch cliphist store' &"  # clipboard manager
+        "bash -c 'wl-paste --watch cliphist store' &" # clipboard manager
         "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
         #"dms run"
-        "solaar -w hide" 
-        "nextcloud --background"  # starts minimized to the tray
-      ];  
+        "solaar -w hide"
+        "nextcloud --background" # starts minimized to the tray
+      ];
 
-         # ---- keybinds: DMS controls ----
+      # ---- keybinds: DMS controls ----
       bind = [
         "SUPER, Space, exec, dms ipc call spotlight toggle"
         "SUPER, V, exec, dms ipc call clipboard toggle"
@@ -36,7 +39,7 @@
         "SUPER, T, exec, ghostty"
         # Night mode toggle
         "SUPERSHIFT, N, exec, dms ipc call night toggle"
-  
+
         # Jump directly to workspace N
         "SUPER,1,workspace,1"
         "SUPER,2,workspace,2"
@@ -51,17 +54,17 @@
         "SUPER,LEFT,workspace,-1"
         "SUPER,UP,workspace,-1"
         "SUPER,RIGHT,workspace,+1"
-        "SUPER,DOWN,workspace,+1" 
-  
+        "SUPER,DOWN,workspace,+1"
+
         # Move focused window to workspace N
         "SUPERSHIFT,1,movetoworkspace,1"
         "SUPERSHIFT,2,movetoworkspace,2"
         "SUPERSHIFT,3,movetoworkspace,3"
-        "SUPERSHIFT,4,movetoworkspace,4"    
+        "SUPERSHIFT,4,movetoworkspace,4"
         "SUPERSHIFT,5,movetoworkspace,5"
         "SUPERSHIFT,6,movetoworkspace,6"
         "SUPERSHIFT,7,movetoworkspace,7"
-        "SUPERSHIFT,8,movetoworkspace,8"  
+        "SUPERSHIFT,8,movetoworkspace,8"
       ];
       # ---- function-key bindings (audio/brightness) ----
       bindl = [
@@ -72,20 +75,20 @@
         ", XF86MonBrightnessUp, exec, dms ipc call brightness increment 5 \"\""
         ", XF86MonBrightnessDown, exec, dms ipc call brightness decrement 5 \"\""
       ];
-  
+
       bindm = [
         "SUPER, mouse:272, movewindow"
         "SUPER, mouse:273, resizewindow"
-      ];  
+      ];
 
       # --- Touchpad settings (low priority so you can override elsewhere) ---
       input = {
         touchpad = {
-          natural_scroll            = false;
-          tap-to-click              = true;
-          disable_while_typing      = true;
-          drag_lock                 = true;
-          middle_button_emulation   = true;
+          natural_scroll = false;
+          tap-to-click = true;
+          disable_while_typing = true;
+          drag_lock = true;
+          middle_button_emulation = true;
           # sensitivity            = lib.mkDefault 0.0;   # tweak (e.g., -0.2 .. 0.3)
           # scroll_factor          = lib.mkDefault 1.0;   # try 1.2–1.5 if desired
         };
@@ -104,13 +107,13 @@
       monitor = [
         # Laptop panel @ 1.00x
         "eDP-1,preferred,auto,1.00"
-  
+
         # External 4K @ 1.5x, auto place
         "DP-2,3840x2160@60,auto,1.5"
-  
+
         # Example ultrawide @ 1.0x (unscaled)
         # "HDMI-A-1,3440x1440@100,auto,1.0"
-      ]; 
+      ];
 
       decoration = {
         rounding = 7;
@@ -121,7 +124,7 @@
         blur = {
           enabled = true;
         };
-      }; 
+      };
 
       general = {
         gaps_in = 5;
@@ -131,7 +134,7 @@
 
       misc = {
         disable_splash_rendering = true;
-      }; 
+      };
 
       #
       # Declare 8 workspaces (named 1..8). No monitor pinning—just the IDs.

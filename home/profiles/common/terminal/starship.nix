@@ -1,8 +1,7 @@
-{ 
-  config, 
-  pkgs, 
-  lib, 
-  ... 
+{ config
+, pkgs
+, lib
+, ...
 }:
 {
   programs.starship = {
@@ -13,9 +12,9 @@
 
       palettes.axion = {
         base = "#e0e4e9";
-        dim  = "#9ca4ae";
+        dim = "#9ca4ae";
         mute = "#2a3a4e";
-        dir  = "#b3d4ff";
+        dir = "#b3d4ff";
         cyan = "#86e8ef";
         green = "#7fe0b4";
         yellow = "#f5e38a";
@@ -31,7 +30,7 @@
 
       character = {
         success_symbol = "[➜](bold $palette.base) ";
-        error_symbol   = "[➜](bold $palette.dim) ";
+        error_symbol = "[➜](bold $palette.dim) ";
       };
 
       username = {
@@ -62,24 +61,24 @@
 
       git_status = {
         format = "([ $all_status$ahead_behind ]($style))";
-        style  = "bold $palette.dim";
+        style = "bold $palette.dim";
 
         conflicted = "✖" + "$" + "{count}";
-        ahead      = "⇡" + "$" + "{count}";
-        behind     = "⇣" + "$" + "{count}";
-        diverged   = "⇕⇡" + "$" + "{ahead_count}" + "⇣" + "$" + "{behind_count}";
-        staged     = "●" + "$" + "{count}";
-        modified   = "✚" + "$" + "{count}";
-        renamed    = "»" + "$" + "{count}";
-        deleted    = "⟂" + "$" + "{count}";
-        untracked  = "…" + "$" + "{count}";
-        stashed    = "≡";
+        ahead = "⇡" + "$" + "{count}";
+        behind = "⇣" + "$" + "{count}";
+        diverged = "⇕⇡" + "$" + "{ahead_count}" + "⇣" + "$" + "{behind_count}";
+        staged = "●" + "$" + "{count}";
+        modified = "✚" + "$" + "{count}";
+        renamed = "»" + "$" + "{count}";
+        deleted = "⟂" + "$" + "{count}";
+        untracked = "…" + "$" + "{count}";
+        stashed = "≡";
       };
 
       nix_shell = { symbol = " "; format = " [$${symbol}$name]($style)"; style = "bold $palette.magenta"; };
-      rust      = { format = " [ $version]($style)"; style = "bold $palette.cyan"; };
-      nodejs    = { format = " [󰎙 $version]($style)"; style = "bold $palette.cyan"; };
-      python    = { format = " [ $virtualenv]($style)"; style = "bold $palette.cyan"; pyenv_version_name = true; };
+      rust = { format = " [ $version]($style)"; style = "bold $palette.cyan"; };
+      nodejs = { format = " [󰎙 $version]($style)"; style = "bold $palette.cyan"; };
+      python = { format = " [ $virtualenv]($style)"; style = "bold $palette.cyan"; pyenv_version_name = true; };
 
       custom.zig = {
         description = "Zig toolchain";
@@ -95,13 +94,6 @@
         when = "test -n \"$GITHUB_COPILOT_ENABLED\"";
         format = "  [$output]($style)";
         style = "bold $palette.green";
-      };
-      custom.claude = {
-        description = "Claude Code active";
-        command = "echo ";
-        when = "test -n \"$CLAUDE_CODE_ENABLED\"";
-        format = "  [$output]($style)";
-        style = "bold $palette.yellow";
       };
 
       package = { disabled = true; };

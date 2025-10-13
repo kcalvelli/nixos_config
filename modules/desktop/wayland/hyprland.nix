@@ -1,8 +1,7 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, pkgs
+, config
+, ...
 }:
 {
   # Define Hyprland options
@@ -11,9 +10,9 @@
   };
 
   # Configure Hyprland if enabled
-  config = lib.mkIf config.hyprland.enable {  
+  config = lib.mkIf config.hyprland.enable {
     programs = {
-      hyprland.enable = true;    
-    };   
+      hyprland.enable = true;
+    };
   };
 }

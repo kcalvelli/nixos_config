@@ -1,7 +1,6 @@
-{
-  config,
-  lib,
-  ...
+{ config
+, lib
+, ...
 }:
 let
   cfg = config.services.caddy-proxy;

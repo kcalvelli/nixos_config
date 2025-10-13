@@ -1,6 +1,6 @@
-{
-  pkgs,
-  inputs,   # this is inputs'
+{ pkgs
+, inputs
+, # this is inputs'
   system
 }:
 let

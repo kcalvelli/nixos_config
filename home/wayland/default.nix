@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{ pkgs
+, inputs
+, config
+, ...
+}:
 {
   imports = [
     ./common/apps.nix
@@ -13,6 +17,11 @@
     enable = true;
     quickshell.package = inputs.quickshell.packages.${pkgs.system}.default;
     #enableSystemd = true;  
-  };  
+  };
+
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" ];
+  };
 }
 

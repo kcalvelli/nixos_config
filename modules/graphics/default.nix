@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ pkgs
+, ...
+}:
 {
   # --- GPU / Graphics ---
   hardware = {
@@ -6,8 +8,8 @@
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        mesa          # OpenGL + RADV Vulkan for AMD
-        libva         # VA-API
+        mesa # OpenGL + RADV Vulkan for AMD
+        libva # VA-API
         vulkan-loader # Core Vulkan ICD loader (harmless to keep)
       ];
     };
@@ -20,7 +22,7 @@
 
   # --- Kernel params (minimal + stable) ---
   boot.kernelParams = [
-    "amdgpu.gpu_recovery=1"  # good stability safety net
+    "amdgpu.gpu_recovery=1" # good stability safety net
   ];
 
   # --- Tools you actually use (no debug layers) ---
@@ -41,7 +43,7 @@
   # --- Sensible defaults for GTK4 on Wayland ---
   environment.variables = {
     HIP_PLATFORM = "amd";
-    GSK_RENDERER = "ngl";  # force GTK4 to OpenGL path (stable on wlroots/Hyprland)
+    GSK_RENDERER = "ngl"; # force GTK4 to OpenGL path (stable on wlroots/Hyprland)
   };
 
   # Gives CoreCtrl polkit integration (fan/clock controls without sudo)

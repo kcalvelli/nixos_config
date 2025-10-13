@@ -48,12 +48,12 @@
 
     # For dev shells
     "zig-overlay".url = "github:mitchellh/zig-overlay";
-    fenix.url = "github:nix-community/fenix";   
-     
+    fenix.url = "github:nix-community/fenix";
+
     lazyvim = {
       url = "github:matadaniel/LazyVim-module";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
 
     ghostty = {
       url = "github:ghostty-org/ghostty?ref=refs/tags/tip";
@@ -62,36 +62,38 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-    };     
+    };
 
-    # Hyprland with Shell
+    # Niri with DMS Shell
     quickshell = {
       url = "github:quickshell-mirror/quickshell";
-     inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
       #inputs.quickshell.follows = "quickshell";
-    };  
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    };   
+    };
+
+    # Fun with "AI"
+    nix-ai-tools.url = "github:numtide/nix-ai-tools";
   };
 
   outputs =
-    inputs@{
-      flake-parts,
-      systems,
-      ...
+    inputs@{ flake-parts
+    , systems
+    , ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
@@ -99,13 +101,13 @@
       perSystem = { pkgs, ... }: {
         formatter = pkgs.nixpkgs-fmt;
       };
-            
+
       imports = [
         ./pkgs
         ./hosts
         ./modules
         ./home
-        ./devshell.nix
+        ./devshells.nix
       ];
     };
 }

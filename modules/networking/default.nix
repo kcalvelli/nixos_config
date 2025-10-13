@@ -1,6 +1,5 @@
-{
-  lib,
-  ...
+{ lib
+, ...
 }:
 {
   imports = [
@@ -17,8 +16,8 @@
       allowedTCPPorts = [
         5355
       ];
-      allowedUDPPorts = [ 
-        5355 
+      allowedUDPPorts = [
+        5355
       ];
     };
   };
@@ -26,11 +25,11 @@
   services = {
     resolved = {
       enable = true;
-      llmnr = "resolve"; 
+      llmnr = "resolve";
       dnssec = "allow-downgrade";
       extraConfig = ''
         MulticastDNS=no
-      '';      
+      '';
     };
     openssh.enable = true;
   };

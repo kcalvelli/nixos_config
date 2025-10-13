@@ -1,7 +1,6 @@
-{
-  config,
-  lib,
-  ...
+{ config
+, lib
+, ...
 }:
 let
   cfg = config.services.hass;
@@ -16,13 +15,32 @@ in
   config = lib.mkIf cfg.enable (
     let
       haComponents = [
-        "default_config" "frontend" "conversation" "media_source"
-        "assist_pipeline" "mqtt" "matter" "thread" "tts"
-        "google_translate" "ffmpeg" "cast" "wyoming" "tplink"
-        "smartthings" "tuya" "rachio" "homekit" "homekit_controller"
-        "sonos" "google" "google_photos" "google_maps"
+        "default_config"
+        "frontend"
+        "conversation"
+        "media_source"
+        "assist_pipeline"
+        "mqtt"
+        "matter"
+        "thread"
+        "tts"
+        "google_translate"
+        "ffmpeg"
+        "cast"
+        "wyoming"
+        "tplink"
+        "smartthings"
+        "tuya"
+        "rachio"
+        "homekit"
+        "homekit_controller"
+        "sonos"
+        "google"
+        "google_photos"
+        "google_maps"
       ];
-    in {
+    in
+    {
       services.home-assistant = {
         enable = true;
         # Keep HA behind Caddy; don't open 8123 to the LAN
@@ -30,22 +48,22 @@ in
         extraComponents = haComponents;
         # The 'config' attr will be written into configuration.yaml
         config = {
-          homeassistant = {};
+          homeassistant = { };
           http = {
             use_x_forwarded_for = true;
             trusted_proxies = [ "127.0.0.1" "::1" ];
           };
-          default_config = {};
-          frontend = {};
-          conversation = {};
-          media_source = {};
-          tts = [ {
+          default_config = { };
+          frontend = { };
+          conversation = { };
+          media_source = { };
+          tts = [{
             platform = "google_translate";
             language = "en";
             cache = true;
             time_memory = 300;
             service_name = "google_say";
-          } ];
+          }];
         };
       };
 

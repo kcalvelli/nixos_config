@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
   # Import necessary modules
@@ -49,7 +48,7 @@
 
     lm_sensors
     smartmontools
- 
+
   ];
 
   # Build smaller systems

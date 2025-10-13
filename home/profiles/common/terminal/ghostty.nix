@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, hyprlandEnabled ? false, ... }:
+{ config
+, pkgs
+, lib
+, inputs
+, hyprlandEnabled ? false
+, ...
+}:
 {
   programs.ghostty = {
     enable = true;

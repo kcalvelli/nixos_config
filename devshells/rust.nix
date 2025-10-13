@@ -1,13 +1,13 @@
 # devshells/rust.nix
-{
-  pkgs,
-  inputs,   # this is inputs'
+{ pkgs
+, inputs
+, # this is inputs'
   system
 }:
 let
-  mkShell   = inputs.devshell.legacyPackages.${system}.mkShell;
+  mkShell = inputs.devshell.legacyPackages.${system}.mkShell;
   fenixPkgs = inputs.fenix.packages.${system};
-  toolchain = fenixPkgs.stable.toolchain;   # or .default.toolchain for nightly
+  toolchain = fenixPkgs.stable.toolchain; # or .default.toolchain for nightly
 in
 mkShell {
   name = "rust";
@@ -22,9 +22,9 @@ mkShell {
   ];
 
   commands = [
-    { name = "check"; command = "cargo check";                 help = "Type-check"; }
-    { name = "test";  command = "cargo test";                  help = "Run tests"; }
-    { name = "fmt";   command = "cargo fmt";                   help = "Format code"; }
-    { name = "lint";  command = "cargo clippy -- -D warnings"; help = "Clippy (deny warnings)"; }
+    { name = "check"; command = "cargo check"; help = "Type-check"; }
+    { name = "test"; command = "cargo test"; help = "Run tests"; }
+    { name = "fmt"; command = "cargo fmt"; help = "Format code"; }
+    { name = "lint"; command = "cargo clippy -- -D warnings"; help = "Clippy (deny warnings)"; }
   ];
 }

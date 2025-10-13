@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ pkgs
+, ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -12,7 +14,7 @@
     discord
 
     # Markdown Editors
-    typora    # File Send/Sync Tools
+    typora # File Send/Sync Tools
 
     # Video Editing
     pitivi
@@ -34,7 +36,7 @@
     nerd-fonts.fira-code
 
     # Nextcloud desktop Client
-    nextcloud-client    
+    nextcloud-client
 
     swappy
 

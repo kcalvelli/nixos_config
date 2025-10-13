@@ -1,6 +1,5 @@
-{
-  config,
-  ...
+{ config
+, ...
 }:
 {
   # Configure firewall settings for Tailscale

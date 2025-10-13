@@ -1,6 +1,5 @@
-{
-  inputs,
-  ...   
+{ inputs
+, ...
 }:
 {
   # Define home modules for different setups

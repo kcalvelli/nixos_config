@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }:
 {
   # Boot configuration
@@ -25,10 +24,10 @@
       "net.ipv4.tcp_congestion_control" = "bbr";
 
       # Reasonable buffers; let autotuning grow as needed
-      "net.core.rmem_max" =  2500000;
-      "net.core.wmem_max" =  2500000;
-      "net.ipv4.tcp_rmem"  = "4096  87380  2500000";
-      "net.ipv4.tcp_wmem"  = "4096  65536  2500000";
+      "net.core.rmem_max" = 2500000;
+      "net.core.wmem_max" = 2500000;
+      "net.ipv4.tcp_rmem" = "4096  87380  2500000";
+      "net.ipv4.tcp_wmem" = "4096  65536  2500000";
 
       # Keep, but 5000 can be loud on weak NICs—leave as-is if it helps
       "net.core.netdev_max_backlog" = 5000;
@@ -37,7 +36,7 @@
       "net.ipv6.conf.all.disable_ipv6" = 0;
 
       # Optional: small wins
-      "net.ipv4.tcp_fastopen" = 3;       # enable TFO for clients+servers
+      "net.ipv4.tcp_fastopen" = 3; # enable TFO for clients+servers
     };
 
     loader = {

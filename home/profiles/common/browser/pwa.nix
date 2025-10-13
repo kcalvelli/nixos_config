@@ -1,11 +1,10 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }:
-let 
+let
   braveExe = lib.getExe pkgs.brave;
-in 
+in
 {
   # PWA Desktop entries
   # If you are not me, do not use this
@@ -195,14 +194,14 @@ in
       terminal = false;
       type = "Application";
       categories = [ "Office" "Calendar" ];
-      mimeType = [ 
+      mimeType = [
         "x-scheme-handler/webcal"
         "x-scheme-handler/webcals"
-        "text/calendar"            # .ics
-        "application/ics"          # sometimes used
-        "application/x-ics"        # sometimes used
-        "text/x-vcalendar"         # legacy
-       ];
+        "text/calendar" # .ics
+        "application/ics" # sometimes used
+        "application/x-ics" # sometimes used
+        "text/x-vcalendar" # legacy
+      ];
       settings = {
         StartupWMClass = "crx_ojibjkjikcpjonjjngfkegflhmffeemk";
       };
@@ -252,7 +251,7 @@ in
     #     StartupWMClass = "crx_jdklklfpinionkgpmghaghehojplfjio";
     #   };
     # };
-    
+
     "brave-oijgmambjjhcpfnploolbhpnehlkheid-Default" = {
       name = "Windows App";
       exec = "${braveExe} --profile-directory=Default --app-id=oijgmambjjhcpfnploolbhpnehlkheid";

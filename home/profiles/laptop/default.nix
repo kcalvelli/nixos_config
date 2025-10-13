@@ -1,7 +1,10 @@
-{ lib, config, ... }:
+{ lib
+, config
+, ...
+}:
 {
   # Import common configurations
   imports = [
-    ../common  
+    ../common
   ];
 }

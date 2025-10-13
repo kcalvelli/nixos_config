@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 
 let
-  codeExtDir      = "${config.home.homeDirectory}/.vscode/extensions";
+  codeExtDir = "${config.home.homeDirectory}/.vscode/extensions";
   themeProjectDir = "${config.home.homeDirectory}/.config/material-code-theme";
 
   gtk4Css = "${config.home.homeDirectory}/.config/gtk-4.0/dank-colors.css";
   gtk3Css = "${config.home.homeDirectory}/.config/gtk-3.0/dank-colors.css";
-  qt6ct   = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
-  qt5ct   = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
+  qt6ct = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
+  qt5ct = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
 
   # Inline setup we run before each build so deps are always present
   setupCmd = ''
@@ -24,35 +28,35 @@ in
 
   home.file."${config.home.homeDirectory}/.config/material-code-theme/run.sh" = {
     text = ''
-      #!/usr/bin/env bash
-      set -euo pipefail
-      cd "$HOME/.config/material-code-theme"
+          #!/usr/bin/env bash
+          set -euo pipefail
+          cd "$HOME/.config/material-code-theme"
   
-      URL="https://github.com/rakibdev/material-code/releases/latest/download/npm.tgz"
+          URL="https://github.com/rakibdev/material-code/releases/latest/download/npm.tgz"
   
-      # Always write a clean package.json to avoid duplicate keys
-      cat > package.json <<JSON
-  {
-    "name": "material-code-theme",
-    "version": "0.0.0",
-    "type": "module",
-    "dependencies": {
-      "material-code": "$URL"
-    }
-  }
-  JSON
+          # Always write a clean package.json to avoid duplicate keys
+          cat > package.json <<JSON
+      {
+        "name": "material-code-theme",
+        "version": "0.0.0",
+        "type": "module",
+        "dependencies": {
+          "material-code": "$URL"
+        }
+      }
+      JSON
   
-      rm -f bun.lockb
+          rm -f bun.lockb
   
-      # Ensure deps
-      bun install
+          # Ensure deps
+          bun install
   
-      # Copy the TS out of the Nix store (so Bun resolves node_modules here)
-      src="$(readlink -f update-theme.ts || echo update-theme.ts)"
-      cp -f "$src" ./update-theme.local.ts
+          # Copy the TS out of the Nix store (so Bun resolves node_modules here)
+          src="$(readlink -f update-theme.ts || echo update-theme.ts)"
+          cp -f "$src" ./update-theme.local.ts
   
-      # Build/overwrite the theme JSON the extension actually uses
-      bun --bun run ./update-theme.local.ts || true
+          # Build/overwrite the theme JSON the extension actually uses
+          bun --bun run ./update-theme.local.ts || true
     '';
     executable = true;
   };

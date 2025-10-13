@@ -1,10 +1,9 @@
-{
-  lib,
-  myPkgs,
-  homeModules,
-  pkgs,
-  config,
-  ...
+{ lib
+, myPkgs
+, homeModules
+, pkgs
+, config
+, ...
 }:
 {
   # Define Cosmic options
@@ -36,7 +35,7 @@
 
       # System apps
       adw-gtk3
-      
+
       # Utilities
       qalculate-gtk
 
@@ -47,13 +46,13 @@
       forecast
       cosmic-ext-tweaks
       cosmic-ext-calculator
-      cosmic-player    
-      examine  
+      cosmic-player
+      examine
     ];
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
       cosmic
-    ];    
+    ];
   };
 }

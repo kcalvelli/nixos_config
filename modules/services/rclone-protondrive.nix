@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 
 let
@@ -81,14 +80,16 @@ in
           base = if components != [ ] then lib.last components else cfg.user;
         in
         "${cfg.remote}:${base}";
-      syncCommands = map (dir: lib.escapeShellArgs [
-        "rclone"
-        "sync"
-        "--config"
-        rcloneConfigFile
-        dir
-        (remotePathFor dir)
-      ]) resolvedDirs;
+      syncCommands = map
+        (dir: lib.escapeShellArgs [
+          "rclone"
+          "sync"
+          "--config"
+          rcloneConfigFile
+          dir
+          (remotePathFor dir)
+        ])
+        resolvedDirs;
     in
     {
       environment.systemPackages = with pkgs; [

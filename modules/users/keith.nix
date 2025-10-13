@@ -1,7 +1,6 @@
-{ 
-  lib, 
-  pkgs, 
-  ... 
+{ lib
+, pkgs
+, ...
 }:
 {
   # Define the user for the system
@@ -35,13 +34,13 @@
         username = "keith";
       };
       #Home Manager’s own nixpkgs (Option B: independent from system)
-       nixpkgs = {
-         config = {
-           allowUnfree = true;
-           allowBroken = false;
-           allowUnsupportedSystem = false;
-         };
-      };      
+      nixpkgs = {
+        config = {
+          allowUnfree = true;
+          allowBroken = false;
+          allowUnsupportedSystem = false;
+        };
+      };
 
       programs.git = {
         enable = true;

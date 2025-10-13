@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  config,
-  inputs,
-  ...
+{ lib
+, pkgs
+, config
+, inputs
+, ...
 }:
 {
   # Define Niri options
@@ -12,11 +11,11 @@
   };
 
   # Configure Niri if enabled
-  config = lib.mkIf config.niri.enable {  
+  config = lib.mkIf config.niri.enable {
     programs = {
       niri = {
-        enable = true;  
+        enable = true;
       };
-    };  
+    };
   };
 }

@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
   cfg = config.hardware;
 in
@@ -18,7 +22,7 @@ in
 
       # --- Kernel parameters & modules ---
       boot = {
-        blacklistedKernelModules = [ "psmouse" ];  # Disable PS/2 fallback touchpad
+        blacklistedKernelModules = [ "psmouse" ]; # Disable PS/2 fallback touchpad
         kernelModules = [ "kvm-amd" ];
         initrd.availableKernelModules = [ "nvme" "xhci_pci" ];
 

@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ pkgs
+, ...
+}:
 {
   services.samba = {
     enable = true;
@@ -15,10 +17,10 @@
         "map to guest" = "Bad User";
 
         # Security posture
-        "smb encrypt" = "required";     # or "desired" if you need broader client support
+        "smb encrypt" = "required"; # or "desired" if you need broader client support
         "server min protocol" = "SMB2_02";
         "client min protocol" = "SMB2_02";
-        "ntlm auth" = "no";             # disable NTLMv1
+        "ntlm auth" = "no"; # disable NTLMv1
 
         # We’re not doing classic browsing / WINS
         "wins support" = "no";
@@ -36,9 +38,9 @@
 
       # --- Example public share ---
       public = {
-        path = "/srv/samba/public";   # <-- REQUIRED
+        path = "/srv/samba/public"; # <-- REQUIRED
         "read only" = "no";
-        "guest ok" = "no";            # set "yes" if you want guest access
+        "guest ok" = "no"; # set "yes" if you want guest access
         browseable = "yes";
         # "valid users" = "@smbshare";  # optional: restrict to a group
       };

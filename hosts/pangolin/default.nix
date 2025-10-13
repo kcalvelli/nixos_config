@@ -1,7 +1,6 @@
-{
-  nixosModules,
-  homeModules,
-  ...
+{ nixosModules
+, homeModules
+, ...
 }:
 {
   # Import necessary modules

@@ -1,14 +1,12 @@
-{
-  self,
-  inputs,
-  ...
+{ self
+, inputs
+, ...
 }:
 {
   perSystem =
-    {
-      system,
-      pkgs,
-      ...
+    { system
+    , pkgs
+    , ...
     }:
     {
       packages = {

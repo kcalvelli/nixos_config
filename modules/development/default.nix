@@ -1,8 +1,11 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
+  imports = [
+    ./ai.nix
+  ];
+
   # Define system packages for development
   environment.systemPackages = with pkgs; [
     # Editor and IDE tools
@@ -21,23 +24,7 @@
     jq # JSON processor
     fzf # Fuzzy finder
 
-    # Version control
-    #github-desktop
-    #git-lfs
-
-    # Build tools and compilers - if needed, load them in devshells
-    #gcc
-    #gnumake
-    #cmake
-    #pkg-config
-
-    # AI tools
-    #claude-code
-    #codex
-
-    # Github CLI
-    gh
-    gh-copilot
+    gh # GitHub CLI
   ];
 
   # Enable and configure development services
