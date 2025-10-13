@@ -24,37 +24,19 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
-          determinate: true 
+          determinate: true
+          
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Build edge configuration
+      - name: Build configurations
         run: |
-          nix build .#nixosConfigurations.edge.config.system.build.toplevel --print-out-paths
+          nix build .#nixosConfigurations.edge.config.system.build.toplevel -L
+          nix build .#nixosConfigurations.pangolin.config.system.build.toplevel -L
 
-      - name: Build pangolin configuration
-        run: |
-          nix build .#nixosConfigurations.pangolin.config.system.build.toplevel --print-out-paths
-
-      - name: Push to FlakeHub
+      - name: Push to FlakeHub (with outputs)
         uses: DeterminateSystems/flakehub-push@main
         with:
           name: kcalvelli/nixos_config
           visibility: public
           rolling: true
           include-output-paths: true
-          
-      - name: Copy closures to FlakeHub cache
-        run: |
-          # Force realise the paths locally first
-          nix build --no-link .#nixosConfigurations.edge.config.system.build.toplevel
-          nix build --no-link .#nixosConfigurations.pangolin.config.system.build.toplevel
-          
-          # Get the actual store paths
-          EDGE_PATH=$(nix eval --raw .#nixosConfigurations.edge.config.system.build.toplevel)
-          PANGOLIN_PATH=$(nix eval --raw .#nixosConfigurations.pangolin.config.system.build.toplevel)
-          
-          echo "Copying edge: $EDGE_PATH"
-          echo "Copying pangolin: $PANGOLIN_PATH"
-          
-          # Copy with dependencies
-          nix copy --to https://cache.flakehub.com "$EDGE_PATH" --verbose
-          nix copy --to https://cache.flakehub.com "$PANGOLIN_PATH" --verbose
