@@ -1,6 +1,4 @@
-{ lib
-, pkgs
-, ...
+{ ...
 }:
 {
   # Define the user for the system

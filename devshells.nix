@@ -1,6 +1,5 @@
 # devshell.nix
-top@{ lib
-, inputs
+{ inputs
 , ...
 }: {
   perSystem = { pkgs

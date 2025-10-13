@@ -1,6 +1,5 @@
 { homeModules
 , nixosModules
-, pkgs
 , ...
 }:
 {

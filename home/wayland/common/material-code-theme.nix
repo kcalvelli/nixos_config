@@ -1,5 +1,4 @@
 { config
-, lib
 , pkgs
 , ...
 }:
@@ -14,14 +13,6 @@ let
   qt5ct = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
 
   # Inline setup we run before each build so deps are always present
-  setupCmd = ''
-    set -e
-    cd ${themeProjectDir}
-    test -f bun.lockb || {
-      bun init -y
-      bun add https://github.com/rakibdev/material-code/releases/latest/download/npm.tgz
-    }
-  '';
 in
 {
   home.packages = with pkgs; [ bun inotify-tools jq ];

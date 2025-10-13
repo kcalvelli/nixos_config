@@ -73,7 +73,6 @@
 , version
 , hash
 , url
-, platform
 ,
 }:
 

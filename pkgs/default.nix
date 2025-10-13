@@ -26,7 +26,7 @@
       };
     };
 
-  flake.overlays.default = final: prev: {
+  flake.overlays.default = _final: prev: {
     # Custom packages
     brave-browser-nightly = prev.callPackage ./brave-browser-nightly { };
     networkmanagerapplet = prev.callPackage ./networkmanagerapplet { };

@@ -1,5 +1,4 @@
-{ pkgs
-, ...
+{ ...
 }:
 {
   # Import common configurations

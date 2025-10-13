@@ -12,7 +12,6 @@ callPackage ./make-brave-nightly.nix (removeAttrs args [ "callPackage" ])
         version = "1.85.22";
         url = "https://github.com/brave/brave-browser/releases/download/v1.85.22/brave-browser-nightly_1.85.22_arm64.deb";
         hash = "sha256-oD4KJzHp1UPYbtCaGuGTSKNk99Cli/ou5McWBBxgmds=";
-        platform = "aarch64-linux";
       }
     else if stdenv.isx86_64 then
       {
@@ -20,7 +19,6 @@ callPackage ./make-brave-nightly.nix (removeAttrs args [ "callPackage" ])
         version = "1.85.22";
         url = "https://github.com/brave/brave-browser/releases/download/v1.85.22/brave-browser-nightly_1.85.22_amd64.deb";
         hash = "sha256-2wSBzHzIj0xUWOeQmenX5E3SMqiUxjg9NWCN4DNyhd4=";
-        platform = "x86_64-linux";
       }
     else
       throw "Unsupported platform."
