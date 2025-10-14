@@ -86,7 +86,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Fun with "AI"
+    # Fun with "AI" 
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
   };
 
