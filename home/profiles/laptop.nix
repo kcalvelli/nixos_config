@@ -3,6 +3,6 @@
 {
   # Import common configurations
   imports = [
-    ../../common
+    ../common
   ];
 }
