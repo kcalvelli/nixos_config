@@ -4,11 +4,11 @@
   # Define home modules for different setups
   flake = {
     homeModules = {
-      plasma = ./plasma;
-      cosmic = ./cosmic;
-      wayland = ./wayland;
+      plasma = ./desktops/plasma.nix;
+      cosmic = ./desktops/cosmic.nix;
+      wayland = ./desktops/wayland;
       workstation = ./profiles/workstation;
-      laptop = ./profiles/laptop;
+      laptop = ./profiles/laptop.nix;
     };
   };
 }
