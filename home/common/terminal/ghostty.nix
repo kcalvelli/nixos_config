@@ -60,4 +60,18 @@ in
     lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
       $DRY_RUN_CMD ${pkgs.systemd}/bin/systemctl --user enable app-com.mitchellh.ghostty.service || true
     '';
+
+  # Create desktop entry for drop-down terminal to use Ghostty's icon
+  xdg.dataFile."applications/com.kc.dropterm.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=Ghostty Drop-down Terminal
+    Comment=Drop-down terminal using Ghostty
+    Icon=com.mitchellh.ghostty
+    Exec=${pkgs.ghostty}/bin/ghostty --class=com.kc.dropterm
+    Terminal=false
+    Categories=System;TerminalEmulator;
+    StartupWMClass=com.kc.dropterm
+    NoDisplay=true
+  '';
 }
