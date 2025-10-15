@@ -36,6 +36,8 @@
     # For overview backdrop
     swaybg
     imagemagick
+
+    libnotify
   ];
 
   services.kdeconnect = {

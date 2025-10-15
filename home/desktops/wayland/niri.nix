@@ -8,11 +8,18 @@
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
+  home.packages = [
+    pkgs.set-wallpaper-blur
+  ];
+
   programs = {
     dankMaterialShell = {
       niri = {
         enableKeybinds = true;
         enableSpawn = true;
+      };
+      plugins = {
+        WallpaperWatcherDaemon.src = "${inputs.dankMaterialShell}/PLUGINS/WallpaperWatcherDaemon";
       };
     };
     niri.settings = {
@@ -34,10 +41,6 @@
             "--quit-after-last-window-closed=false" # keep the process alive
           ];
         }
-
-        # Overview blur and swaybg are now handled by the dms-wallpaper-blur-sync systemd service
-        # See: home/desktops/wayland/common/wallpaper-sync.nix
-
       ];
 
       layout = {

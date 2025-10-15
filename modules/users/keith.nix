@@ -1,4 +1,5 @@
-{ ...
+{ self
+, ...
 }:
 {
   # Define the user for the system
@@ -31,15 +32,17 @@
         homeDirectory = "/home/keith";
         username = "keith";
       };
-      #Home Manager’s own nixpkgs (Option B: independent from system)
+
       nixpkgs = {
         config = {
           allowUnfree = true;
           allowBroken = false;
           allowUnsupportedSystem = false;
         };
+        overlays = [
+          self.overlays.default
+        ];
       };
-
     };
   };
 

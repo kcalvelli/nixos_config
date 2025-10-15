@@ -10,7 +10,7 @@
 
   # Configure home-manager
   home-manager = {
-    useGlobalPkgs = false; # Don't create another instance of nixpkgs
+    useGlobalPkgs = false; # Use separate nixpkgs instance for home-manager
     useUserPackages = true; # Install user packages directly to the user's profile
     extraSpecialArgs = {
       inherit inputs self;
