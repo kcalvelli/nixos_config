@@ -7,7 +7,6 @@
 {
   imports = [
     ./niri.nix
-    ./greeter.nix
   ];
 
   # Define Wayland options
@@ -17,12 +16,20 @@
 
   # Configure wayland if enabled
   config = lib.mkIf config.wayland.enable {
-    # Enable what we use
-    greeter = {
+    # Enable DankMaterialShell greeter with niri
+    programs.dankMaterialShell.greeter = {
       enable = true;
-      compositor = "niri";
+      compositor.name = "niri";
       configHome = "/home/keith";
     };
+
+    # GNOME Keyring for credentials
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services = {
+      greetd.enableGnomeKeyring = true;
+      login.enableGnomeKeyring = true;
+    };
+
     niri.enable = true;
 
     programs = {
