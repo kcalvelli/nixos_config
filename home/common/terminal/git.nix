@@ -6,9 +6,11 @@
   programs = {
     git = {
       enable = true;
+      userName = "Keith Calvelli";
+      userEmail = "keith@calvelli.dev";
       delta = {
-        enable = lib.mkForce true;
-        options = lib.mkForce {
+        enable = true;
+        options = {
           navigate = true;
           line-numbers = true;
           side-by-side = true;
@@ -24,7 +26,7 @@
         };
       };
       extraConfig = {
-        core.pager = lib.mkForce "${pkgs.delta}/bin/delta";
+        core.pager = "${pkgs.delta}/bin/delta";
         init.defaultBranch = "main";
         pull.ff = "only";
         push.default = "current";
