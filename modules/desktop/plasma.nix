@@ -19,13 +19,11 @@
         enable = true;
         wayland.enable = true;
       };
-      flatpak.enable = true;
     };
 
     programs = {
       # Force KDE's ssh-askpass over Seahorse's
-      ssh.askPassword = lib.mkForce "${pkgs.plasma5Packages.ksshaskpass}/bin/ksshaskpass";
-      kdeconnect.enable = true;
+      ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
       partition-manager.enable = true;
     };
 

@@ -1,12 +1,13 @@
 { pkgs
-, inputs
+, lib
 , ...
 }:
 {
   wayland.windowManager.hyprland = {
     #enable = true;
     systemd.enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    # Use hyprland from nixpkgs instead of flake input
+    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     settings = {
       cursor = {
