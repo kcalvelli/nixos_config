@@ -6,13 +6,13 @@
 let
   codeExtDir = "${config.home.homeDirectory}/.vscode/extensions";
   themeProjectDir = "${config.home.homeDirectory}/.config/material-code-theme";
+  logFile = "${config.home.homeDirectory}/.config/material-code-theme/theme-update.log";
 
   gtk4Css = "${config.home.homeDirectory}/.config/gtk-4.0/dank-colors.css";
   gtk3Css = "${config.home.homeDirectory}/.config/gtk-3.0/dank-colors.css";
   qt6ct = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
   qt5ct = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
 
-  # Inline setup we run before each build so deps are always present
 in
 {
   home.packages = with pkgs; [ bun inotify-tools jq ];
@@ -21,33 +21,89 @@ in
     text = ''
           #!/usr/bin/env bash
           set -euo pipefail
-          cd "$HOME/.config/material-code-theme"
-  
+          
+          LOG_FILE="${logFile}"
+          THEME_DIR="$HOME/.config/material-code-theme"
+          VSCODE_EXT_DIR="${codeExtDir}"
+          
+          # Logging function
+          log() {
+            echo "[$(${pkgs.coreutils}/bin/date '+%Y-%m-%d %H:%M:%S')] $*" | ${pkgs.coreutils}/bin/tee -a "$LOG_FILE"
+          }
+          
+          # Redirect all output to log
+          exec 1> >(${pkgs.coreutils}/bin/tee -a "$LOG_FILE")
+          exec 2>&1
+          
+          log "=== Material Code Theme Update Started ==="
+          
+          cd "$THEME_DIR"
+          
+          # Check if material-code extension is installed
+          if ! ${pkgs.coreutils}/bin/ls -1 "$VSCODE_EXT_DIR" 2>/dev/null | ${pkgs.gnugrep}/bin/grep -q "material-code"; then
+            log "ERROR: material-code extension not found in $VSCODE_EXT_DIR"
+            log "Please install it from VS Code Marketplace first"
+            exit 1
+          fi
+          
           URL="https://github.com/rakibdev/material-code/releases/latest/download/npm.tgz"
-  
-          # Always write a clean package.json to avoid duplicate keys
-          cat > package.json <<JSON
+          CACHE_DIR="$THEME_DIR/.cache"
+          CACHE_FILE="$CACHE_DIR/npm.tgz"
+          
+          ${pkgs.coreutils}/bin/mkdir -p "$CACHE_DIR"
+          
+          # Download and cache the npm package if not already cached
+          if [ ! -f "$CACHE_FILE" ]; then
+            log "Downloading material-code package..."
+            if ${pkgs.curl}/bin/curl -L -f -o "$CACHE_FILE" "$URL"; then
+              log "Package downloaded and cached"
+            else
+              log "ERROR: Failed to download package"
+              exit 1
+            fi
+          else
+            log "Using cached package"
+          fi
+          
+          # Write clean package.json
+          ${pkgs.coreutils}/bin/cat > package.json <<JSON
       {
         "name": "material-code-theme",
         "version": "0.0.0",
         "type": "module",
         "dependencies": {
-          "material-code": "$URL"
+          "material-code": "file:$CACHE_FILE"
         }
       }
       JSON
-  
-          rm -f bun.lockb
-  
-          # Ensure deps
-          bun install
-  
-          # Copy the TS out of the Nix store (so Bun resolves node_modules here)
-          src="$(readlink -f update-theme.ts || echo update-theme.ts)"
-          cp -f "$src" ./update-theme.local.ts
-  
-          # Build/overwrite the theme JSON the extension actually uses
-          bun --bun run ./update-theme.local.ts || true
+          
+          ${pkgs.coreutils}/bin/rm -f bun.lockb
+          
+          # Install dependencies
+          log "Installing dependencies..."
+          if ! ${pkgs.bun}/bin/bun install --silent; then
+            log "ERROR: Failed to install dependencies"
+            exit 1
+          fi
+          
+          # Copy TS file out of Nix store
+          src="$(${pkgs.coreutils}/bin/readlink -f update-theme.ts || echo update-theme.ts)"
+          ${pkgs.coreutils}/bin/cp -f "$src" ./update-theme.local.ts
+          
+          # Build theme
+          log "Generating theme..."
+          if ${pkgs.bun}/bin/bun --bun run ./update-theme.local.ts; then
+            log "Theme generation successful"
+          else
+            log "ERROR: Theme generation failed"
+            ${pkgs.coreutils}/bin/rm -f ./update-theme.local.ts
+            exit 1
+          fi
+          
+          # Cleanup temporary file
+          ${pkgs.coreutils}/bin/rm -f ./update-theme.local.ts
+          
+          log "=== Material Code Theme Update Completed ==="
     '';
     executable = true;
   };
@@ -136,13 +192,34 @@ in
 
     const theme = createTheme({ ...themeOptions, darkMode: !!darkMode, primary: primary ?? '#6c6f93' })
     const vscodeTheme = createVsCodeTheme(theme)
+    
+    // Add metadata for debugging
+    const themeWithMeta = {
+      ...vscodeTheme,
+      $schema: vscodeTheme.$schema,
+      _metadata: {
+        generatedAt: new Date().toISOString(),
+        primary,
+        darkMode,
+        source: 'material-code-theme.nix'
+      }
+    }
 
     await mkdir(dirname(themeJsonPath), { recursive: true })
-    await writeFile(themeJsonPath, JSON.stringify(vscodeTheme, null, 2))
-    console.log('Updated theme JSON:', themeJsonPath, '→', primary, darkMode ? '(dark)' : '(light)')
+    await writeFile(themeJsonPath, JSON.stringify(themeWithMeta, null, 2))
+    
+    // Validate JSON
+    try {
+      JSON.parse(await readFile(themeJsonPath, 'utf8'))
+      console.log('✓ Theme updated:', themeJsonPath)
+      console.log('  Primary:', primary, '| Mode:', darkMode ? 'dark' : 'light')
+    } catch (err) {
+      console.error('✗ Generated invalid JSON:', err)
+      throw err
+    }
   '';
 
-  # --- Path unit: rebuild when DMS/Matugen outputs change ---
+  # --- Path unit: rebuild when DMS/Matugen outputs change (with debouncing) ---
   systemd.user.paths."material-code-theme-watch" = {
     Unit.Description = "Watch DMS/Matugen color files and rebuild VS Code theme";
     Path = {
@@ -153,16 +230,21 @@ in
   };
 
   systemd.user.services."material-code-theme-watch" = {
-    Unit.Description = "Rebuild VS Code theme from DMS/Matugen colors";
+    Unit = {
+      Description = "Rebuild VS Code theme from DMS/Matugen colors";
+      # Debounce rapid changes
+      StartLimitIntervalSec = 30;
+      StartLimitBurst = 1;
+    };
     Service = {
       Type = "oneshot";
       WorkingDirectory = themeProjectDir;
       Environment = "HOME=%h";
       ExecStart = "${pkgs.bash}/bin/bash %h/.config/material-code-theme/run.sh";
+      # Don't restart on failure within the interval (acts as debounce)
+      RestartSec = 5;
     };
   };
-
-
 
   # --- Timer: run once after login so a theme exists before first change ---
   systemd.user.timers."material-code-theme-on-login" = {
