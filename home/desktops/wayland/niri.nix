@@ -8,10 +8,6 @@
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
-  home.packages = [
-    pkgs.set-wallpaper-blur
-  ];
-
   programs = {
     dankMaterialShell = {
       niri = {
@@ -32,6 +28,15 @@
         { command = [ "wl-paste" "--watch" "cliphist" "store" ]; }
         { command = [ "wl-paste" "--type text" "--watch" "cliphist" "store" ]; }
         { command = [ "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1" ]; }
+        { command = [ "swaybg" "--mode" "stretch" "--image" "/home/keith/.cache/niri/overview-blur.jpg" ]; } # Hacky.  This relies on a separate script which is found at https://github.com/kcalvelli/scripts and is called by the WallpaperWatcherDaemon plugin
+        { command = [ "dunst" ]; }
+        { command = [ "nm-applet" ]; }
+        { command = [ "blueman-applet" ]; }
+        { command = [ "pasystray" ]; }
+        { command = [ "gnome-keyring-daemon" "--start" "--components=pkcs11,secrets,ssh,gpg" ]; }
+        { command = [ "xfce4-power-manager" ]; }
+        { command = [ "brave" "--profile-directory=Default" "--app-id=hpfldicfbfomlpcikngkocigghgafkph" ]; } # Google Messages PWA
+        { command = [ "nautilus" ]; }
         #{command = ["qs" "-c" "DankMaterialShell"];}
         {
           command = [
