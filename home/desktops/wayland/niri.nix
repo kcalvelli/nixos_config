@@ -35,60 +35,9 @@
           ];
         }
 
-        # For overview backdrop
-        {
-          command = [
-            "bash"
-            "-c"
-            ''
-              set -e
-              wp="$HOME/Pictures/Wallpapers/New/current.jpg"
-              cache="$HOME/.cache/niri"
-              blurred="$cache/overview-blur.jpg"
-              hashf="$cache/overview-blur.sha256"
-        
-              mkdir -p "$cache"
-        
-              if [ -r "$wp" ]; then
-                cur="$(sha256sum "$(readlink -f "$wp")" | cut -d" " -f1)"
-                old="$( [ -f "$hashf" ] && cat "$hashf" || echo )"
-                if [ ! -s "$blurred" ] || [ "$cur" != "$old" ]; then
-                  convert "$wp" -filter Gaussian -blur 0x18 "$blurred"
-                  printf '%s\n' "$cur" > "$hashf"
-                fi
-              else
-                # full-size fallback so swaybg never fails if the symlink isn’t ready yet
-                convert -size 1920x1080 xc:black "$blurred"
-                echo placeholder > "$hashf"
-              fi
-            ''
-          ];
-        }
+        # Overview blur and swaybg are now handled by the dms-wallpaper-blur-sync systemd service
+        # See: home/desktops/wayland/common/wallpaper-sync.nix
 
-        # 2) Start swaybg *after* outputs + file are ready
-        {
-          command = [
-            "bash"
-            "-c"
-            ''
-              set -e
-              blurred="$HOME/.cache/niri/overview-blur.jpg"
-        
-              # Wait for niri to have at least one output and for the blurred file to be non-empty
-              for i in $(seq 1 100); do
-                if niri msg outputs >/dev/null 2>&1 && [ -s "$blurred" ]; then
-                  break
-                fi
-                sleep 0.05
-              done
-        
-              # Tiny grace period so Overview/backdrop is definitely initialized
-              sleep 0.25
-        
-              exec swaybg --mode stretch --image "$blurred"
-            ''
-          ];
-        }
       ];
 
       layout = {
