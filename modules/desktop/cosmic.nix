@@ -19,7 +19,6 @@
         xwayland.enable = true;
       };
       displayManager.cosmic-greeter.enable = true;
-      flatpak.enable = true;
     };
 
     environment.sessionVariables = {

@@ -9,9 +9,9 @@ in
   options.greeter = {
     enable = lib.mkEnableOption "DankMaterialShell Greeter (greetd)";
 
-    # DMS greeter supports niri/hyprland/sway; keep in sync with your usage
+    # DMS greeter supports niri/sway
     compositor = lib.mkOption {
-      type = lib.types.enum [ "niri" "hyprland" "sway" ];
+      type = lib.types.enum [ "niri" "sway" ];
       default = "niri";
       description = "Compositor launched by the greeter.";
     };

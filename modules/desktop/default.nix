@@ -27,7 +27,6 @@
   services = {
     udisks2.enable = true;
     system76-scheduler.enable = true;
-    gvfs.enable = true;
     flatpak.enable = true;
     fwupd.enable = true;
     upower.enable = true;

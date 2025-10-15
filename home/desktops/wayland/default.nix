@@ -7,7 +7,6 @@
     ./common/apps.nix
     ./common/theming.nix
     ./common/material-code-theme.nix
-    ./hyprland.nix
     ./niri.nix
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ];

@@ -32,7 +32,6 @@
       ];
       extra-trusted-substituters = [
         "https://cache.flakehub.com"
-        "https://hyprland.cachix.org"
       ];
 
       extra-trusted-public-keys = [

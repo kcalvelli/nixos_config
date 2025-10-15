@@ -29,7 +29,6 @@
   environment.systemPackages = with pkgs; [
     radeontop
     corectrl
-    lact
     amdgpu_top
     clinfo
     wayland-utils

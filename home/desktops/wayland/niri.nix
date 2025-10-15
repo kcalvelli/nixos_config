@@ -24,6 +24,7 @@
       spawn-at-startup = [
         { command = [ "wl-paste" "--watch" "cliphist" "store" ]; }
         { command = [ "wl-paste" "--type text" "--watch" "cliphist" "store" ]; }
+        { command = [ "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1" ]; }
         #{command = ["qs" "-c" "DankMaterialShell"];}
         {
           command = [

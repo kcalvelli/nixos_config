@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    #./hyprland.nix
     ./niri.nix
     ./greeter.nix
   ];
@@ -21,10 +20,9 @@
     # Enable what we use
     greeter = {
       enable = true;
-      compositor = "niri"; # or "hyprland"
+      compositor = "niri";
       configHome = "/home/keith";
     };
-    #hyprland.enable = true;
     niri.enable = true;
 
     programs = {
@@ -41,6 +39,8 @@
       gnome = {
         sushi.enable = true;
       };
+      accounts-daemon.enable = true;
+      gvfs.enable = true;
     };
 
     # Add system packages for utilities, graphics, and theming
@@ -58,11 +58,6 @@
       nautilus
       code-nautilus
     ];
-
-    environment.sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt6ct";
-      #GDK_SCALE = "1";
-    };
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
