@@ -11,7 +11,7 @@ in
 
     # DMS greeter supports niri/sway
     compositor = lib.mkOption {
-      type = lib.types.enum [ "niri" "sway" ];
+      type = lib.types.enum [ "niri" ];
       default = "niri";
       description = "Compositor launched by the greeter.";
     };
