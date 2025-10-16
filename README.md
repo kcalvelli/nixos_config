@@ -22,6 +22,20 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 - **Modern desktop environments** with Niri compositor and custom shell configurations
 - **Self-documenting modules** with README files explaining purpose and organization
 
+## Screenshots
+
+### Niri Overview
+![Niri Overview](docs/screenshots/overview.png)
+*Niri scrollable tiling compositor with workspace overview*
+
+### Dropdown Terminal
+![Dropdown Terminal](docs/screenshots/dropdown.png)
+*Ghostty terminal with dropdown mode and custom theming*
+
+### File Manager
+![Nautilus File Manager](docs/screenshots/nautilus.png)
+*Nautilus file manager with custom theme integration*
+
 ## Structure
 
 ```
