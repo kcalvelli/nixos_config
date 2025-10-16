@@ -8,8 +8,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # FlakeHub/Determinate
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
-    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
 
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
