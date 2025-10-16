@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <em>A personal NixOS configuration built with flakes, featuring modular system configurations, Home Manager integration, and curated development environments.</em>
+  <em>A personal <a href="https://nixos.org">NixOS</a> configuration built with flakes, featuring modular system configurations, <a href="https://github.com/nix-community/home-manager">Home Manager</a> integration, and curated development environments.</em>
 </p>
 
 ## ⚠️ Usage Warning
@@ -16,23 +16,23 @@
 
 ## What is AxiOS?
 
-AxiOS is a declarative system configuration leveraging NixOS flakes to manage multiple machines with shared modules and per-host customization. It integrates modern tools and desktop environments including the Niri scrollable tiling compositor, Ghostty terminal, and extensive development tooling for various programming languages.
+AxiOS is a declarative system configuration leveraging [NixOS](https://nixos.org) flakes to manage multiple machines with shared modules and per-host customization. It integrates modern tools and desktop environments including the [Niri](https://github.com/YaLTeR/niri) scrollable tiling compositor, Ghostty terminal, and extensive development tooling for various programming languages.
 
 The configuration emphasizes reproducibility through Nix flakes while maintaining flexibility for experimentation. It includes:
 
 - **Modular architecture** with reusable components organized by function (desktop, development, gaming, networking, services, etc.)
 - **Organized package management** with categorized package lists and comprehensive documentation
-- **Home Manager integration** for declarative user environment management
+- **[Home Manager](https://github.com/nix-community/home-manager) integration** for declarative user environment management
 - **Development shells** with pre-configured toolchains for multiple languages and frameworks
 - **Secure boot support** via Lanzaboote
-- **Modern desktop environments** with Niri compositor and custom shell configurations
+- **Modern desktop environments** with [Niri](https://github.com/YaLTeR/niri) compositor and custom shell configurations
 - **Self-documenting modules** with README files explaining purpose and organization
 
 ## Screenshots
 
 ### Niri Overview
 ![Niri Overview](docs/screenshots/overview.png)
-*Niri scrollable tiling compositor with workspace overview*
+*[Niri](https://github.com/YaLTeR/niri) scrollable tiling compositor with workspace overview*
 
 ### Dropdown Terminal
 ![Dropdown Terminal](docs/screenshots/dropdown.png)
@@ -95,7 +95,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 ## Key Features
 
 ### Desktop Experience
-- **Niri compositor** with DankMaterialShell integration for a modern tiling workflow
+- **[Niri compositor](https://github.com/YaLTeR/niri)** with [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) integration for a modern tiling workflow
 - **Ghostty** terminal emulator built from source
 - **LazyVim** Neovim distribution with LSP support
 - **Hardware acceleration** with proper AMD graphics driver integration
@@ -231,7 +231,7 @@ Development packages are organized in `modules/development/packages.nix` by cate
 
 ## Acknowledgments
 
-This configuration has been assembled over time drawing inspiration from countless NixOS configurations, blog posts, and community examples. Special thanks to the nix-community projects (Home Manager, devshell), and the broader NixOS ecosystem for making declarative system configuration possible.
+This configuration has been assembled over time drawing inspiration from countless [NixOS](https://nixos.org) configurations, blog posts, and community examples. Special thanks to the nix-community projects ([Home Manager](https://github.com/nix-community/home-manager), devshell), the [Niri](https://github.com/YaLTeR/niri) compositor project, [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell), and the broader NixOS ecosystem for making declarative system configuration possible.
 
 ## License
 
