@@ -54,6 +54,24 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 
 **Note:** Each major module directory contains a `README.md` explaining its purpose and package organization. See [`docs/PACKAGES.md`](docs/PACKAGES.md) for the complete package organization guide.
 
+### Module Documentation
+
+**System Modules** (`modules/`):
+- [`system/`](modules/system/README.md) - Core system utilities and base configuration
+- [`desktop/`](modules/desktop/README.md) - Desktop environments and shared services
+- [`development/`](modules/development/README.md) - Development tools and services
+- [`gaming/`](modules/gaming/README.md) - Gaming infrastructure (Steam, GameMode)
+- [`graphics/`](modules/graphics/README.md) - GPU configuration and tools
+- [`virtualisation/`](modules/virtualisation/README.md) - Containers and VMs
+
+**Home Manager Modules** (`home/`):
+- [`common/`](home/common/README.md) - Shared user applications and configs
+- [`desktops/wayland/`](home/desktops/wayland/README.md) - Wayland-specific user tools
+- [`profiles/`](home/profiles/README.md) - Machine-type profiles (workstation/laptop)
+
+**Central Documentation**:
+- [`docs/PACKAGES.md`](docs/PACKAGES.md) - Complete package organization guide
+
 ## Key Features
 
 ### Desktop Experience
