@@ -16,6 +16,10 @@
         enableSpawn = true;
       };
       plugins = {
+        # WallpaperWatcherDaemon monitors wallpaper changes and generates blurred versions
+        # for the Niri overview background. Requires external script from:
+        # https://github.com/kcalvelli/scripts
+        # See docs/NIRI_WALLPAPER.md for setup details
         WallpaperWatcherDaemon.src = "${inputs.dankMaterialShell}/PLUGINS/WallpaperWatcherDaemon";
       };
     };

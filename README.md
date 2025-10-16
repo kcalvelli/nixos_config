@@ -91,11 +91,13 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 
 **Central Documentation**:
 - [`docs/PACKAGES.md`](docs/PACKAGES.md) - Complete package organization guide
+- [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md) - Niri wallpaper blur setup with DankMaterialShell
 
 ## Key Features
 
 ### Desktop Experience
 - **[Niri compositor](https://github.com/YaLTeR/niri)** with [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) integration for a modern tiling workflow
+- **Wallpaper blur effects** for overview mode using WallpaperWatcherDaemon (see [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md))
 - **Ghostty** terminal emulator built from source
 - **LazyVim** Neovim distribution with LSP support
 - **Hardware acceleration** with proper AMD graphics driver integration
