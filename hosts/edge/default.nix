@@ -37,7 +37,7 @@
     caddy-proxy.enable = true;
     # openwebui.enable = true;
     # ntop.enable = true;
-    hass.enable = true;
+    #hass.enable = true;
   };
 
   # Use workstation configuration for Home Manager

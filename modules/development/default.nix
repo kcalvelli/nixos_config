@@ -25,6 +25,8 @@
     fzf # Fuzzy finder
 
     gh # GitHub CLI
+
+    whisper-cpp # Local AI transcription tool
   ];
 
   # Enable and configure development services
