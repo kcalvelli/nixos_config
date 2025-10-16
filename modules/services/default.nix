@@ -4,7 +4,6 @@
     ./openwebui.nix
     ./caddy.nix
     ./ntopng.nix
-    ./rclone-protondrive.nix
     ./home-assistant.nix
     ./mqtt.nix
   ];

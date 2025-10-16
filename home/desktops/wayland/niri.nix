@@ -29,14 +29,6 @@
         { command = [ "wl-paste" "--type text" "--watch" "cliphist" "store" ]; }
         { command = [ "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1" ]; }
         { command = [ "swaybg" "--mode" "stretch" "--image" "/home/keith/.cache/niri/overview-blur.jpg" ]; } # Hacky.  This relies on a separate script which is found at https://github.com/kcalvelli/scripts and is called by the WallpaperWatcherDaemon plugin
-        { command = [ "dunst" ]; }
-        { command = [ "nm-applet" ]; }
-        { command = [ "blueman-applet" ]; }
-        { command = [ "pasystray" ]; }
-        { command = [ "gnome-keyring-daemon" "--start" "--components=pkcs11,secrets,ssh,gpg" ]; }
-        { command = [ "xfce4-power-manager" ]; }
-        { command = [ "brave" "--profile-directory=Default" "--app-id=hpfldicfbfomlpcikngkocigghgafkph" ]; } # Google Messages PWA
-        { command = [ "nautilus" ]; }
         #{command = ["qs" "-c" "DankMaterialShell"];}
         {
           command = [
@@ -171,14 +163,14 @@
           # Optional: pin a corner instead of center
           # default-floating-position = { x = 0; y = 0; relative-to = "top-right"; };
         }
-        # Drop-down Ghostty: float, full width, short height, stick to the top center
+        # Drop-down Ghostty: float, matches panel width, short height, stick to the top center
         {
           matches = [{ app-id = "^com\\.kc\\.dropterm$"; }];
 
           open-floating = true;
 
-          # Size/position: full width, 420px tall, tucked under your 4px bar
-          default-column-width = { proportion = 1.0; };
+          # Size/position: panel width (full width minus side margins), 420px tall, tucked under bar
+          default-column-width = { proportion = 0.97; };
           default-window-height = { fixed = 420; };
           default-floating-position = { x = 0; y = 4; relative-to = "top"; };
 
@@ -202,6 +194,7 @@
         "Mod+B".action.spawn = [ "brave" ];
         "Mod+E".action.spawn = [ "nautilus" ];
         "Mod+Return".action.spawn = "ghostty";
+        "Mod+G".action.spawn = [ "brave" "--profile-directory=Default" "--app-id=hpfldicfbfomlpcikngkocigghgafkph" ];        
 
         # --- Workspace: jump directly (1..8) ---
         "Mod+1".action."focus-workspace" = [ 1 ];
@@ -343,19 +336,30 @@
         "Mod+Shift+S".action.screenshot = { };
 
         # Quake style drop down terminal using ghostty
+        # Toggle by closing window if focused, or spawning/focusing if not
         "Mod+grave".action.spawn = [
           "${pkgs.bash}/bin/bash"
           "-c"
           ''
-            {
-              # Find ONLY ghostty PIDs, then filter to our class
-              pids="$(${pkgs.procps}/bin/pgrep -a ghostty | ${pkgs.gnugrep}/bin/grep -F -- --class=com.kc.dropterm | ${pkgs.coreutils}/bin/cut -d" " -f1)"
-              if [ -n "$pids" ]; then
-                ${pkgs.procps}/bin/kill $pids
+            # Get dropterm window ID if it exists
+            dropterm_id=$(niri msg windows | ${pkgs.gnugrep}/bin/grep -B2 'App ID: "com.kc.dropterm"' | ${pkgs.gnugrep}/bin/grep 'Window ID' | ${pkgs.gawk}/bin/awk '{print $3}' | ${pkgs.gnused}/bin/sed 's/://')
+            
+            if [ -n "$dropterm_id" ]; then
+              # Check if it's focused
+              if niri msg windows | ${pkgs.gnugrep}/bin/grep -A1 "Window ID $dropterm_id:" | ${pkgs.gnugrep}/bin/grep -q "(focused)"; then
+                # Close if focused
+                niri msg action close-window
               else
-                exec ${pkgs.ghostty}/bin/ghostty --class=com.kc.dropterm --window-decoration=none
+                # Focus if not focused
+                niri msg action focus-window --id "$dropterm_id"
               fi
-            } 
+            else
+              # Spawn new window using resident daemon (instant)
+              ${pkgs.ghostty}/bin/ghostty \
+                --gtk-single-instance=true \
+                --class=com.kc.dropterm \
+                --window-decoration=none &
+            fi
           ''
         ];
       };
