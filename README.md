@@ -237,6 +237,66 @@ Each shell includes an info command (e.g., `rust-info`, `qml-info`) to display a
 
 Development packages are organized in `modules/development/packages.nix` by category (editors, nix tools, shell utilities, version control, AI tools).
 
+## User Management
+
+This configuration uses an **auto-discovery system** for user management. Simply drop a new user file in `modules/users/` and it will be automatically imported.
+
+### Adding a New User
+
+1. **Create a user file**: `modules/users/[username].nix`
+2. **Use the template** from [`modules/users/README.md`](modules/users/README.md)
+3. **Customize** the username, full name, email, and groups
+4. **Rebuild**: `sudo nixos-rebuild switch --flake .`
+
+Example user file:
+```nix
+{ self, config, ... }:
+let
+  username = "alice";
+  fullName = "Alice Smith";
+  email = "alice@example.com";
+  homeDir = "/home/${username}";
+in
+{
+  users.users.${username} = {
+    isNormalUser = true;
+    description = fullName;
+    extraGroups = [ "networkmanager" "wheel" ];
+  };
+
+  home-manager.users.${username} = {
+    home = {
+      stateVersion = "24.05";
+      homeDirectory = homeDir;
+      username = username;
+    };
+    programs.git = {
+      userName = fullName;
+      userEmail = email;
+    };
+  };
+}
+```
+
+**No manual imports needed!** The system automatically discovers all `.nix` files in `modules/users/` (except `default.nix`).
+
+### What Goes in User Files
+
+**Include in user files:**
+- Username, full name, email
+- System groups and permissions
+- User-specific paths (home directory, backgrounds, shares)
+- User-specific git config
+- Trusted user settings
+
+**Keep in shared home-manager config:**
+- Application configurations
+- Desktop environment settings
+- Package lists
+- Shell configurations
+
+See [`modules/users/keith.nix`](modules/users/keith.nix) for a complete example and [`modules/users/README.md`](modules/users/README.md) for detailed documentation.
+
 ## Acknowledgments
 
 This configuration has been assembled over time drawing inspiration from countless [NixOS](https://nixos.org) configurations, blog posts, and community examples. Special thanks to the nix-community projects ([Home Manager](https://github.com/nix-community/home-manager), devshell), the [Niri](https://github.com/YaLTeR/niri) compositor project, [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell), and the broader NixOS ecosystem for making declarative system configuration possible.

@@ -1,6 +1,7 @@
 { inputs
 , pkgs
 , lib
+, config
 , ...
 }:
 {
@@ -28,7 +29,7 @@
         { command = [ "wl-paste" "--watch" "cliphist" "store" ]; }
         { command = [ "wl-paste" "--type text" "--watch" "cliphist" "store" ]; }
         { command = [ "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1" ]; }
-        { command = [ "swaybg" "--mode" "stretch" "--image" "/home/keith/.cache/niri/overview-blur.jpg" ]; } # Hacky.  This relies on a separate script which is found at https://github.com/kcalvelli/scripts and is called by the WallpaperWatcherDaemon plugin
+        # User-specific background is set in modules/users/[username].nix
         #{command = ["qs" "-c" "DankMaterialShell"];}
         {
           command = [

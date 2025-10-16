@@ -1,13 +1,13 @@
 { pkgs
 , lib
+, config
 , ...
 }:
 {
   programs = {
     git = {
       enable = true;
-      userName = "Keith Calvelli";
-      userEmail = "keith@calvelli.dev";
+      # userName and userEmail are set per-user in modules/users/[username].nix
       delta = {
         enable = true;
         options = {
