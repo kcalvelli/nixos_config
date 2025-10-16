@@ -39,10 +39,10 @@ in
         ];
       };
 
-      # Desktop performance power policy
+      # Desktop power policy - schedutil balances performance and efficiency
       powerManagement = {
         enable = true;
-        cpuFreqGovernor = "performance"; # Performance governor for desktop development
+        cpuFreqGovernor = "schedutil"; # Scales CPU frequency based on actual load
       };
 
       # Desktop services

@@ -41,5 +41,6 @@
     swappy
 
     libreoffice-fresh
+
   ];
 }
