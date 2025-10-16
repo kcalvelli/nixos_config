@@ -1,41 +1,31 @@
 { pkgs
 , ...
 }:
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   imports = [
     ./ai.nix
   ];
 
-  # Define system packages for development
-  environment.systemPackages = with pkgs; [
-    # Editor and IDE tools
-    vim
-    vscode
+  # === Development Packages ===
+  # Organized by category in packages.nix for easier management
+  environment.systemPackages =
+    packages.editors
+    ++ packages.nix
+    ++ packages.shell
+    ++ packages.vcs
+    ++ packages.ai;
 
-    # Nix development tools
-    devenv
-    nil # Nix LSP
-
-    # Shell and terminal tools
-    starship
-    fish
-    bat # Better cat
-    eza # Better ls
-    jq # JSON processor
-    fzf # Fuzzy finder
-
-    gh # GitHub CLI
-
-    whisper-cpp # Local AI transcription tool
-  ];
-
-  # Enable and configure development services
+  # === Development Services ===
   services = {
     lorri.enable = true;
     vscode-server.enable = true;
   };
 
-  # Configure development programs
+  # === Development Programs ===
   programs = {
     direnv.enable = true;
 

@@ -14,7 +14,7 @@
   cosmic.enable = false;
   wayland.enable = true;
 
-  # Wayland environment always
+  # === Wayland Environment Variables ===
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -23,6 +23,7 @@
     };
   };
 
+  # === Desktop Services ===
   # Services needed by all WMs/DEs
   services = {
     udisks2.enable = true;
@@ -37,6 +38,7 @@
     );
   };
 
+  # === Desktop Programs ===
   programs = {
     corectrl.enable = true;
     kdeconnect.enable = true;
@@ -47,6 +49,7 @@
     };
   };
 
+  # === XDG Portal Configuration ===
   xdg = {
     mime.enable = true;
     icons.enable = true;
@@ -60,13 +63,14 @@
     };
   };
 
-  # Desktop apps common to all WMs/DEs
+  # === Desktop Applications ===
+  # Apps common to all WMs/DEs (system-level installation required)
   environment.systemPackages = with pkgs; [
-    # VPN apps
+    # === VPN Applications ===
     protonvpn-gui
     protonvpn-cli
 
-    # Streaming/Recording
+    # === Streaming and Recording ===
     (wrapOBS {
       plugins = with obs-studio-plugins; [
         wlrobs

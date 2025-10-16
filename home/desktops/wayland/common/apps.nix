@@ -1,45 +1,23 @@
 { pkgs
 , ...
 }:
+let
+  # Import categorized package lists
+  packages = import ../packages.nix { inherit pkgs; };
+in
 {
-  home.packages = with pkgs; [
-    # Launchers and clipboard
-    fuzzel
-    wl-clipboard
-    wtype
+  # === Wayland Desktop Applications ===
+  # Organized by category in packages.nix for easier management
+  home.packages =
+    packages.launchers
+    ++ packages.audio
+    ++ packages.screenshot
+    ++ packages.themes
+    ++ packages.fonts
+    ++ packages.qt
+    ++ packages.utilities;
 
-    # Audio and media
-    playerctl
-    pavucontrol
-    cava
-
-    # Screenshot and color picker
-    grimblast
-    grim
-    slurp
-    hyprpicker
-
-    # Theming and fonts
-    matugen
-    colloid-gtk-theme
-    colloid-icon-theme
-    adwaita-icon-theme
-    papirus-icon-theme
-    inter
-    material-symbols
-    kdePackages.qt6ct
-
-
-    # Utilities
-    qalculate-gtk
-
-    # For overview backdrop
-    swaybg
-    imagemagick
-
-    libnotify
-  ];
-
+  # === Wayland Services ===
   services.kdeconnect = {
     enable = true;
     indicator = true;

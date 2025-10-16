@@ -1,46 +1,21 @@
 { pkgs
 , ...
 }:
-
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
-  home.packages = with pkgs; [
-    # Browsers
-    #brave is installed in commmon/browser
-
-    # Note-taking Apps
-    obsidian
-
-    # Social Apps
-    discord
-
-    # Markdown Editors
-    typora # File Send/Sync Tools
-
-    # Video Editing
-    pitivi
-
-    # Graphics and video Apps
-    pinta
-    shotwell
-    loupe
-    inkscape
-    celluloid
-
-    # Disk Utilities
-    baobab
-
-    # Music
-    amberol
-
-    # Fonts
-    nerd-fonts.fira-code
-
-    # Nextcloud desktop Client
-    nextcloud-client
-
-    swappy
-
-    libreoffice-fresh
-
-  ];
+  # === User Applications ===
+  # Organized by category in packages.nix for easier management
+  # Note: Browsers are installed in common/browser/
+  home.packages =
+    packages.notes
+    ++ packages.communication
+    ++ packages.documents
+    ++ packages.media
+    ++ packages.viewers
+    ++ packages.utilities
+    ++ packages.sync
+    ++ packages.fonts;
 }

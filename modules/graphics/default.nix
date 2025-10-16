@@ -1,8 +1,12 @@
 { pkgs
 , ...
 }:
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
-  # --- GPU / Graphics ---
+  # === GPU / Graphics Hardware ===
   hardware = {
     graphics = {
       enable = true;
@@ -20,31 +24,25 @@
     };
   };
 
-  # --- Kernel params (minimal + stable) ---
+  # === Kernel Parameters ===
   boot.kernelParams = [
     "amdgpu.gpu_recovery=1" # good stability safety net
   ];
 
-  # --- Tools you actually use (no debug layers) ---
-  environment.systemPackages = with pkgs; [
-    radeontop
-    corectrl
-    amdgpu_top
-    clinfo
-    wayland-utils
-    # vulkan-tools         # uncomment if you want vkcube/vulkaninfo for debugging
-    # vulkan-validation-layers  # leave commented: can cause issues when globally active
-    # mesa-demos               # optional OpenGL demos
-    # rocmPackages.clr         # only if you need OpenCL/HIP compute
-    # rocmPackages.rocminfo
-  ];
+  # === Graphics Utilities ===
+  # Organized by category in packages.nix
+  # Additional debug tools (vulkan-tools, mesa-demos, rocm) available in packages.nix
+  environment.systemPackages =
+    packages.amd
+    ++ packages.wayland;
 
-  # --- Sensible defaults for GTK4 on Wayland ---
+  # === Environment Variables ===
   environment.variables = {
     HIP_PLATFORM = "amd";
     GSK_RENDERER = "ngl"; # force GTK4 to OpenGL path (stable on wlroots/Hyprland)
   };
 
+  # === Programs ===
   # Gives CoreCtrl polkit integration (fan/clock controls without sudo)
   programs.corectrl.enable = true;
 }

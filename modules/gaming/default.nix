@@ -3,11 +3,14 @@
 , ...
 }:
 {
+  # === Gaming System Packages ===
   environment.systemPackages = with pkgs; [
     gamescope
   ];
 
+  # === Gaming Programs ===
   programs = {
+    # Steam configuration
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -48,6 +51,7 @@
       gamescopeSession.enable = true;
     };
 
+    # GameMode configuration
     gamemode = {
       enable = true;
       settings = {

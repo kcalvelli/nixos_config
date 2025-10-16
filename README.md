@@ -26,10 +26,12 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 .
 ├── flake.nix           # Flake entrypoint and input definitions
 ├── flake.lock          # Locked dependency versions
+├── docs/               # Documentation
+│   └── PACKAGES.md    # Package organization guide
 ├── hosts/              # Per-machine configurations
 │   ├── edge/          # Host-specific settings
 │   └── pangolin/      # Host-specific settings
-├── modules/            # Reusable NixOS modules
+├── modules/            # Reusable NixOS modules (system-level)
 │   ├── desktop/       # Desktop environment and compositor configs
 │   ├── development/   # Development tools and IDEs
 │   ├── gaming/        # Gaming platform integrations
@@ -40,10 +42,15 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 │   ├── system/        # Core system settings
 │   ├── users/         # User account definitions
 │   └── virtualisation/ # VM and container support
-├── home/              # Home Manager user configurations
+├── home/              # Home Manager user configurations (user-level)
+│   ├── common/        # Shared user configs
+│   ├── desktops/      # Desktop-specific user configs
+│   └── profiles/      # Machine-type profiles (workstation, laptop)
 ├── devshells/         # Development environment definitions
 └── pkgs/              # Custom package definitions (auto-discovered)
 ```
+
+**Note:** Each major module directory contains a `README.md` explaining its purpose and package organization. See [`docs/PACKAGES.md`](docs/PACKAGES.md) for the complete package organization guide.
 
 ## Key Features
 
@@ -70,6 +77,20 @@ Custom packages are automatically discovered from the `pkgs/` directory. To add 
 3. The package will be automatically added to flake outputs and available as `pkgs.my-package`
 
 No manual registration needed - the build system scans for all directories containing `default.nix` and adds them automatically.
+
+### Package Organization
+
+This configuration uses a modular approach to package management, deliberately splitting packages between system-level (`modules/`) and user-level (`home/`) installations.
+
+For detailed information on where to add packages, see:
+- **[`docs/PACKAGES.md`](docs/PACKAGES.md)** - Complete package organization guide with decision trees and examples
+- Individual module `README.md` files in `modules/` and `home/` directories
+
+Key principles:
+- System packages (`modules/`): Services, privileged tools, hardware access
+- User packages (`home/`): Desktop apps, dotfile configs, personal tools
+- Each module uses `packages.nix` with categorized lists for easy management
+- All files include section comments for clarity
 
 ## Dependencies
 
