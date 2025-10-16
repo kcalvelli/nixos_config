@@ -1,6 +1,12 @@
 # AxiOS
 
-A personal [NixOS](https://nixos.org) configuration built with flakes, featuring modular system configurations, Home Manager integration, and curated development environments.
+<p align="center">
+  <img src="docs/logo.png" alt="AxiOS Logo" width="400">
+</p>
+
+<p align="center">
+  <em>A personal NixOS configuration built with flakes, featuring modular system configurations, Home Manager integration, and curated development environments.</em>
+</p>
 
 ## ⚠️ Usage Warning
 
