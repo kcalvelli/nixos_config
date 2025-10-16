@@ -15,10 +15,12 @@ AxiOS is a declarative system configuration leveraging NixOS flakes to manage mu
 The configuration emphasizes reproducibility through Nix flakes while maintaining flexibility for experimentation. It includes:
 
 - **Modular architecture** with reusable components organized by function (desktop, development, gaming, networking, services, etc.)
+- **Organized package management** with categorized package lists and comprehensive documentation
 - **Home Manager integration** for declarative user environment management
 - **Development shells** with pre-configured toolchains for multiple languages and frameworks
 - **Secure boot support** via Lanzaboote
 - **Modern desktop environments** with Niri compositor and custom shell configurations
+- **Self-documenting modules** with README files explaining purpose and organization
 
 ## Structure
 
@@ -54,17 +56,50 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 
 ## Key Features
 
+### Desktop Experience
 - **Niri compositor** with DankMaterialShell integration for a modern tiling workflow
 - **Ghostty** terminal emulator built from source
 - **LazyVim** Neovim distribution with LSP support
+- **Hardware acceleration** with proper AMD graphics driver integration
+- Gaming support with Steam, GameMode, and Gamescope
+
+### Package Management
+- **Organized package structure** with categorized `packages.nix` files in each module
+- **Clear documentation** with README files explaining what goes where
+- **System/Home-Manager split** with explicit guidelines for package placement
+- **Section comments** throughout configuration files for easy navigation
+- **Declarative and reproducible** with flake-based package management
+
+### Development
 - **Multi-language dev environments** including Rust (via Fenix), Zig, Python, Node.js, and more
-- **Hardware acceleration** with proper graphics driver integration
+- **Development tools** organized by category with clear module boundaries
+- **DevShells** for project-specific toolchains
+
+### Infrastructure
 - **Secure boot** implementation via Lanzaboote
-- **Declarative package management** with flake-based reproducibility
+- **Containerization** support with Podman
+- **Virtualization** with quickemu/quickgui
+- **Hardware-specific optimizations** for System76 and MSI hardware
 
 ## Getting Started
 
-If you want to explore this configuration, start by reading `flake.nix` to understand the input structure and see how modules are composed. Then browse through `modules/` to see how different system aspects are configured.
+### Exploring the Configuration
+
+If you want to explore this configuration:
+
+1. **Start with documentation**:
+   - Read [`docs/PACKAGES.md`](docs/PACKAGES.md) to understand the package organization philosophy
+   - Browse module `README.md` files to see what each module provides
+   
+2. **Understand the structure**:
+   - Read `flake.nix` to see how inputs and outputs are defined
+   - Browse `modules/` to see system-level configurations
+   - Browse `home/` to see user-level configurations
+   
+3. **Learn from patterns**:
+   - See how `packages.nix` files organize packages by category
+   - Notice the `=== Section Headers ===` used throughout for navigation
+   - Observe the system vs. home-manager split decisions
 
 To adapt portions for your own use, extract only the specific modules or patterns you need, understand what they do, and modify them for your hardware and preferences. Never apply this configuration directly to your system without thorough review and customization.
 
@@ -80,17 +115,65 @@ No manual registration needed - the build system scans for all directories conta
 
 ### Package Organization
 
-This configuration uses a modular approach to package management, deliberately splitting packages between system-level (`modules/`) and user-level (`home/`) installations.
+This configuration uses a **modular, well-documented approach** to package management with deliberate separation between system-level and user-level packages.
 
-For detailed information on where to add packages, see:
-- **[`docs/PACKAGES.md`](docs/PACKAGES.md)** - Complete package organization guide with decision trees and examples
-- Individual module `README.md` files in `modules/` and `home/` directories
+#### Key Organization Features
 
-Key principles:
-- System packages (`modules/`): Services, privileged tools, hardware access
-- User packages (`home/`): Desktop apps, dotfile configs, personal tools
-- Each module uses `packages.nix` with categorized lists for easy management
-- All files include section comments for clarity
+**Categorized Package Lists:**
+Each major module contains a `packages.nix` file with packages organized by logical categories:
+```nix
+# Example: modules/system/packages.nix
+{ pkgs }: {
+  core = with pkgs; [ curl wget killall ];
+  filesystem = with pkgs; [ sshfs fuse ntfs3g ];
+  monitoring = with pkgs; [ htop gtop lm_sensors ];
+  # ... more categories
+}
+```
+
+**Clear Section Headers:**
+All configuration files use section comments for easy navigation:
+```nix
+# === System Packages ===
+# === Development Services ===
+# === Desktop Applications ===
+```
+
+**Module Documentation:**
+Every major module directory includes a `README.md` explaining:
+- What packages belong in that module
+- How packages are organized
+- Where alternatives should go
+- Configuration examples
+
+#### Quick Reference
+
+| Package Type | Location | Example |
+|--------------|----------|---------|
+| Core utilities | `modules/system/packages.nix` | curl, wget, htop |
+| Development tools | `modules/development/packages.nix` | vscode, nil, gh |
+| GPU tools | `modules/graphics/packages.nix` | corectrl, radeontop |
+| Desktop apps | `home/common/packages.nix` | obsidian, discord, libreoffice |
+| Wayland tools | `home/desktops/wayland/packages.nix` | fuzzel, grim, waybar |
+
+#### Decision Guide
+
+**Install at system level** (`modules/`) if the package:
+- Requires privileged access or runs as a service
+- Needs hardware access (GPU, peripherals)
+- Must be available to root or multiple users
+- Requires firewall rules or system networking
+
+**Install with home-manager** (`home/`) if the package:
+- Is a user desktop application
+- Has user-specific configuration/dotfiles
+- Is a personal productivity tool or preference
+
+#### Documentation
+
+For comprehensive guidance on adding packages:
+- **[`docs/PACKAGES.md`](docs/PACKAGES.md)** - Complete guide with decision trees, examples, and patterns
+- Individual module `README.md` files in `modules/` and `home/` directories for module-specific information
 
 ## Dependencies
 
@@ -99,6 +182,14 @@ This flake pulls in numerous external projects including nixpkgs-unstable, Home 
 ## Development
 
 Development shells are available for various tech stacks. Use `nix develop` to enter a configured environment with language-specific tooling pre-installed.
+
+Available shells:
+- **Rust** - Fenix toolchain with rust-analyzer
+- **Zig** - Latest Zig compiler
+- **Spec** - Custom development kit
+- **Default** - General development environment
+
+Development packages are organized in `modules/development/packages.nix` by category (editors, nix tools, shell utilities, version control, AI tools).
 
 ## Acknowledgments
 
