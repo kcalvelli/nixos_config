@@ -1,3 +1,6 @@
+# Development shell for Spec-Driven Development using GitHub Spec Kit
+# Spec Kit is a methodology toolkit for building software from executable specifications
+# rather than a traditional tech stack shell. It works with AI coding agents.
 { pkgs
 , inputs
 , # this is inputs'
@@ -25,8 +28,32 @@ mkShell {
     }
     {
       name = "spec-check";
-      help = "Check Spec Kit prerequisites";
+      help = "Check Spec Kit prerequisites and detected AI agents";
       command = "specify check";
+    }
+    {
+      name = "spec-init";
+      help = "Initialize a new Spec-Driven Development project";
+      command = "specify init \"$@\"";
+    }
+    {
+      name = "spec-info";
+      help = "Show information about this dev shell";
+      command = ''
+        echo "=== Spec-Kit Development Shell ==="
+        echo "Purpose: Spec-Driven Development with GitHub Spec Kit"
+        echo ""
+        echo "Available commands:"
+        echo "  specify      - Run Spec Kit CLI"
+        echo "  spec-check   - Check prerequisites and AI agents"
+        echo "  spec-init    - Initialize new project"
+        echo "  spec-info    - Show this information"
+        echo ""
+        echo "Documentation: https://github.com/github/spec-kit"
+        echo "Python: $(python --version)"
+        echo "uv: $(uv --version)"
+        echo "Node.js: $(node --version)"
+      '';
     }
   ];
 

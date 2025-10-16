@@ -1,7 +1,7 @@
-# AxiOS
+# axiOS
 
 <p align="center">
-  <img src="docs/logo.png" alt="AxiOS Logo" width="400">
+  <img src="docs/logo.png" alt="axiOS Logo" width="400">
 </p>
 
 <p align="center">
@@ -14,9 +14,9 @@
 
 **Do not blindly copy or deploy this configuration.** It may contain hardware-specific settings, undocumented assumptions, and configurations that could break your system. Use it to learn and cherry-pick ideas, not as a drop-in solution.
 
-## What is AxiOS?
+## What is axiOS?
 
-AxiOS is a declarative system configuration leveraging [NixOS](https://nixos.org) flakes to manage multiple machines with shared modules and per-host customization. It integrates modern tools and desktop environments including the [Niri](https://github.com/YaLTeR/niri) scrollable tiling compositor, Ghostty terminal, and extensive development tooling for various programming languages.
+axiOS is a declarative system configuration leveraging [NixOS](https://nixos.org) flakes to manage multiple machines with shared modules and per-host customization. It integrates modern tools and desktop environments including the [Niri](https://github.com/YaLTeR/niri) scrollable tiling compositor, Ghostty terminal, and extensive development tooling for various programming languages.
 
 The configuration emphasizes reproducibility through Nix flakes while maintaining flexibility for experimentation. It includes:
 
@@ -222,10 +222,18 @@ This flake pulls in numerous external projects including nixpkgs-unstable, Home 
 Development shells are available for various tech stacks. Use `nix develop` to enter a configured environment with language-specific tooling pre-installed.
 
 Available shells:
-- **Rust** - Fenix toolchain with rust-analyzer
-- **Zig** - Latest Zig compiler
-- **Spec** - Custom development kit
-- **Default** - General development environment
+- **Spec** (default) - GitHub Spec Kit for Spec-Driven Development methodology
+- **Rust** - Fenix toolchain with rust-analyzer and cargo-watch
+- **Zig** - Latest Zig compiler with ZLS language server
+- **QML** - Qt6/QML development for Quickshell and QML applications
+
+Enter a specific shell with `nix develop .#<name>`, for example:
+```bash
+nix develop .#rust  # Rust development
+nix develop .#qml   # QML/Quickshell development
+```
+
+Each shell includes an info command (e.g., `rust-info`, `qml-info`) to display available commands and toolchain versions.
 
 Development packages are organized in `modules/development/packages.nix` by category (editors, nix tools, shell utilities, version control, AI tools).
 
