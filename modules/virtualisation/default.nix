@@ -31,17 +31,31 @@ in
     })
 
     (lib.mkIf cfg.libvirt.enable {
-      # Keep virtualization simple with quickemu
+      # Enable libvirt for VM management
+      virtualisation.libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = false;
+          swtpm.enable = true;
+        };
+      };
+
+      # Essential virtualization tools
       environment.systemPackages = with pkgs; [
+        virt-manager
+        virt-viewer
+        qemu
         quickemu
         quickgui
       ];
 
       # Allow redirection of USB devices
-      virtualisation = {
-        spiceUSBRedirection.enable = true;
-      };
+      virtualisation.spiceUSBRedirection.enable = true;
       services.spice-vdagentd.enable = true;
+      
+      # Add user to libvirtd group
+      users.groups.libvirtd.members = lib.mkDefault [ "keith" ];
     })
   ];
 }

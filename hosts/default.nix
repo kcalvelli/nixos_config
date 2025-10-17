@@ -59,14 +59,18 @@ let
             # They will be enabled via their respective host configs if needed
             # (e.g., edge.nix can set hardware.msi.enable in extraConfig)
             
-            services = hostCfg.services or {};
-            virt = hostCfg.virt or {};
-            
             home-manager.sharedModules = 
               if profile == "workstation" then [ self.homeModules.workstation ]
               else if profile == "laptop" then [ self.homeModules.laptop ]
               else [];
           }
+          # Only set module-specific configs if the module is enabled
+          (lib.mkIf (hostCfg.modules.services or false) {
+            services = hostCfg.services or {};
+          })
+          (lib.mkIf (hostCfg.modules.virt or false) {
+            virt = hostCfg.virt or {};
+          })
           extraCfg
         ];
       
