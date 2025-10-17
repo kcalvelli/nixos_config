@@ -1,13 +1,9 @@
 { lib, pkgs, config, ... }:
 {
-  # Import Cosmic configuration
   imports = [
-    ./cosmic.nix
     ./wayland
-    #./plasma.nix
   ];
 
-  cosmic.enable = false;
   wayland.enable = true;
 
   # === Wayland Environment Variables ===

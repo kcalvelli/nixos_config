@@ -88,12 +88,10 @@ in {
     │   ├── browser/                 # Browser configs
     │   └── README.md
     ├── desktops/                     # Desktop-specific user configs
-    │   ├── wayland/
-    │   │   ├── packages.nix         # Wayland user tools
-    │   │   ├── common/apps.nix      # Uses packages.nix
-    │   │   └── README.md
-    │   ├── plasma.nix
-    │   └── cosmic.nix
+    │   └── wayland/
+    │       ├── packages.nix         # Wayland user tools
+    │       ├── common/apps.nix      # Uses packages.nix
+    │       └── README.md
     └── profiles/                     # Machine-type profiles
         ├── workstation/              # Desktop profile
         │   ├── gaming.nix           # User gaming tools

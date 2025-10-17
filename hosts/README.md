@@ -172,7 +172,7 @@ Enable/disable major system components (all optional, shown with typical default
 | Module | Description | Typical Use |
 |--------|-------------|-------------|
 | `system` | Base configuration (boot, nix settings) | Always `true` |
-| `desktop` | Desktop environments (Plasma, Cosmic, Niri) | Desktops/Laptops |
+| `desktop` | Desktop environments (Niri) | Desktops/Laptops |
 | `development` | Dev tools, IDEs, language support | Workstations |
 | `services` | Server services (Caddy, MQTT, etc.) | Servers |
 | `graphics` | GPU drivers, acceleration | Desktops/Laptops |

@@ -1,6 +1,6 @@
 # Zig development environment with latest compiler and language server
 # Uses zig-overlay for up-to-date Zig versions
-{ pkgs, inputs, # <- this is inputs', system }:
+{ pkgs, inputs, system }:
 let
   mkShell = inputs.devshell.legacyPackages.${system}.mkShell;
   zigPkgs = import inputs.nixpkgs {

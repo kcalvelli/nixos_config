@@ -4,7 +4,7 @@ System-level desktop environment configuration and shared desktop services.
 
 ## Purpose
 
-Configures desktop environments (Cosmic, Wayland, Plasma), shared desktop services, and system-wide desktop applications that require privileged access.
+Configures Wayland compisitor, shared desktop services, and system-wide desktop applications that require privileged access.
 
 ## Package Organization
 
@@ -38,7 +38,4 @@ System packages in `default.nix`:
 - localsend: File sharing with firewall rules
 
 ## Sub-modules
-
-- `cosmic.nix`: Cosmic desktop environment
-- `plasma.nix`: KDE Plasma desktop
 - `wayland/`: Wayland compositor configurations

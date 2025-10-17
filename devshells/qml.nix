@@ -1,6 +1,6 @@
 # QML/Qt6 development environment for Quickshell development
 # Includes Qt6, QML tools, and all dependencies needed for building Quickshell
-{ pkgs, inputs, # this is inputs', system }:
+{ pkgs, inputs, system }:
 let
   mkShell = inputs.devshell.legacyPackages.${system}.mkShell;
 in
