@@ -10,9 +10,13 @@
 
 ## ⚠️ Usage Warning
 
-**This configuration is intended for inspiration and reference only.** It is not a production-ready framework or a batteries-included NixOS distribution. It is highly opinionated, designed for specific hardware, and tailored to my personal workflow preferences.
+**This is a personal NixOS configuration** built for specific hardware and workflows. While it includes an automated installer for convenience, it is highly opinionated and tailored to my preferences.
 
-**Do not blindly copy or deploy this configuration.** It may contain hardware-specific settings, undocumented assumptions, and configurations that could break your system. Use it to learn and cherry-pick ideas, not as a drop-in solution.
+**For new users:** The automated installer makes it easy to try axiOS, but you should understand what you're installing. Review the configuration, especially hardware-specific settings in `hosts/`, before deploying to production systems.
+
+**For learning:** This configuration is excellent for learning NixOS patterns, modular architecture, and modern tooling. Feel free to explore, cherry-pick ideas, and adapt components for your own configuration.
+
+**Recommendation:** Use the installer to test in a VM first, then customize the generated host configuration to match your hardware and preferences before deploying to bare metal.
 
 ## What is axiOS?
 
@@ -152,7 +156,20 @@ See [`docs/BUILDING_ISO.md`](docs/BUILDING_ISO.md) for customization options.
 
 ## Getting Started
 
-**Do not blindly apply this configuration.** Instead, use it for inspiration and learning. Browse the documentation to understand the patterns, then extract and adapt only what you need for your hardware and workflow.
+### First Time Installation
+
+The automated installer makes it easy to get started. It will:
+- Detect your hardware (CPU, GPU, laptop/desktop)
+- Help you partition disks safely
+- Install a configured NixOS system
+- Generate host configuration for future customization
+
+**Recommended approach:**
+1. Test in a VM first to understand the system
+2. Review the generated configuration
+3. Customize for your needs before production deployment
+
+See the documentation to understand the architecture, then use the installer or adapt components for your setup.
 
 Key documentation to explore:
 - [`docs/INSTALLATION.md`](docs/INSTALLATION.md) - Installation guide with automated installer
