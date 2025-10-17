@@ -32,3 +32,8 @@ test-disk.qcow2
 
 # Generated files
 hardware-configuration.nix.new
+
+# Editor backup files
+*.backup
+*.auto
+*~
