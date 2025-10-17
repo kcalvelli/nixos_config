@@ -63,6 +63,260 @@ Use [Rufus](https://rufus.ie/) or [balenaEtcher](https://www.balena.io/etcher/):
 2. Select your USB drive
 3. Click "Flash" or "Start"
 
+## Installing to a Virtual Machine
+
+axiOS can be installed in a VM for testing or development. This is recommended before installing on bare metal.
+
+### Quick VM Installation
+
+For quick testing with QEMU (Linux/macOS):
+
+```bash
+# Download the ISO
+wget https://github.com/kcalvelli/nixos_config/releases/latest/download/axios-installer-x86_64-linux.iso
+
+# Create a virtual disk (30GB, adjust as needed)
+qemu-img create -f qcow2 axios-vm.qcow2 30G
+
+# Boot the VM
+qemu-system-x86_64 \
+  -cdrom axios-installer-x86_64-linux.iso \
+  -drive file=axios-vm.qcow2,format=qcow2,if=virtio \
+  -m 4096 \
+  -enable-kvm \
+  -cpu host \
+  -smp 4 \
+  -vga virtio \
+  -display gtk,grab-on-hover=on \
+  -net nic,model=virtio \
+  -net user
+```
+
+After installation completes, boot from disk:
+
+```bash
+# Remove -cdrom line to boot from installed system
+qemu-system-x86_64 \
+  -drive file=axios-vm.qcow2,format=qcow2,if=virtio \
+  -m 4096 \
+  -enable-kvm \
+  -cpu host \
+  -smp 4 \
+  -vga virtio \
+  -display gtk,grab-on-hover=on \
+  -net nic,model=virtio \
+  -net user
+```
+
+### VMware Workstation / Fusion
+
+1. **Create new VM**:
+   - Select "Custom (advanced)"
+   - Hardware compatibility: Latest
+   - Install from: Installer disc image (iso)
+   - Browse to `axios-installer-x86_64-linux.iso`
+   - Guest OS: Linux → Other Linux 6.x kernel 64-bit
+
+2. **VM Settings**:
+   - Memory: 4GB minimum, 8GB recommended
+   - Processors: 2-4 cores
+   - Hard Disk: 30GB minimum, 50GB+ recommended
+   - Network Adapter: NAT or Bridged
+   - Display: Enable 3D graphics acceleration
+
+3. **Boot and Install**:
+   - Power on VM
+   - Follow [Automated Installation](#method-1-automated-installation-recommended) steps
+   - No WiFi configuration needed (wired network auto-configured)
+
+4. **Post-Installation**:
+   - Shut down VM after installation
+   - Remove ISO from virtual CD drive
+   - Restart VM
+
+**VMware Guest Additions**: The open-vm-tools package is automatically included in the base system configuration.
+
+### VirtualBox
+
+1. **Create new VM**:
+   - Click "New"
+   - Name: axiOS
+   - Type: Linux
+   - Version: Other Linux (64-bit)
+   - Memory: 4096 MB (4GB) minimum
+   - Create virtual hard disk (VDI, dynamically allocated, 30GB+)
+
+2. **Configure VM Settings**:
+   - System → Processor: 2-4 CPUs
+   - System → Enable EFI (special OSes only)
+   - Display → Video Memory: 128MB
+   - Display → Graphics Controller: VMSVGA or VBoxVGA
+   - Storage → Controller: IDE → Add optical drive → Choose `axios-installer-x86_64-linux.iso`
+   - Network → Adapter 1: NAT or Bridged
+
+3. **Boot and Install**:
+   - Start VM
+   - Follow [Automated Installation](#method-1-automated-installation-recommended) steps
+   - No WiFi configuration needed
+
+4. **Post-Installation**:
+   - Shut down VM
+   - Settings → Storage → Remove ISO from optical drive
+   - Start VM
+
+**VirtualBox Guest Additions**: Install after first boot:
+
+```bash
+# Add to your user configuration
+environment.systemPackages = [ pkgs.virtualbox-guest-additions ];
+
+# Rebuild
+sudo nixos-rebuild switch --flake /etc/nixos#HOSTNAME
+```
+
+### virt-manager / KVM (Linux)
+
+1. **Install virt-manager** (if not already installed):
+   ```bash
+   # On NixOS
+   nix-shell -p virt-manager
+   
+   # Or add to configuration.nix:
+   # virtualisation.libvirtd.enable = true;
+   # programs.virt-manager.enable = true;
+   ```
+
+2. **Create new VM**:
+   - File → New Virtual Machine
+   - Local install media (ISO)
+   - Choose ISO: Browse to `axios-installer-x86_64-linux.iso`
+   - OS type: Generic Linux 2022
+   - Memory: 4096 MB
+   - CPUs: 2-4 cores
+   - Create disk: 30GB+
+   - Customize before install: ✓
+
+3. **Customize Hardware**:
+   - Overview → Firmware: UEFI x86_64 (recommended)
+   - Video: Virtio
+   - Network: virtio
+   - Disk Bus: VirtIO
+
+4. **Install**:
+   - Begin Installation
+   - Follow [Automated Installation](#method-1-automated-installation-recommended) steps
+
+5. **Post-Installation**:
+   - Shut down VM
+   - Remove CDROM or change boot order
+   - Start VM
+
+### UTM (macOS - Apple Silicon)
+
+UTM provides excellent x86_64 emulation on Apple Silicon Macs:
+
+1. **Create new VM**:
+   - Create a New Virtual Machine
+   - Emulate (for x86_64)
+   - Linux
+   - Browse for ISO: `axios-installer-x86_64-linux.iso`
+
+2. **VM Settings**:
+   - Architecture: x86_64
+   - Memory: 4096 MB minimum
+   - CPU cores: 2-4
+   - Storage: 30GB+
+   - Network: Shared Network
+
+3. **Install**:
+   - Start VM
+   - Follow [Automated Installation](#method-1-automated-installation-recommended) steps
+   - Note: Emulation is slower than native, installation may take 30-60 minutes
+
+4. **Post-Installation**:
+   - Shut down VM
+   - Edit VM → CD/DVD → Clear
+   - Start VM
+
+**Performance Note**: x86_64 emulation on Apple Silicon is functional but slower than native. Consider using NixOS on a native x86_64 machine or wait for native ARM64 support.
+
+### Hyper-V (Windows Pro/Enterprise)
+
+1. **Enable Hyper-V**:
+   - Control Panel → Programs → Turn Windows features on/off
+   - Enable Hyper-V
+   - Restart
+
+2. **Create VM**:
+   - Hyper-V Manager → Action → New → Virtual Machine
+   - Name: axiOS
+   - Generation: 2 (UEFI)
+   - Memory: 4096 MB, enable Dynamic Memory
+   - Networking: Default Switch
+   - Virtual Hard Disk: 30GB+
+   - Installation Options: Install from ISO → Browse to `axios-installer-x86_64-linux.iso`
+
+3. **Configure Settings** (before first boot):
+   - Security → Disable Secure Boot
+   - Processor → 2-4 virtual processors
+
+4. **Install**:
+   - Start VM
+   - Connect to VM
+   - Follow [Automated Installation](#method-1-automated-installation-recommended) steps
+
+5. **Post-Installation**:
+   - Shut down VM
+   - Settings → DVD Drive → Remove ISO
+   - Start VM
+
+### VM-Specific Considerations
+
+**Network Configuration**:
+- NAT networking works out of the box (no WiFi setup needed)
+- For bridged networking, VM gets IP from your router
+- Port forwarding may be needed for services
+
+**Disk Performance**:
+- Use virtio drivers when available (best performance)
+- VirtualBox: Use VDI format
+- VMware: Use VMDK format
+- QEMU: Use qcow2 format
+
+**Graphics**:
+- Wayland works in VMs but may have reduced performance
+- For testing, consider disabling desktop and using SSH
+- Disable desktop module in host config for headless VMs
+
+**Resource Allocation**:
+- Minimum: 2 CPU cores, 4GB RAM, 20GB disk
+- Recommended: 4 CPU cores, 8GB RAM, 50GB disk
+- With desktop: +2GB RAM, +10GB disk
+- With gaming: Not recommended in VMs
+
+**Troubleshooting VMs**:
+
+If installation fails with disk errors:
+```bash
+# Ensure using virtio drivers (QEMU/KVM)
+# Avoid IDE/SATA emulation if possible
+```
+
+If VM won't boot after installation:
+```bash
+# Check boot order in VM settings
+# Ensure ISO is removed from virtual CD drive
+# Verify UEFI/BIOS mode matches installation
+```
+
+For slow VM performance:
+```bash
+# Enable hardware acceleration (KVM, Hyper-V, VMware)
+# Increase RAM allocation
+# Use virtio/paravirtualized drivers
+# Reduce CPU core count if host has limited cores
+```
+
 ## Boot from USB
 
 1. Insert USB drive
