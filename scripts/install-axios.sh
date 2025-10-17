@@ -326,7 +326,7 @@ generate_host_config() {
       # Add any host-specific configuration here
     };
     
-    diskConfigPath = ./hosts/$HOSTNAME/disko.nix;
+    diskConfigPath = ./$HOSTNAME/disko.nix;
   };
 }
 EOF
