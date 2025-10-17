@@ -72,26 +72,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 └── pkgs/              # Custom package definitions (auto-discovered)
 ```
 
-**Note:** Each major module directory contains a `README.md` explaining its purpose and package organization. See [`docs/PACKAGES.md`](docs/PACKAGES.md) for the complete package organization guide.
-
-### Module Documentation
-
-**System Modules** (`modules/`):
-- [`system/`](modules/system/README.md) - Core system utilities and base configuration
-- [`desktop/`](modules/desktop/README.md) - Desktop environments and shared services
-- [`development/`](modules/development/README.md) - Development tools and services
-- [`gaming/`](modules/gaming/README.md) - Gaming infrastructure (Steam, GameMode)
-- [`graphics/`](modules/graphics/README.md) - GPU configuration and tools
-- [`virtualisation/`](modules/virtualisation/README.md) - Containers and VMs
-
-**Home Manager Modules** (`home/`):
-- [`common/`](home/common/README.md) - Shared user applications and configs
-- [`desktops/wayland/`](home/desktops/wayland/README.md) - Wayland-specific user tools
-- [`profiles/`](home/profiles/README.md) - Machine-type profiles (workstation/laptop)
-
-**Central Documentation**:
-- [`docs/PACKAGES.md`](docs/PACKAGES.md) - Complete package organization guide
-- [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md) - Niri wallpaper blur setup with DankMaterialShell
+**Note:** Each major module directory contains a `README.md` explaining its purpose and package organization. See [`docs/PACKAGES.md`](docs/PACKAGES.md) for the complete package organization guide and module documentation links.
 
 ## Key Features
 
@@ -123,97 +104,22 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 
 ## Getting Started
 
-### Exploring the Configuration
+**Do not blindly apply this configuration.** Instead, use it for inspiration and learning. Browse the documentation to understand the patterns, then extract and adapt only what you need for your hardware and workflow.
 
-If you want to explore this configuration:
-
-1. **Start with documentation**:
-   - Read [`docs/PACKAGES.md`](docs/PACKAGES.md) to understand the package organization philosophy
-   - Browse module `README.md` files to see what each module provides
-   
-2. **Understand the structure**:
-   - Read `flake.nix` to see how inputs and outputs are defined
-   - Browse `modules/` to see system-level configurations
-   - Browse `home/` to see user-level configurations
-   
-3. **Learn from patterns**:
-   - See how `packages.nix` files organize packages by category
-   - Notice the `=== Section Headers ===` used throughout for navigation
-   - Observe the system vs. home-manager split decisions
-
-To adapt portions for your own use, extract only the specific modules or patterns you need, understand what they do, and modify them for your hardware and preferences. Never apply this configuration directly to your system without thorough review and customization.
+Key documentation to explore:
+- [`docs/PACKAGES.md`](docs/PACKAGES.md) - Package organization philosophy and decision trees
+- Module `README.md` files throughout `modules/` and `home/` - Purpose and contents of each module
+- [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md) - Niri wallpaper blur setup guide
 
 ### Adding Custom Packages
 
-Custom packages are automatically discovered from the `pkgs/` directory. To add a new package:
+Custom packages are automatically discovered from the `pkgs/` directory:
 
 1. Create a new directory in `pkgs/` (e.g., `pkgs/my-package/`)
-2. Add a `default.nix` file in that directory with your package definition
-3. The package will be automatically added to flake outputs and available as `pkgs.my-package`
+2. Add a `default.nix` file with your package definition
+3. The package will be automatically available as `pkgs.my-package`
 
-No manual registration needed - the build system scans for all directories containing `default.nix` and adds them automatically.
-
-### Package Organization
-
-This configuration uses a **modular, well-documented approach** to package management with deliberate separation between system-level and user-level packages.
-
-#### Key Organization Features
-
-**Categorized Package Lists:**
-Each major module contains a `packages.nix` file with packages organized by logical categories:
-```nix
-# Example: modules/system/packages.nix
-{ pkgs }: {
-  core = with pkgs; [ curl wget killall ];
-  filesystem = with pkgs; [ sshfs fuse ntfs3g ];
-  monitoring = with pkgs; [ htop gtop lm_sensors ];
-  # ... more categories
-}
-```
-
-**Clear Section Headers:**
-All configuration files use section comments for easy navigation:
-```nix
-# === System Packages ===
-# === Development Services ===
-# === Desktop Applications ===
-```
-
-**Module Documentation:**
-Every major module directory includes a `README.md` explaining:
-- What packages belong in that module
-- How packages are organized
-- Where alternatives should go
-- Configuration examples
-
-#### Quick Reference
-
-| Package Type | Location | Example |
-|--------------|----------|---------|
-| Core utilities | `modules/system/packages.nix` | curl, wget, htop |
-| Development tools | `modules/development/packages.nix` | vscode, nil, gh |
-| GPU tools | `modules/graphics/packages.nix` | corectrl, radeontop |
-| Desktop apps | `home/common/packages.nix` | obsidian, discord, libreoffice |
-| Wayland tools | `home/desktops/wayland/packages.nix` | fuzzel, grim, waybar |
-
-#### Decision Guide
-
-**Install at system level** (`modules/`) if the package:
-- Requires privileged access or runs as a service
-- Needs hardware access (GPU, peripherals)
-- Must be available to root or multiple users
-- Requires firewall rules or system networking
-
-**Install with home-manager** (`home/`) if the package:
-- Is a user desktop application
-- Has user-specific configuration/dotfiles
-- Is a personal productivity tool or preference
-
-#### Documentation
-
-For comprehensive guidance on adding packages:
-- **[`docs/PACKAGES.md`](docs/PACKAGES.md)** - Complete guide with decision trees, examples, and patterns
-- Individual module `README.md` files in `modules/` and `home/` directories for module-specific information
+For adding packages from nixpkgs, see [`docs/PACKAGES.md`](docs/PACKAGES.md) for guidance on system vs. home-manager placement and module organization.
 
 ## Dependencies
 
@@ -243,61 +149,7 @@ Development packages are organized in `modules/development/packages.nix` by cate
 
 This configuration uses an **auto-discovery system** for user management. Simply drop a new user file in `modules/users/` and it will be automatically imported.
 
-### Adding a New User
-
-1. **Create a user file**: `modules/users/[username].nix`
-2. **Use the template** from [`modules/users/README.md`](modules/users/README.md)
-3. **Customize** the username, full name, email, and groups
-4. **Rebuild**: `sudo nixos-rebuild switch --flake .`
-
-Example user file:
-```nix
-{ self, config, ... }:
-let
-  username = "alice";
-  fullName = "Alice Smith";
-  email = "alice@example.com";
-  homeDir = "/home/${username}";
-in
-{
-  users.users.${username} = {
-    isNormalUser = true;
-    description = fullName;
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-
-  home-manager.users.${username} = {
-    home = {
-      stateVersion = "24.05";
-      homeDirectory = homeDir;
-      username = username;
-    };
-    programs.git = {
-      userName = fullName;
-      userEmail = email;
-    };
-  };
-}
-```
-
-**No manual imports needed!** The system automatically discovers all `.nix` files in `modules/users/` (except `default.nix`).
-
-### What Goes in User Files
-
-**Include in user files:**
-- Username, full name, email
-- System groups and permissions
-- User-specific paths (home directory, backgrounds, shares)
-- User-specific git config
-- Trusted user settings
-
-**Keep in shared home-manager config:**
-- Application configurations
-- Desktop environment settings
-- Package lists
-- Shell configurations
-
-See [`modules/users/keith.nix`](modules/users/keith.nix) for a complete example and [`modules/users/README.md`](modules/users/README.md) for detailed documentation.
+See **[`modules/users/README.md`](modules/users/README.md)** for the complete user template and detailed documentation on what goes in user files versus shared home-manager configuration.
 
 ## Acknowledgments
 
