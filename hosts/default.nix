@@ -50,6 +50,21 @@ let
           hwVendor = hostCfg.hardware.vendor or null;
           profile = hostCfg.homeProfile or "workstation";
           extraCfg = hostCfg.extraConfig or {};
+          
+          # Build dynamic config based on what's defined in hostCfg
+          # Only include virt/services if the respective modules are enabled AND the config exists
+          dynamicConfig = lib.mkMerge [
+            # Always include extraConfig first
+            extraCfg
+            # Add virt config only if module is enabled and config exists
+            (lib.optionalAttrs ((hostCfg.modules.virt or false) && (hostCfg ? virt)) {
+              virt = hostCfg.virt;
+            })
+            # Add services config only if module is enabled and config exists  
+            (lib.optionalAttrs ((hostCfg.modules.services or false) && (hostCfg ? services)) {
+              services = hostCfg.services;
+            })
+          ];
         in
         lib.mkMerge [
           {
@@ -64,14 +79,7 @@ let
               else if profile == "laptop" then [ self.homeModules.laptop ]
               else [];
           }
-          # Only set module-specific configs if the module is enabled
-          (lib.mkIf (hostCfg.modules.services or false) {
-            services = hostCfg.services or {};
-          })
-          (lib.mkIf (hostCfg.modules.virt or false) {
-            virt = hostCfg.virt or {};
-          })
-          extraCfg
+          dynamicConfig
         ];
       
       diskModule = 

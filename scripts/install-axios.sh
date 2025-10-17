@@ -312,7 +312,7 @@ generate_host_config() {
       system = true;
       desktop = $ENABLE_DESKTOP;
       development = $ENABLE_DEV;
-      services = true;
+      services = false;
       graphics = true;
       networking = true;
       users = true;
@@ -367,14 +367,14 @@ partition_disk() {
   warn "This will now format $DISK_PATH - last chance to cancel!"
   sleep 3
   
-  # Run disko with explicit device override
-  nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- \
-    --mode disko \
-    --arg device "\"$DISK_PATH\"" \
+  # Run disko with the latest command format
+  # The device is already set in the config file via sed replacement above
+  nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- \
+    --mode destroy,format,mount \
     "$CONFIG_DIR/hosts/$HOSTNAME/disko.nix" \
     || error "Disk partitioning failed"
   
-  info "Disk partitioned successfully"
+  info "Disk partitioned and mounted to /mnt successfully"
 }
 
 install_system() {
