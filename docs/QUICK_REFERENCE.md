@@ -197,6 +197,15 @@ sudo swapoff -a
 # Then retry disko
 ```
 
+### Disk partitioning fails in VM
+```bash
+# Use virtio drives for better compatibility
+nix run nixpkgs#qemu -- \
+  -cdrom result/iso/*.iso \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
+  -m 4096 -enable-kvm -cpu host -smp 4
+```
+
 ### Out of disk space during install
 ```bash
 # Check space

@@ -358,6 +358,20 @@ sudo swapoff -a
 sudo nix run github:nix-community/disko -- --mode disko hosts/HOSTNAME/disko.nix
 ```
 
+**Disk partitioning fails in VM with floppy drive errors:**
+
+If you see errors about `/dev/fd0`:
+
+```bash
+# Use virtio drives when running QEMU
+nix run nixpkgs#qemu -- \
+  -cdrom result/iso/*.iso \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
+  -m 4096 -enable-kvm -cpu host -smp 4
+```
+
+The installer filters out floppy drives automatically, but virtio provides better compatibility.
+
 **Out of disk space during build:**
 - Installation requires downloading ~2-5GB of packages
 - Ensure target disk has at least 20GB free
