@@ -6,12 +6,6 @@ Welcome to the NixOS configuration documentation!
 
 - **[Adding Hosts](ADDING_HOSTS.md)** - Guide for adding new hosts to the configuration
 
-## System Management
-
-### Filesystem Snapshots
-
-- **[Btrfs Snapshots Guide](BTRFS_SNAPSHOTS_GUIDE.md)** - Optional guide for implementing btrfs with automatic snapshots for easy system rollback
-
 ## Desktop Environments
 
 - **[Niri Wallpaper Setup](NIRI_WALLPAPER.md)** - WallpaperWatcherDaemon configuration
@@ -43,7 +37,6 @@ nixos_config/
 
 ### Configuration Guides
 - [Adding Hosts](ADDING_HOSTS.md)
-- [Btrfs Snapshots](BTRFS_SNAPSHOTS_GUIDE.md) - Optional advanced feature
 
 ### Desktop Setup
 - [Niri Wallpaper](NIRI_WALLPAPER.md)
