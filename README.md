@@ -97,6 +97,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 - **DevShells** for project-specific toolchains
 
 ### Infrastructure
+- **Declarative disk management** with disko templates for automated provisioning
 - **Secure boot** implementation via Lanzaboote
 - **Containerization** support with Podman
 - **Virtualization** with quickemu/quickgui
@@ -108,8 +109,21 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 
 Key documentation to explore:
 - [`docs/PACKAGES.md`](docs/PACKAGES.md) - Package organization philosophy and decision trees
+- [`modules/disko/README.md`](modules/disko/README.md) - Declarative disk configuration and installation
 - Module `README.md` files throughout `modules/` and `home/` - Purpose and contents of each module
 - [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md) - Niri wallpaper blur setup guide
+
+### Installing a New Host
+
+This configuration uses [disko](https://github.com/nix-community/disko) for declarative disk management:
+
+1. Boot NixOS installer ISO
+2. Clone this repository
+3. Create host configuration in `hosts/newhostname/`
+4. Partition disk: `sudo nix run github:nix-community/disko -- --mode disko ./hosts/newhostname/disko.nix`
+5. Install: `sudo nixos-install --flake .#newhostname`
+
+See [`modules/disko/README.md`](modules/disko/README.md) for detailed instructions and available disk layout templates.
 
 ### Adding Custom Packages
 

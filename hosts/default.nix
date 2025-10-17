@@ -22,6 +22,7 @@ in
     edge = nixosSystem {
       system = "x86_64-linux";
       modules = [
+        inputs.disko.nixosModules.disko
         inputs.niri.nixosModules.niri
         inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
@@ -37,6 +38,7 @@ in
     pangolin = nixosSystem {
       system = "x86_64-linux";
       modules = [
+        inputs.disko.nixosModules.disko
         inputs.niri.nixosModules.niri
         inputs.dankMaterialShell.nixosModules.greeter
         inputs.home-manager.nixosModules.home-manager
