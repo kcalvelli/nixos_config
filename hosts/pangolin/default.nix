@@ -5,7 +5,7 @@
 {
   # Import necessary modules
   imports = [
-    ./disko.nix
+    ./disks.nix
   ]
   ++ (with nixosModules; [
     system
