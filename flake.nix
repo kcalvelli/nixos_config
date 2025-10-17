@@ -98,8 +98,11 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
 
-      perSystem = { pkgs, ... }: {
+      perSystem = { pkgs, system, ... }: {
         formatter = pkgs.nixpkgs-fmt;
+        
+        # ISO image package
+        packages.iso = inputs.self.nixosConfigurations.installer.config.system.build.isoImage;
       };
 
       imports = [

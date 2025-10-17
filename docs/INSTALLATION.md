@@ -1,0 +1,439 @@
+# Installing axiOS
+
+This guide walks you through installing axiOS using the automated installer.
+
+## Prerequisites
+
+- axiOS installer ISO or standard NixOS installer
+- Target machine with:
+  - x86_64 CPU (AMD or Intel)
+  - 4GB+ RAM (8GB+ recommended)
+  - 20GB+ disk space (50GB+ recommended)
+  - Internet connection (for downloading packages)
+
+## Download
+
+### Option 1: Use axiOS Custom ISO (Recommended)
+
+Download the latest ISO from [GitHub Releases](https://github.com/kcalvelli/nixos_config/releases):
+
+```bash
+# Download latest release
+wget https://github.com/kcalvelli/nixos_config/releases/latest/download/axios-installer-x86_64-linux.iso
+
+# Verify checksum (optional but recommended)
+sha256sum axios-installer-x86_64-linux.iso
+```
+
+### Option 2: Use Standard NixOS ISO
+
+Download from [nixos.org](https://nixos.org/download):
+- Minimal ISO: ~1GB, text-mode only
+- Graphical ISO: ~3GB, includes GNOME desktop
+
+## Create Bootable USB
+
+### Linux
+
+```bash
+# Find your USB device
+lsblk
+
+# Write ISO to USB (replace /dev/sdX with your device)
+sudo dd if=axios-installer-x86_64-linux.iso of=/dev/sdX bs=4M status=progress conv=fsync
+```
+
+### macOS
+
+```bash
+# Find your USB device
+diskutil list
+
+# Unmount the disk (replace diskN with your device)
+diskutil unmountDisk /dev/diskN
+
+# Write ISO
+sudo dd if=axios-installer-x86_64-linux.iso of=/dev/rdiskN bs=4m
+```
+
+### Windows
+
+Use [Rufus](https://rufus.ie/) or [balenaEtcher](https://www.balena.io/etcher/):
+1. Select the ISO file
+2. Select your USB drive
+3. Click "Flash" or "Start"
+
+## Boot from USB
+
+1. Insert USB drive
+2. Restart computer
+3. Enter boot menu (usually F12, F2, ESC, or DEL during startup)
+4. Select USB drive
+5. Wait for installer to boot
+
+**Note:** You may need to disable Secure Boot in BIOS/UEFI settings.
+
+## Installation Methods
+
+### Method 1: Automated Installation (Recommended)
+
+If using the axiOS custom ISO:
+
+1. **Wait for boot** - The system will auto-login and display a welcome message
+
+2. **Configure WiFi** (if needed):
+   ```bash
+   nmtui
+   ```
+   - Select "Activate a connection"
+   - Choose your network
+   - Enter password
+
+3. **Run installer**:
+   ```bash
+   /root/install
+   # or simply:
+   install
+   ```
+
+4. **Follow prompts**:
+   - Select disk
+   - Choose layout (standard/encrypted/btrfs)
+   - Set hostname
+   - Enable features (desktop/gaming/dev tools/etc.)
+   - Confirm installation
+
+5. **Wait for installation** (10-30 minutes)
+
+6. **Set root password** when prompted
+
+7. **Reboot**:
+   ```bash
+   systemctl reboot
+   ```
+
+### Method 2: Manual Installation
+
+If using standard NixOS ISO or want manual control:
+
+1. **Configure network** (if using WiFi):
+   ```bash
+   sudo systemctl start wpa_supplicant
+   wpa_cli
+   > add_network
+   > set_network 0 ssid "YourNetworkName"
+   > set_network 0 psk "YourPassword"
+   > enable_network 0
+   > quit
+   ```
+
+2. **Clone configuration**:
+   ```bash
+   cd /tmp
+   git clone https://github.com/kcalvelli/nixos_config
+   cd nixos_config
+   ```
+
+3. **Run installer script**:
+   ```bash
+   sudo ./scripts/install-axios.sh
+   ```
+
+4. **Or follow manual steps**:
+   - Partition disk with disko
+   - Generate host configuration
+   - Install NixOS
+   - Configure users
+
+See [Manual Installation](#manual-installation-advanced) below for detailed steps.
+
+## Post-Installation
+
+### First Boot
+
+1. **Log in as root** with the password you set
+
+2. **Add your user account**:
+   ```bash
+   cd /etc/nixos
+   cp modules/users/TEMPLATE.nix modules/users/yourusername.nix
+   vim modules/users/yourusername.nix
+   ```
+
+   Edit to set your username and preferences.
+
+3. **Rebuild system**:
+   ```bash
+   nixos-rebuild switch --flake /etc/nixos#YOURHOSTNAME
+   ```
+
+4. **Reboot and log in as your user**:
+   ```bash
+   reboot
+   ```
+
+### Verify Installation
+
+```bash
+# Check NixOS version
+nixos-version
+
+# Check that your configuration is active
+hostname  # Should show your hostname
+
+# Verify flake configuration
+nix flake show /etc/nixos
+```
+
+### Update System
+
+```bash
+# Update flake inputs
+cd /etc/nixos
+nix flake update
+
+# Rebuild with new packages
+sudo nixos-rebuild switch --flake .#YOURHOSTNAME
+```
+
+## Configuration Options
+
+### Disk Layouts
+
+The installer offers three layouts:
+
+#### 1. Standard (ext4)
+- Simple, fast
+- No encryption
+- Best for: Desktops, servers
+
+**Layout:**
+- 1GB ESP boot partition (FAT32)
+- Swap partition (configurable size)
+- Root partition (ext4, remaining space)
+
+#### 2. Encrypted (LUKS + ext4)
+- Full disk encryption
+- Password required at boot
+- Best for: Laptops, portable systems
+
+**Layout:**
+- 1GB ESP boot partition (FAT32, unencrypted)
+- LUKS encrypted partition containing ext4 root
+- Swapfile inside encrypted partition
+
+#### 3. Btrfs with Subvolumes
+- Snapshots, compression
+- Advanced filesystem features
+- Best for: Power users
+
+**Layout:**
+- 1GB ESP boot partition (FAT32)
+- Swap partition (configurable size)
+- Btrfs root with subvolumes:
+  - `@` (root)
+  - `@home`
+  - `@nix`
+  - `@snapshots`
+
+### Feature Modules
+
+Enable features during installation or later in your host config:
+
+- **Desktop** - Niri compositor, Ghostty terminal, desktop apps
+- **Development** - Editors, compilers, LSPs, dev tools
+- **Gaming** - Steam, GameMode, Gamescope
+- **Virtualization** - libvirt, containers, VMs
+- **Services** - Caddy proxy, OpenWebUI (optional)
+
+### Hardware Support
+
+Automatically configured based on detection:
+
+- **AMD CPU** - AMD microcode and optimizations
+- **Intel CPU** - Intel microcode and optimizations
+- **AMD GPU** - AMDGPU drivers, ROCm
+- **Nvidia GPU** - Proprietary drivers
+- **Intel GPU** - Mesa drivers
+
+Vendor-specific optimizations:
+- **System76** - system76-firmware, hardware optimizations
+- **MSI** - MSI-specific quirks and settings
+
+## Manual Installation (Advanced)
+
+For complete control, follow these steps:
+
+### 1. Partition Disk
+
+```bash
+# List disks
+lsblk
+
+# Choose a disko template
+cd /tmp
+git clone https://github.com/kcalvelli/nixos_config
+cd nixos_config
+
+# Create host directory
+mkdir -p hosts/myhostname
+
+# Copy and edit disko config
+cp modules/disko/templates/standard-ext4.nix hosts/myhostname/disko.nix
+vim hosts/myhostname/disko.nix  # Set device = "/dev/nvme0n1" or similar
+
+# Apply disk configuration
+sudo nix run github:nix-community/disko -- --mode disko hosts/myhostname/disko.nix
+```
+
+### 2. Create Host Configuration
+
+```bash
+# Copy template
+cp hosts/TEMPLATE.nix hosts/myhostname.nix
+
+# Edit configuration
+vim hosts/myhostname.nix
+```
+
+Set:
+- hostname
+- hardware (cpu, gpu, vendor)
+- modules to enable
+- diskConfigPath
+
+### 3. Register Host
+
+```bash
+# Edit hosts/default.nix
+vim hosts/default.nix
+
+# Add line:
+# myhostname = mkSystem (import ./myhostname.nix { inherit lib; }).hostConfig;
+```
+
+### 4. Install NixOS
+
+```bash
+# Copy config to /mnt
+mkdir -p /mnt/etc/nixos
+cp -r ./* /mnt/etc/nixos/
+
+# Install
+sudo nixos-install --flake /mnt/etc/nixos#myhostname
+
+# Set root password when prompted
+
+# Reboot
+reboot
+```
+
+### 5. Post-Install Configuration
+
+See [Post-Installation](#post-installation) above.
+
+## Troubleshooting
+
+### Installation Fails
+
+**Network issues:**
+```bash
+# Test connectivity
+ping 1.1.1.1
+
+# Restart NetworkManager
+sudo systemctl restart NetworkManager
+
+# Configure manually
+nmtui
+```
+
+**Disk partitioning fails:**
+```bash
+# Unmount any existing partitions
+sudo umount -R /mnt
+sudo swapoff -a
+
+# Retry disko
+sudo nix run github:nix-community/disko -- --mode disko hosts/HOSTNAME/disko.nix
+```
+
+**Out of disk space during build:**
+- Installation requires downloading ~2-5GB of packages
+- Ensure target disk has at least 20GB free
+
+### Boot Issues
+
+**System doesn't boot:**
+- Check boot order in BIOS
+- Verify Secure Boot is disabled
+- Check that bootloader was installed correctly
+
+**Encryption password not accepted:**
+- Ensure keyboard layout is correct
+- Try different keyboard if available
+- Caps Lock may be on
+
+**Stuck at "Loading initial ramdisk":**
+- Usually indicates kernel panic
+- Check disk encryption was configured correctly
+- Verify hardware compatibility
+
+### Hardware Not Detected
+
+**WiFi not working:**
+```bash
+# Check if WiFi adapter is detected
+ip link
+
+# Load firmware
+sudo modprobe iwlwifi  # For Intel
+sudo modprobe ath10k   # For Atheros
+
+# Some adapters need non-free firmware
+# Add to configuration:
+# hardware.enableRedistributableFirmware = true;
+```
+
+**Graphics issues:**
+```bash
+# Check GPU detection
+lspci | grep -i vga
+
+# For Nvidia, may need to:
+# - Disable nouveau
+# - Enable proprietary drivers in config
+```
+
+**Sound not working:**
+```bash
+# Check audio devices
+aplay -l
+
+# May need to set default device
+# PulseAudio/PipeWire config in modules/system/sound.nix
+```
+
+### Getting Help
+
+- **GitHub Issues**: [Report bugs](https://github.com/kcalvelli/nixos_config/issues)
+- **NixOS Discourse**: [Ask questions](https://discourse.nixos.org/)
+- **NixOS Wiki**: [Search docs](https://nixos.wiki/)
+- **Configuration Docs**: See README and module READMEs
+
+## Next Steps
+
+After installation:
+
+1. **Customize configuration** - Edit your host config and modules
+2. **Add packages** - See `docs/PACKAGES.md` for organization
+3. **Configure desktop** - Niri compositor settings in `home/desktops/niri/`
+4. **Set up development** - Dev shells in `devshells.nix`
+5. **Explore modules** - Each module has a README explaining its purpose
+
+## See Also
+
+- [Building ISO](BUILDING_ISO.md) - Create custom installer
+- [Adding Hosts](ADDING_HOSTS.md) - Add more machines
+- [Package Organization](PACKAGES.md) - Where to put packages
+- [Main README](../README.md) - Repository overview

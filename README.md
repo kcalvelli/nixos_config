@@ -49,13 +49,24 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 ├── flake.nix           # Flake entrypoint and input definitions
 ├── flake.lock          # Locked dependency versions
 ├── docs/               # Documentation
-│   └── PACKAGES.md    # Package organization guide
+│   ├── INSTALLATION.md         # Installation guide
+│   ├── BUILDING_ISO.md         # ISO build guide
+│   ├── QUICK_REFERENCE.md      # Quick reference
+│   ├── PACKAGES.md             # Package organization guide
+│   ├── ADDING_HOSTS.md         # Host management guide
+│   ├── NIRI_WALLPAPER.md       # Niri wallpaper setup
+│   └── screenshots/            # Desktop screenshots
+├── scripts/            # Automation scripts
+│   └── install-axios.sh        # Automated installer
 ├── hosts/              # Per-machine configurations
-│   ├── edge/          # Host-specific settings
-│   └── pangolin/      # Host-specific settings
+│   ├── edge/                   # Desktop host
+│   ├── pangolin/               # Laptop host
+│   ├── installer/              # Installer ISO config
+│   └── profiles/               # Host type profiles
 ├── modules/            # Reusable NixOS modules (system-level)
 │   ├── desktop/       # Desktop environment and compositor configs
 │   ├── development/   # Development tools and IDEs
+│   ├── disko/         # Declarative disk management templates
 │   ├── gaming/        # Gaming platform integrations
 │   ├── graphics/      # Graphics drivers and tools
 │   ├── hardware/      # Hardware-specific configurations
@@ -67,7 +78,8 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 ├── home/              # Home Manager user configurations (user-level)
 │   ├── common/        # Shared user configs
 │   ├── desktops/      # Desktop-specific user configs
-│   └── profiles/      # Machine-type profiles (workstation, laptop)
+│   ├── profiles/      # Machine-type profiles (workstation, laptop)
+│   └── resources/     # Shared resources (themes, etc.)
 ├── devshells/         # Development environment definitions
 └── pkgs/              # Custom package definitions (auto-discovered)
 ```
@@ -103,27 +115,52 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 - **Virtualization** with quickemu/quickgui
 - **Hardware-specific optimizations** for System76 and MSI hardware
 
+## Quick Installation
+
+### Option 1: Automated Installer (Recommended)
+
+Download the axiOS installer ISO and use the automated installation script:
+
+1. **Download ISO** from [GitHub Releases](https://github.com/kcalvelli/nixos_config/releases/latest)
+2. **Create bootable USB** and boot from it
+3. **Run installer**: `/root/install`
+4. **Follow prompts** to configure your system
+5. **Reboot** and enjoy!
+
+See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for detailed installation instructions.
+
+### Option 2: Manual Installation
+
+For more control, use the standard NixOS installer:
+
+1. Boot NixOS installer ISO
+2. Clone this repository: `git clone https://github.com/kcalvelli/nixos_config`
+3. Run installer script: `sudo ./scripts/install-axios.sh`
+
+Or follow manual steps in [`docs/INSTALLATION.md`](docs/INSTALLATION.md).
+
+### Building Custom ISO
+
+Build your own installer ISO:
+
+```bash
+nix build .#iso
+# Output: result/iso/axios-installer-x86_64-linux.iso
+```
+
+See [`docs/BUILDING_ISO.md`](docs/BUILDING_ISO.md) for customization options.
+
 ## Getting Started
 
 **Do not blindly apply this configuration.** Instead, use it for inspiration and learning. Browse the documentation to understand the patterns, then extract and adapt only what you need for your hardware and workflow.
 
 Key documentation to explore:
+- [`docs/INSTALLATION.md`](docs/INSTALLATION.md) - Installation guide with automated installer
+- [`docs/BUILDING_ISO.md`](docs/BUILDING_ISO.md) - Build custom installer ISO
 - [`docs/PACKAGES.md`](docs/PACKAGES.md) - Package organization philosophy and decision trees
-- [`modules/disko/README.md`](modules/disko/README.md) - Declarative disk configuration and installation
+- [`modules/disko/README.md`](modules/disko/README.md) - Declarative disk configuration
 - Module `README.md` files throughout `modules/` and `home/` - Purpose and contents of each module
 - [`docs/NIRI_WALLPAPER.md`](docs/NIRI_WALLPAPER.md) - Niri wallpaper blur setup guide
-
-### Installing a New Host
-
-This configuration uses [disko](https://github.com/nix-community/disko) for declarative disk management:
-
-1. Boot NixOS installer ISO
-2. Clone this repository
-3. Create host configuration in `hosts/newhostname/`
-4. Partition disk: `sudo nix run github:nix-community/disko -- --mode disko ./hosts/newhostname/disko.nix`
-5. Install: `sudo nixos-install --flake .#newhostname`
-
-See [`modules/disko/README.md`](modules/disko/README.md) for detailed instructions and available disk layout templates.
 
 ### Adding Custom Packages
 

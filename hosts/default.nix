@@ -90,11 +90,28 @@ let
     };
     modules = buildModules hostCfg;
   };
+  
+  # Minimal installer configuration
+  installerModules = [
+    inputs.disko.nixosModules.disko
+    ./installer
+  ];
 in
 {
   flake.nixosConfigurations = {
     edge = mkSystem edgeCfg;
     pangolin = mkSystem pangolinCfg;
+    
+    # Installer ISO
+    installer = inputs.nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs self;
+        inherit (self) nixosModules homeModules;
+      };
+      modules = installerModules;
+    };
+    
     # To add a new host:
     # 1. Create hosts/newhostname.nix with hostConfig
     # 2. Add: newhostname = mkSystem (import ./newhostname.nix { inherit lib; }).hostConfig;
