@@ -27,5 +27,8 @@ result-*
 test-disk.qcow2
 *.qcow2
 
+# ISO images (release artifacts)
+*.iso
+
 # Generated files
 hardware-configuration.nix.new
