@@ -23,11 +23,11 @@
    # Quick boot test
    nix run nixpkgs#qemu -- -cdrom result/iso/*.iso -m 4096 -enable-kvm
    
-   # Full installation test
+   # Full installation test (use virtio for better disk detection)
    qemu-img create -f qcow2 test-disk.qcow2 50G
    nix run nixpkgs#qemu -- \
      -cdrom result/iso/*.iso \
-     -drive file=test-disk.qcow2,format=qcow2 \
+     -drive file=test-disk.qcow2,format=qcow2,if=virtio \
      -m 4096 -enable-kvm -cpu host -smp 4
    ```
 

@@ -109,10 +109,10 @@ nix run nixpkgs#qemu -- \
 # Create a test disk
 qemu-img create -f qcow2 test-disk.qcow2 50G
 
-# Boot from ISO with test disk
+# Boot from ISO with test disk (using virtio for better compatibility)
 nix run nixpkgs#qemu -- \
   -cdrom result/iso/axios-installer-x86_64-linux.iso \
-  -drive file=test-disk.qcow2,format=qcow2 \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
   -m 4096 \
   -enable-kvm \
   -cpu host \
@@ -120,7 +120,7 @@ nix run nixpkgs#qemu -- \
 
 # After installation, boot from disk:
 nix run nixpkgs#qemu -- \
-  -drive file=test-disk.qcow2,format=qcow2 \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
   -m 4096 \
   -enable-kvm \
   -cpu host \

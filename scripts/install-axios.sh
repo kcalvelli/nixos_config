@@ -127,8 +127,13 @@ select_disk() {
   step "Available disks:"
   echo ""
   
-  # Display disks with numbers
-  local disk_list=$(lsblk -dno NAME,SIZE,TYPE,MODEL | grep disk)
+  # Display disks with numbers, filtering out floppy drives, zram, and loop devices
+  local disk_list=$(lsblk -dno NAME,SIZE,TYPE,MODEL | grep disk | grep -v "fd[0-9]" | grep -v "loop" | grep -v "zram")
+  
+  if [[ -z "$disk_list" ]]; then
+    error "No suitable disks found. Ensure you have a disk attached to the VM."
+  fi
+  
   echo "$disk_list" | nl -w2 -s'. '
   
   echo ""
@@ -362,8 +367,10 @@ partition_disk() {
   warn "This will now format $DISK_PATH - last chance to cancel!"
   sleep 3
   
+  # Run disko with explicit device override
   nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- \
     --mode disko \
+    --arg device "\"$DISK_PATH\"" \
     "$CONFIG_DIR/hosts/$HOSTNAME/disko.nix" \
     || error "Disk partitioning failed"
   

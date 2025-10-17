@@ -67,10 +67,10 @@ nix build .#iso
 # Create test disk
 qemu-img create -f qcow2 test-disk.qcow2 50G
 
-# Boot from ISO with test disk
+# Boot from ISO with test disk (using virtio)
 nix run nixpkgs#qemu -- \
   -cdrom result/iso/*.iso \
-  -drive file=test-disk.qcow2,format=qcow2 \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
   -m 4096 \
   -enable-kvm \
   -cpu host \
@@ -78,7 +78,7 @@ nix run nixpkgs#qemu -- \
 
 # After installation, boot from disk
 nix run nixpkgs#qemu -- \
-  -drive file=test-disk.qcow2,format=qcow2 \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
   -m 4096 \
   -enable-kvm \
   -cpu host \

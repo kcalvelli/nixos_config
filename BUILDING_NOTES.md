@@ -120,6 +120,28 @@ df -h /nix
 - Disable Secure Boot
 - Verify USB was written correctly
 
+### Disk partitioning fails in VM
+
+If you see errors about `/dev/fd0` or floppy drives:
+
+**Problem:** QEMU creates a floppy device that confuses disk detection.
+
+**Solution:** The installer now filters out floppy drives automatically. If issues persist:
+
+```bash
+# When running QEMU, explicitly disable floppy drive:
+nix run nixpkgs#qemu -- \
+  -cdrom result/iso/*.iso \
+  -drive file=test-disk.qcow2,format=qcow2,if=virtio \
+  -m 4096 \
+  -enable-kvm \
+  -cpu host \
+  -smp 4 \
+  -no-fd-bootchk
+```
+
+Or ensure your test disk is a virtio disk (not IDE) which is properly detected.
+
 ## Build Artifacts
 
 After build completes, you'll have:
