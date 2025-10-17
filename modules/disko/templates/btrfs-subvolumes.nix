@@ -7,11 +7,7 @@
 # - Swap partition (configurable size)
 # - Optimizations: noatime, space_cache=v2, discard=async
 
-{ device ? "/dev/sda"
-, swapSize ? "8G"
-, compression ? "zstd"
-, ...
-}:
+{ device ? "/dev/sda", swapSize ? "8G", compression ? "zstd", ... }:
 {
   disko.devices = {
     disk = {

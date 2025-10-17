@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 let
   # Import categorized package lists
   packages = import ./packages.nix { inherit pkgs; };

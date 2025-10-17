@@ -1,7 +1,4 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 {
   # === Gaming System Packages ===
   environment.systemPackages = with pkgs; [

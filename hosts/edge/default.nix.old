@@ -1,7 +1,4 @@
-{ homeModules
-, nixosModules
-, ...
-}:
+{ homeModules, nixosModules, ... }:
 {
   # Import necessary modules
   imports = [

@@ -5,10 +5,7 @@
 # - Ext4 root partition (remaining space)
 # - Performance optimizations: noatime, nodiratime, discard
 
-{ device ? "/dev/sda"
-, swapSize ? "8G"
-, ...
-}:
+{ device ? "/dev/sda", swapSize ? "8G", ... }:
 {
   disko.devices = {
     disk = {

@@ -1,6 +1,4 @@
-{ lib
-, ...
-}:
+{ lib, ... }:
 {
   imports = [
     ./avahi.nix # Avahi service configuration

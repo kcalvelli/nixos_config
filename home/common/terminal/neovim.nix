@@ -1,6 +1,4 @@
-{ inputs
-, ...
-}:
+{ inputs, ... }:
 {
   imports = [
     inputs.lazyvim.homeManagerModules.default

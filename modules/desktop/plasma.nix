@@ -1,9 +1,4 @@
-{ lib
-, homeModules
-, pkgs
-, config
-, ...
-}:
+{ lib, homeModules, pkgs, config, ... }:
 {
   # Define Plasma options
   options.plasma = {

@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 
 let
   codeExtDir = "${config.home.homeDirectory}/.vscode/extensions";

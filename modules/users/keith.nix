@@ -1,7 +1,4 @@
-{ self
-, config
-, ...
-}:
+{ self, config, ... }:
 let
   # User-specific configuration
   username = "keith";

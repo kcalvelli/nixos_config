@@ -1,8 +1,4 @@
-{ inputs
-, self
-, lib
-, ...
-}:
+{ inputs, self, lib, ... }:
 let
   # Auto-discover all user files in this directory
   # Any .nix file that isn't default.nix or README.md will be imported

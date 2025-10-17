@@ -1,12 +1,6 @@
 # devshell.nix
-{ inputs
-, ...
-}: {
-  perSystem = { pkgs
-              , system
-              , lib
-              , ...
-              }:
+{ inputs, ... }: {
+  perSystem = { pkgs, system, lib, ... }:
     {
       devShells = {
         spec = import ./devshells/spec.nix { inherit pkgs inputs system; };

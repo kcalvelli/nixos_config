@@ -1,7 +1,4 @@
-{ lib
-, self
-, ...
-}:
+{ lib, self, ... }:
 {
   # Nix configuration
   nix = {

@@ -1,9 +1,4 @@
-{ lib
-, homeModules
-, pkgs
-, config
-, ...
-}:
+{ lib, homeModules, pkgs, config, ... }:
 {
   imports = [
     ./niri.nix

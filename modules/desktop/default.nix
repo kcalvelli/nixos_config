@@ -1,8 +1,4 @@
-{ lib
-, pkgs
-, config
-, ...
-}:
+{ lib, pkgs, config, ... }:
 {
   # Import Cosmic configuration
   imports = [

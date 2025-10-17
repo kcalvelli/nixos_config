@@ -1,11 +1,32 @@
-# Simple version that uses host config files but explicit mapping
 { inputs, self, lib, ... }:
 let
-  # Load host configurations
-  edgeCfg = (import ./edge.nix { inherit lib; }).hostConfig;
-  pangolinCfg = (import ./pangolin.nix { inherit lib; }).hostConfig;
+  # Auto-discover all host configuration files
+  # readDir returns { "filename" = "regular" | "directory" | ... }
+  allFiles = builtins.readDir ./.;
   
-  # Helper to build nixos-hardware modules
+  # Filter for .nix files that are regular files and not default.nix
+  hostFiles = builtins.filter
+    (name: 
+      name != "default.nix" 
+      && lib.hasSuffix ".nix" name
+      && allFiles.${name} == "regular"
+    )
+    (builtins.attrNames allFiles);
+  
+  _ = builtins.trace "=== HOST DISCOVERY ===" null;
+  _ = builtins.trace "Host files: ${builtins.toJSON hostFiles}" null;
+  
+  # Convert filename to hostname (remove .nix extension)
+  filenameToHostname = file: lib.removeSuffix ".nix" file;
+  
+  # Load a host configuration file and extract its hostConfig
+  loadHostConfig = file:
+    let
+      hostModule = import (./. + "/${file}") { inherit lib; };
+    in
+      hostModule.hostConfig;
+  
+  # Build nixos-hardware modules based on hardware config
   hardwareModules = hw:
     let
       hwMods = inputs.nixos-hardware.nixosModules;
@@ -17,9 +38,10 @@ let
       ++ lib.optional (hw.hasSSD or false) hwMods.common-pc-ssd
       ++ lib.optional (hw.isLaptop or false) hwMods.common-pc-laptop;
   
-  # Helper to build module list for a host
-  buildModules = hostCfg:
+  # Build NixOS modules list based on host config
+  buildModulesList = hostCfg:
     let
+      # Base external modules that all hosts need
       baseModules = [
         inputs.disko.nixosModules.disko
         inputs.niri.nixosModules.niri
@@ -30,8 +52,10 @@ let
         inputs.vscode-server.nixosModules.default
       ];
       
+      # Hardware-specific modules from nixos-hardware
       hwModules = hardwareModules hostCfg.hardware;
       
+      # Our custom nixosModules based on host config
       ourModules = with self.nixosModules;
         lib.optional (hostCfg.modules.system or true) system
         ++ lib.optional (hostCfg.modules.desktop or false) desktop
@@ -45,6 +69,7 @@ let
         ++ lib.optional (hostCfg.hardware.vendor == "msi") msi
         ++ lib.optional (hostCfg.hardware.vendor == "system76") system76;
       
+      # Host-specific configuration module
       hostModule = { config, lib, ... }: 
         let
           hwVendor = hostCfg.hardware.vendor or null;
@@ -53,50 +78,68 @@ let
         in
         lib.mkMerge [
           {
+            # Set hostname
             networking.hostName = hostCfg.hostname;
             
-            # Hardware vendor modules are imported in ourModules above
-            # They will be enabled via their respective host configs if needed
-            # (e.g., edge.nix can set hardware.msi.enable in extraConfig)
+            # Enable hardware support based on vendor
+            hardware = lib.mkMerge [
+              (lib.mkIf (hwVendor == "msi") {
+                msi.enable = lib.mkDefault true;
+              })
+              (lib.mkIf (hwVendor == "system76") {
+                system76.enable = lib.mkDefault true;
+              })
+            ];
             
+            # Apply services configuration
             services = hostCfg.services or {};
+            
+            # Apply virtualization configuration
             virt = hostCfg.virt or {};
             
+            # Set home-manager profile
             home-manager.sharedModules = 
               if profile == "workstation" then [ self.homeModules.workstation ]
               else if profile == "laptop" then [ self.homeModules.laptop ]
-              else [];
+              else [ self.homeModules.${profile} ];
           }
           extraCfg
         ];
       
+      # Disk configuration from host's directory
       diskModule = 
         if hostCfg ? diskConfigPath 
         then hostCfg.diskConfigPath
-        else { 
-          # Default: No disk configuration
-          # User must provide diskConfigPath or define fileSystems in extraConfig
-          imports = [];
-        };
+        else (./. + "/${hostCfg.hostname}/disko");
+      
     in
       baseModules ++ hwModules ++ ourModules ++ [ hostModule diskModule ];
   
-  # Helper to create a system config
-  mkSystem = hostCfg: inputs.nixpkgs.lib.nixosSystem {
-    system = hostCfg.system or "x86_64-linux";
-    specialArgs = {
-      inherit inputs self;
-      inherit (self) nixosModules homeModules;
-    };
-    modules = buildModules hostCfg;
-  };
+  # Create a NixOS configuration for a host file
+  createHostConfig = file:
+    let
+      hostCfg = loadHostConfig file;
+      hostname = hostCfg.hostname;
+    in
+      {
+        name = hostname;
+        value = inputs.nixpkgs.lib.nixosSystem {
+          system = hostCfg.system or "x86_64-linux";
+          specialArgs = {
+            inherit inputs self;
+            inherit (self) nixosModules homeModules;
+          };
+          modules = buildModulesList hostCfg;
+        };
+      };
+  
+  # Generate all host configurations
+  hostConfigurations = 
+    let
+      _ = builtins.trace "Generating configs for hosts: ${builtins.toJSON hostFiles}" null;
+    in
+      builtins.listToAttrs (map createHostConfig hostFiles);
 in
 {
-  flake.nixosConfigurations = {
-    edge = mkSystem edgeCfg;
-    pangolin = mkSystem pangolinCfg;
-    # To add a new host:
-    # 1. Create hosts/newhostname.nix with hostConfig
-    # 2. Add: newhostname = mkSystem (import ./newhostname.nix { inherit lib; }).hostConfig;
-  };
+  flake.nixosConfigurations = hostConfigurations;
 }

@@ -1,7 +1,4 @@
-{ self
-, inputs
-, ...
-}:
+{ self, inputs, ... }:
 let
   # Automatically discover all package directories in pkgs/
   # To add a new package:
@@ -24,10 +21,7 @@ let
 in
 {
   perSystem =
-    { system
-    , pkgs
-    , ...
-    }:
+    { system, pkgs, ... }:
     {
       # Automatically export all custom packages
       packages = lib.genAttrs packageNames (name: pkgs.${name});

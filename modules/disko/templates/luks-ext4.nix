@@ -6,10 +6,7 @@
 # - Swapfile on encrypted root (configurable size)
 # - Performance optimizations: noatime, nodiratime, discard
 
-{ device ? "/dev/sda"
-, swapSize ? "8G"
-, ...
-}:
+{ device ? "/dev/sda", swapSize ? "8G", ... }:
 {
   disko.devices = {
     disk = {

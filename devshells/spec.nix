@@ -1,11 +1,7 @@
 # Development shell for Spec-Driven Development using GitHub Spec Kit
 # Spec Kit is a methodology toolkit for building software from executable specifications
 # rather than a traditional tech stack shell. It works with AI coding agents.
-{ pkgs
-, inputs
-, # this is inputs'
-  system
-}:
+{ pkgs, inputs, # this is inputs', system }:
 let
   mkShell = inputs.devshell.legacyPackages.${system}.mkShell;
 in

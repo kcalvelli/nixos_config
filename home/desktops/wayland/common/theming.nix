@@ -1,7 +1,4 @@
-{ pkgs
-, config
-, ...
-}:
+{ pkgs, config, ... }:
 {
   # Theming for all WMs
   home.pointerCursor = {

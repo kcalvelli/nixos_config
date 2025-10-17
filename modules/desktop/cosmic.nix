@@ -1,9 +1,4 @@
-{ lib
-, homeModules
-, pkgs
-, config
-, ...
-}:
+{ lib, homeModules, pkgs, config, ... }:
 {
   # Define Cosmic options
   options.cosmic = {

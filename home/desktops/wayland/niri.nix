@@ -1,9 +1,4 @@
-{ inputs
-, pkgs
-, lib
-, config
-, ...
-}:
+{ inputs, pkgs, lib, config, ... }:
 {
   imports = [
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri

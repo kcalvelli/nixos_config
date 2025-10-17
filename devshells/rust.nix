@@ -1,10 +1,6 @@
 # Rust development environment with Fenix stable toolchain
 # Includes common build dependencies and development tools
-{ pkgs
-, inputs
-, # this is inputs'
-  system
-}:
+{ pkgs, inputs, # this is inputs', system }:
 let
   mkShell = inputs.devshell.legacyPackages.${system}.mkShell;
   fenixPkgs = inputs.fenix.packages.${system};
