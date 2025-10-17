@@ -47,9 +47,14 @@ jobs:
           echo "path=$ISO_PATH" >> $GITHUB_OUTPUT
           echo "name=$ISO_NAME" >> $GITHUB_OUTPUT
 
+      - name: Copy ISO to writable location
+        run: |
+          mkdir -p iso-output
+          cp result/iso/*.iso iso-output/
+          
       - name: Generate checksums
         run: |
-          cd result/iso
+          cd iso-output
           sha256sum *.iso > SHA256SUMS
           cat SHA256SUMS
 
@@ -58,8 +63,8 @@ jobs:
         with:
           name: axios-installer-iso
           path: |
-            result/iso/*.iso
-            result/iso/SHA256SUMS
+            iso-output/*.iso
+            iso-output/SHA256SUMS
           retention-days: 30
 
       - name: Upload to Release
@@ -67,7 +72,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            result/iso/*.iso
-            result/iso/SHA256SUMS
+            iso-output/*.iso
+            iso-output/SHA256SUMS
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
