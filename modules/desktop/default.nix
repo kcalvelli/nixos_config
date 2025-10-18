@@ -1,4 +1,8 @@
 { lib, pkgs, config, ... }:
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   imports = [
     ./wayland
@@ -56,20 +60,8 @@
   };
 
   # === Desktop Applications ===
-  # Apps common to all WMs/DEs (system-level installation required)
-  environment.systemPackages = with pkgs; [
-    # === VPN Applications ===
-    protonvpn-gui
-    protonvpn-cli
-
-    # === Streaming and Recording ===
-    (wrapOBS {
-      plugins = with obs-studio-plugins; [
-        wlrobs
-        obs-gstreamer
-        obs-move-transition
-        obs-backgroundremoval
-      ];
-    })
-  ];
+  # Organized by category in packages.nix for easier management
+  environment.systemPackages =
+    packages.vpn
+    ++ packages.streaming;
 }

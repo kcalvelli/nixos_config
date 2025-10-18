@@ -101,8 +101,7 @@ nixos_config/
 ├── hosts/              # Host configurations
 │   ├── edge.nix       # Desktop workstation
 │   ├── pangolin.nix   # Laptop
-│   ├── installer/     # Installer ISO config
-│   └── profiles/      # Host type profiles
+│   └── installer/     # Installer ISO config
 ├── modules/            # NixOS modules
 │   ├── system/        # Core system
 │   ├── desktop/       # Desktop environments
@@ -115,6 +114,9 @@ nixos_config/
 │   ├── profiles/      # User profiles
 │   └── desktops/      # Desktop-specific
 ├── scripts/            # Automation scripts
+│   ├── add-host.sh    # Create new host
+│   ├── add-user.sh    # Create new user
+│   ├── burn-iso.sh    # Create bootable USB
 │   └── install-axios.sh  # Automated installer
 └── docs/               # Documentation (you are here)
 ```
@@ -144,4 +146,4 @@ When adding new features or making significant changes, please update the releva
 
 ---
 
-**Last Updated**: 2025-10-17
+**Last Updated**: 2025-10-18

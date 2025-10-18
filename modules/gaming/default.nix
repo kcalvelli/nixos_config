@@ -1,9 +1,12 @@
 { pkgs, lib, ... }:
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   # === Gaming System Packages ===
-  environment.systemPackages = with pkgs; [
-    gamescope
-  ];
+  # Organized by category in packages.nix for easier management
+  environment.systemPackages = packages.gaming;
 
   # === Gaming Programs ===
   programs = {

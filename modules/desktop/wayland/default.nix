@@ -1,4 +1,8 @@
 { lib, homeModules, pkgs, config, ... }:
+let
+  # Import categorized package lists
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   imports = [
     ./niri.nix
@@ -45,21 +49,12 @@
       gvfs.enable = true;
     };
 
-    # Add system packages for utilities, graphics, and theming
-    environment.systemPackages = with pkgs; [
-      # System apps
-      mate.mate-polkit
-      wayvnc
-      xwayland-satellite
-      brightnessctl
-      colloid-icon-theme
-      adwaita-icon-theme
-      papirus-icon-theme
-
-      # File manager
-      nautilus
-      code-nautilus
-    ];
+    # === Wayland Packages ===
+    # Organized by category in packages.nix for easier management
+    environment.systemPackages =
+      packages.system
+      ++ packages.themes
+      ++ packages.fileManager;
 
     # Enable some homeManager stuff
     home-manager.sharedModules = with homeModules; [
