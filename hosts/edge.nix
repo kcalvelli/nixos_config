@@ -50,9 +50,6 @@
     extraConfig = {
       # Dual boot with Windows requires local time
       time.hardwareClockInLocalTime = true;
-      
-      # Enable MSI hardware support
-      hardware.msi.enable = true;
     };
     
     # Disk configuration path

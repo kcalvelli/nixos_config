@@ -42,8 +42,18 @@ let
         ++ lib.optional (hostCfg.modules.users or true) users
         ++ lib.optional (hostCfg.modules.virt or false) virt
         ++ lib.optional (hostCfg.modules.gaming or false) gaming
-        ++ lib.optional (hostCfg.hardware.vendor == "msi") msi
-        ++ lib.optional (hostCfg.hardware.vendor == "system76") system76;
+        # Hardware modules based on form factor and vendor
+        ++ lib.optional (hostCfg.hardware.vendor == "msi") desktopHardware
+        ++ lib.optional (hostCfg.hardware.vendor == "system76") laptopHardware
+        # Generic hardware based on form factor (if no specific vendor)
+        ++ lib.optional (
+          (hostCfg.hardware.vendor or null == null) &&
+          (hostCfg.formFactor or "" == "desktop")
+        ) desktopHardware
+        ++ lib.optional (
+          (hostCfg.hardware.vendor or null == null) &&
+          (hostCfg.formFactor or "" == "laptop")
+        ) laptopHardware;
       
       hostModule = { config, lib, ... }: 
         let
@@ -64,6 +74,21 @@ let
             (lib.optionalAttrs ((hostCfg.modules.services or false) && (hostCfg ? services)) {
               services = hostCfg.services;
             })
+            # Enable desktop hardware module if vendor is msi
+            (lib.optionalAttrs (hwVendor == "msi") {
+              hardware.desktop = {
+                enable = true;
+                enableMsiSensors = true;
+              };
+            })
+            # Enable laptop hardware module if vendor is system76
+            (lib.optionalAttrs (hwVendor == "system76") {
+              hardware.laptop = {
+                enable = true;
+                enableSystem76 = true;
+                enablePangolinQuirks = true; # Assuming Pangolin 12
+              };
+            })
           ];
         in
         lib.mkMerge [
@@ -71,8 +96,7 @@ let
             networking.hostName = hostCfg.hostname;
             
             # Hardware vendor modules are imported in ourModules above
-            # They will be enabled via their respective host configs if needed
-            # (e.g., edge.nix can set hardware.msi.enable in extraConfig)
+            # Desktop hardware is auto-enabled for desktop form factor or specific vendors
             
             home-manager.sharedModules = 
               if profile == "workstation" then [ self.homeModules.workstation ]

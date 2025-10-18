@@ -8,9 +8,11 @@ Configures Wayland compisitor, shared desktop services, and system-wide desktop 
 
 ## Package Organization
 
-System packages in `default.nix`:
-- **VPN Applications**: ProtonVPN (requires system networking)
-- **Streaming/Recording**: OBS with plugins (hardware access)
+Packages organized in `packages.nix` by category:
+- **vpn**: VPN applications (ProtonVPN)
+- **streaming**: OBS with plugins for recording/streaming
+
+See `packages.nix` for the complete package list.
 
 ## What Goes Here
 

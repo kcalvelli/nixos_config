@@ -65,8 +65,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 ├── hosts/              # Per-machine configurations
 │   ├── edge/                   # Desktop host
 │   ├── pangolin/               # Laptop host
-│   ├── installer/              # Installer ISO config
-│   └── profiles/               # Host type profiles
+│   └── installer/              # Installer ISO config
 ├── modules/            # Reusable NixOS modules (system-level)
 │   ├── desktop/       # Desktop environment and compositor configs
 │   ├── development/   # Development tools and IDEs
@@ -81,8 +80,8 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 │   └── virtualisation/ # VM and container support
 ├── home/              # Home Manager user configurations (user-level)
 │   ├── common/        # Shared user configs
-│   ├── desktops/      # Desktop-specific user configs
-│   ├── profiles/      # Machine-type profiles (workstation, laptop)
+│   ├── desktops/      # Desktop-specific user configs (Wayland/Niri)
+│   ├── profiles/      # User profiles (workstation, laptop)
 │   └── resources/     # Shared resources (themes, etc.)
 ├── devshells/         # Development environment definitions
 └── pkgs/              # Custom package definitions (auto-discovered)
@@ -117,7 +116,7 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 - **Secure boot** implementation via Lanzaboote
 - **Containerization** support with Podman
 - **Virtualization** with quickemu/quickgui
-- **Hardware-specific optimizations** for System76 and MSI hardware
+- **Hardware-specific optimizations** for desktops and laptops with automatic configuration
 
 ## Quick Installation
 

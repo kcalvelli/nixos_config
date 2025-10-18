@@ -12,42 +12,53 @@ DankMaterialShell provides:
 - Plugin system for extended functionality
 - Enhanced overview mode with visual effects
 
-## WallpaperWatcherDaemon Plugin
+## Wallpaper Blur for Overview Mode
 
 ### What It Does
 
-The WallpaperWatcherDaemon plugin watches for wallpaper changes and automatically generates a blurred version for the Niri overview mode. This creates a nice visual effect where your wallpaper appears blurred in the background when you open the overview.
+The wallpaper blur script automatically generates a blurred version of your wallpaper for use in Niri's overview mode. This creates a nice visual effect where your wallpaper appears blurred in the background when you open the overview.
 
 ### How It Works
 
-1. **Plugin watches for wallpaper changes** in your home directory
-2. **Automatically generates a blurred version** using ImageMagick
-3. **Saves it to** `~/.cache/niri/overview-blur.jpg`
-4. **Niri displays the blurred image** as background during overview mode
+The system includes a simple script that:
+1. Takes a wallpaper path as input
+2. Generates a blurred version using ImageMagick (`magick` command)
+3. Saves it to `~/.cache/niri/overview-blur.jpg`
+4. Displays it using `swaybg` as the overview background
 
-### Required Script
+### Automatic Installation
 
-The WallpaperWatcherDaemon requires an external script to function properly. This script is maintained separately at:
+**The wallpaper blur script is now automatically installed with your system!**
 
-**https://github.com/kcalvelli/scripts**
+The script is deployed to `~/scripts/set-wallpaper-blur.sh` via home-manager and includes:
+- ✅ Automatic script installation to your home directory
+- ✅ Required dependencies (ImageMagick, swaybg)
+- ✅ Proper permissions and executable bit set
+- ✅ Cache directory creation
 
-### Script Setup
+### Usage
 
-1. **Clone the scripts repository**:
-   ```bash
-   git clone https://github.com/kcalvelli/scripts.git ~/scripts
-   ```
+To set a wallpaper with blur:
 
-2. **The wallpaper blur script** should be in the repository and needs to:
-   - Watch for wallpaper changes
-   - Generate blurred versions using ImageMagick
-   - Save output to `~/.cache/niri/overview-blur.jpg`
+```bash
+~/scripts/set-wallpaper-blur.sh /path/to/your/wallpaper.jpg
+```
 
-3. **The WallpaperWatcherDaemon plugin** will call this script automatically
+This will:
+1. Generate a blurred version at `~/.cache/niri/overview-blur.jpg`
+2. Kill any existing swaybg process
+3. Start swaybg displaying the blurred wallpaper
 
 ### Configuration
 
-The plugin is configured in `home/desktops/wayland/niri.nix`:
+The script uses these settings:
+- **Blur strength**: `0x18` (Gaussian blur with sigma 18)
+- **Display mode**: `stretch` (fits to screen)
+- **Cache location**: `~/.cache/niri/overview-blur.jpg`
+
+### Integration with DankMaterialShell
+
+DankMaterialShell's WallpaperWatcherDaemon plugin can call this script automatically when you change wallpapers. The plugin is configured in `home/desktops/niri.nix`:
 
 ```nix
 programs.dankMaterialShell = {
@@ -61,55 +72,40 @@ programs.dankMaterialShell = {
 };
 ```
 
-The background display is configured per-user in `modules/users/[username].nix`:
-
-```nix
-programs.niri.settings.spawn-at-startup = [
-  { 
-    command = [ 
-      "swaybg" 
-      "--mode" "stretch" 
-      "--image" "${homeDir}/.cache/niri/overview-blur.jpg" 
-    ]; 
-  }
-];
-```
-
 ### Dependencies
 
-The wallpaper blur functionality requires:
-- **ImageMagick** - For image processing and blurring
-- **swaybg** - For displaying the background (included in Wayland packages)
-- **The external script** from https://github.com/kcalvelli/scripts
+All required dependencies are automatically installed:
+- **ImageMagick** - Provides the `magick` command for image processing
+- **swaybg** - For displaying the background
 
-ImageMagick is included in the Wayland desktop packages at `home/desktops/wayland/packages.nix`.
+These are included in the Wayland desktop packages.
 
 ### Customization
 
-To customize the blur effect, modify the script in the kcalvelli/scripts repository. You can adjust:
-- Blur radius and sigma
-- Image quality
-- Output format
-- Watch patterns
+To customize the blur effect, edit `~/scripts/set-wallpaper-blur.sh`:
+
+```bash
+# Change this line to adjust blur strength:
+magick "$WALLPAPER" -filter Gaussian -blur 0x18 "$BLURRED"
+#                                          ^^^^ 
+#                                          Increase for more blur
+```
 
 ### Troubleshooting
 
 **Blurred background not appearing:**
 1. Check that `~/.cache/niri/overview-blur.jpg` exists
-2. Verify ImageMagick is installed: `which convert`
-3. Check that the wallpaper script is running
-4. Ensure the WallpaperWatcherDaemon plugin is loaded
+2. Verify ImageMagick is installed: `which magick`
+3. Run the script manually to test: `~/scripts/set-wallpaper-blur.sh /path/to/image.jpg`
+4. Check that swaybg is running: `ps aux | grep swaybg`
 
-**Script not running:**
-1. Verify the scripts repository is cloned
-2. Check script permissions (should be executable)
-3. Look at DankMaterialShell plugin logs
-4. Ensure the script path is correct
+**Script not found:**
+- Run `home-manager switch` to ensure home files are deployed
+- Check that the script exists: `ls -la ~/scripts/set-wallpaper-blur.sh`
 
-**Blur not updating:**
-1. The script watches for wallpaper changes
-2. Manually trigger by changing your wallpaper
-3. Or regenerate manually: Run the blur script directly
+**Permission denied:**
+- The script should be automatically executable
+- If needed, run: `chmod +x ~/scripts/set-wallpaper-blur.sh`
 
 ## Niri Overview Mode
 
@@ -120,14 +116,27 @@ To activate the overview mode and see the blurred background:
 
 ## Related Files
 
-- **DankMaterialShell config**: `home/desktops/wayland/niri.nix`
+- **Wallpaper blur script**: `home/desktops/common/wallpaper-blur.sh`
+- **Installation config**: `home/desktops/common/wallpaper-blur.nix`
+- **DankMaterialShell config**: `home/desktops/niri.nix`
 - **User-specific background**: `modules/users/[username].nix`
-- **Wayland packages**: `home/desktops/wayland/packages.nix` (includes ImageMagick)
-- **External scripts**: https://github.com/kcalvelli/scripts
+
+## Script Location in Repository
+
+The script is stored at:
+```
+home/desktops/common/wallpaper-blur.sh
+```
+
+And deployed to your home directory by home-manager:
+```
+~/scripts/set-wallpaper-blur.sh
+```
 
 ## References
 
 - [Niri Compositor](https://github.com/YaLTeR/niri)
 - [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)
-- [Scripts Repository](https://github.com/kcalvelli/scripts)
 - [swaybg](https://github.com/swaywm/swaybg)
+- [ImageMagick](https://imagemagick.org/)
+

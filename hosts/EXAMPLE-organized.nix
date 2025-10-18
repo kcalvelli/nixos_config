@@ -38,7 +38,8 @@
     homeProfile = "workstation";
     
     extraConfig = {
-      hardware.msi.enable = true;
+      # Example: Enable MSI sensor support if using MSI motherboard
+      # hardware.desktop.enableMsiSensors = true;
       time.hardwareClockInLocalTime = true;
     };
     

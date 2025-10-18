@@ -10,7 +10,7 @@
     
     # Hardware configuration
     hardware = {
-      vendor = null;  # Options: "msi", "system76", or null for generic
+      vendor = null;  # Options: "msi" (desktop), "system76" (laptop), or null for generic
       cpu = "amd";    # "amd" or "intel" (for nixos-hardware modules)
       gpu = "amd";    # "amd", "nvidia", or "intel"
       hasSSD = true;  # Enables SSD optimizations from nixos-hardware

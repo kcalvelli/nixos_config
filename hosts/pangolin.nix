@@ -40,8 +40,7 @@
     
     # Optional: Extra NixOS configuration
     extraConfig = {
-      # Enable System76 hardware support
-      hardware.system76.enable = true;
+      # System76 hardware is auto-enabled via vendor setting
     };
     
     # Disk configuration path

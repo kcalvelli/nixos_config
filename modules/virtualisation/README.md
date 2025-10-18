@@ -15,14 +15,12 @@ virt.containers.enable = true;  # Enable Podman containers
 virt.libvirt.enable = true;     # Enable libvirt/quickemu VMs
 ```
 
-## What Goes Here
+## Package Organization
 
-**System-level packages:**
-- Container runtimes and orchestration
-- Virtual machine management tools
-- USB redirection support
+Packages organized in `packages.nix` by category:
+- **virt**: VM management tools (virt-manager, qemu, quickemu, quickgui)
 
-**No user-level packages needed** - these are system services
+Only included when `virt.libvirt.enable = true`. See `packages.nix` for the complete list.
 
 ## Containers
 

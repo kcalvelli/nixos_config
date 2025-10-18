@@ -4,6 +4,7 @@
     ./common/apps.nix
     ./common/theming.nix
     ./common/material-code-theme.nix
+    ./common/wallpaper-blur.nix
     ./niri.nix
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ];

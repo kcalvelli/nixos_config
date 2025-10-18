@@ -143,16 +143,18 @@ Target architecture:
 - `"aarch64-linux"` - ARM64 systems (e.g., Raspberry Pi)
 
 ### formFactor
-Documentation/planning aid (not functionally used):
-- `"desktop"` - Desktop workstation
-- `"laptop"` - Portable laptop
-- `"server"` - Headless server
+System type for automatic hardware configuration:
+- `"desktop"` - Automatically enables desktop hardware module (with vendor-specific options)
+- `"laptop"` - Automatically enables laptop hardware module (with vendor-specific options)
+- `"server"` - Headless server (no automatic hardware module)
 
 ### hardware
-Automatically selects appropriate NixOS hardware modules:
+Automatically selects appropriate hardware configuration based on form factor:
 
-- **vendor**: `"msi"`, `"system76"`, or `null`
-  - Enables vendor-specific tweaks (fan control, firmware, etc.)
+- **vendor**: `"msi"` (desktop), `"system76"` (laptop), or `null`
+  - `"msi"` - Enables generic desktop hardware with MSI motherboard sensor support
+  - `"system76"` - Enables generic laptop hardware with System76 firmware/power integration
+  - `null` - Generic hardware based on `formFactor` (desktop or laptop)
   
 - **cpu**: `"amd"` or `"intel"`
   - Includes CPU-specific optimizations from nixos-hardware
