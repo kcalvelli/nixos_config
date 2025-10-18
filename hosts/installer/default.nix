@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, lib, ... }:
+{ pkgs, modulesPath, lib, config, ... }:
 {
   imports = [
     # Use minimal installer as base
@@ -9,8 +9,9 @@
   ];
 
   # ISO Configuration
+  image.baseName = lib.mkForce "axios-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+  
   isoImage = {
-    isoName = lib.mkForce "axios-installer-${pkgs.stdenv.hostPlatform.system}.iso";
     volumeID = lib.mkForce "AXIOS_INSTALL";
     
     # Compression for smaller ISO
