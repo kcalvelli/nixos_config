@@ -1,13 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   # Import categorized package lists
-  packages = import ./packages.nix { inherit pkgs; };
+  packages = import ./packages.nix { inherit pkgs inputs; };
 in
 {
-  imports = [
-    ./ai.nix
-  ];
-
   # === Development Packages ===
   # Organized by category in packages.nix for easier management
   environment.systemPackages =

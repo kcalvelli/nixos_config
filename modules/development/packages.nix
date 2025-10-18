@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, inputs, ... }:
 {
   # Editors and IDEs
   editors = with pkgs; [
@@ -30,5 +30,7 @@
   # AI and machine learning tools
   ai = with pkgs; [
     whisper-cpp # Local AI transcription tool
-  ];
+  ] ++ (with inputs.nix-ai-tools.packages.${pkgs.system}; [
+    copilot-cli # GitHub Copilot CLI
+  ]);
 }

@@ -13,7 +13,7 @@ Packages are organized in `packages.nix` by category:
 - **nix**: Nix development tools (devenv, nil LSP)
 - **shell**: Shell and terminal utilities (fish, starship, bat, eza, fzf)
 - **vcs**: Version control systems (gh)
-- **ai**: AI/ML development tools (whisper-cpp)
+- **ai**: AI/ML development tools (whisper-cpp, copilot-cli)
 
 ## What Goes Here
 
@@ -41,6 +41,3 @@ Shell tools (fish, starship, eza, etc.) are intentionally in both system and hom
 - **System**: Ensures availability for root and system operations
 - **Home**: Provides user-specific configuration via `programs.*` modules
 
-## Sub-modules
-
-- `ai.nix`: AI and machine learning development tools
