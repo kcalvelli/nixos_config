@@ -52,7 +52,7 @@ check_root() {
 }
 
 get_iso_path() {
-  step "Looking for axiOS ISO..."
+  step "Looking for axiOS ISO..." >&2
   
   # Check if ISO already exists in result
   if [[ -L "$ROOT_DIR/result" ]] && [[ -d "$ROOT_DIR/result/iso" ]]; then
@@ -64,9 +64,9 @@ get_iso_path() {
   fi
   
   # Build ISO if not found
-  step "ISO not found, building from flake..."
-  echo ""
-  info "This may take a few minutes..."
+  step "ISO not found, building from flake..." >&2
+  echo "" >&2
+  info "This may take a few minutes..." >&2
   
   cd "$ROOT_DIR"
   if nix build .#iso; then
