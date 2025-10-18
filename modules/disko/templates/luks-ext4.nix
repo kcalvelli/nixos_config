@@ -48,11 +48,11 @@
       };
     };
     nodev = {
-      "/" = {
+      "/tmp" = {
         fsType = "tmpfs";
         mountOptions = [
           "size=2G"
-          "mode=755"
+          "mode=1777"
         ];
       };
     };
