@@ -25,15 +25,10 @@
   qt = {
     enable = true;
     platformTheme.name = "qt6ct";
-    style = {
-      name = "Breeze";
-      package = pkgs.kdePackages.breeze;
-    };
   };
 
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qt6ct";
-    QT_STYLE_OVERRIDE = "Breeze";
     XCURSOR_THEME = "Bibata-Modern-Ice";
   };
 
