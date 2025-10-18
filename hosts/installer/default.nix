@@ -9,11 +9,8 @@
   ];
 
   # ISO Configuration
-  image = {
-    fileName = lib.mkForce "axios-installer-${pkgs.stdenv.hostPlatform.system}.iso";
-  };
-  
   isoImage = {
+    isoName = lib.mkForce "axios-installer-${pkgs.stdenv.hostPlatform.system}.iso";
     volumeID = lib.mkForce "AXIOS_INSTALL";
     
     # Compression for smaller ISO
