@@ -2,91 +2,73 @@
   description = "AxiOS";
 
   inputs = {
-    #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
-    #nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/x86_64-linux";
 
-    # FlakeHub/Determinate
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
-
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
-    };
-
+    # Core flake building blocks
     flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs";
       url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    systems = {
-      url = "github:nix-systems/x86_64-linux";
-    };
-
-    home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager";
-    };
-
-    devshell = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:numtide/devshell";
-    };
-
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Determinate Systems tooling (for cachix + CLI helpers)
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*";
 
+    # Commonly reused upstream modules
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-
-    # For dev shells
-    "zig-overlay".url = "github:mitchellh/zig-overlay";
-    fenix.url = "github:nix-community/fenix";
-
-    lazyvim = {
-      url = "github:matadaniel/LazyVim-module";
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    # Desktop environment + tooling modules
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ghostty = {
       url = "github:ghostty-org/ghostty?ref=refs/tags/tip";
       inputs = {
-        #flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # Niri with DMS Shell
+    lazyvim = {
+      url = "github:matadaniel/LazyVim-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     quickshell = {
       url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      #inputs.quickshell.follows = "quickshell";
-    };
-
-    niri = {
-      url = "github:sodiboo/niri-flake";
+    # Development tooling overlays
+    devshell = {
+      url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fenix.url = "github:nix-community/fenix";
+    "zig-overlay".url = "github:mitchellh/zig-overlay";
 
-    # Fun with "AI" 
+    # Fun with "AI"
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
   };
 
