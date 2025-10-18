@@ -48,5 +48,6 @@
     swaybg
     imagemagick
     libnotify
+    gnome-software
   ];
 }

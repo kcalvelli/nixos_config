@@ -12,7 +12,7 @@
     ];
     commandLineArgs = [
       "--password-store=detect"
-      #"--gtk-version=4"
+      "--gtk-version=4"
     ];
   };
 }

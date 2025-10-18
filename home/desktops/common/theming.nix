@@ -44,4 +44,25 @@
       "${config.home.homeDirectory}/.config/gtk-3.0/dank-colors.css";
     force = true;
   };
+
+  # Flatpak Theming
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        "color-scheme" = "prefer-dark";
+      };
+    };
+  };
+
+  # Flatpak per-user overrides (GTK3 apps pick up your theme/cursor)
+  xdg.dataFile."flatpak/overrides/global".text = ''
+    [Context]
+    filesystems=xdg-config/gtk-3.0:ro;xdg-config/gtk-4.0:ro
+
+    [Environment]
+    GTK_THEME=Colloid           
+    GTK_USE_PORTAL=1
+    XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
+  '';
 }
