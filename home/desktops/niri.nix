@@ -141,7 +141,7 @@
           open-floating = true;
 
           # Size on open (pixels)
-          default-column-width = { fixed = 900; };
+          default-column-width = { fixed = 500; };
           default-window-height = { fixed = 700; };
 
           # Optional: pin position instead of center (comment out if not needed)
