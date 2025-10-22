@@ -64,10 +64,10 @@ The configuration emphasizes reproducibility through Nix flakes while maintainin
 │   │   └── wallpaper-scripts.nix
 │   └── README.md               # Scripts documentation
 ├── hosts/              # Per-machine configurations
-│   ├── edge/                   # Desktop host
-│   ├── pangolin/               # Laptop host
-│   ├── TEMPLATE.nix            # Host template
-│   └── installer/              # Installer ISO config
+│   ├── TEMPLATE.nix             # Host configuration template
+│   ├── EXAMPLE-simple.nix       # Simple host example
+│   ├── EXAMPLE-organized.nix    # Organized host example
+│   └── installer/               # Installer ISO config
 ├── modules/            # Reusable NixOS modules (system-level)
 │   ├── desktop/       # Desktop environment configs
 │   ├── development/   # Development tools and IDEs

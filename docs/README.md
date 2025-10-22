@@ -17,7 +17,7 @@ Welcome to the axiOS documentation. This guide will help you install, configure,
 
 ### New Users
 
-1. **Download the installer**: Get the latest ISO from [GitHub Releases](https://github.com/kcalvelli/nixos_config/releases)
+1. **Download the installer**: Get the latest ISO from [GitHub Releases](https://github.com/kcalvelli/axios/releases)
 2. **Create bootable USB**: Write the ISO to a USB drive
 3. **Install**: Boot from USB and run the automated installer
 4. **Read**: [INSTALLATION.md](INSTALLATION.md) for detailed instructions
@@ -153,13 +153,13 @@ Visual examples of the axiOS desktop:
 ## Repository Structure
 
 ```
-nixos_config/
+axios/
 ├── flake.nix           # Flake configuration and inputs
 ├── hosts/              # Per-machine configurations
-│   ├── edge.nix       # Desktop workstation example
-│   ├── pangolin.nix   # Laptop example
-│   ├── TEMPLATE.nix   # Template for new hosts
-│   └── installer/     # Installer ISO configuration
+│   ├── TEMPLATE.nix            # Template for new hosts
+│   ├── EXAMPLE-simple.nix      # Simple example host
+│   ├── EXAMPLE-organized.nix   # Organized example host
+│   └── installer/              # Installer ISO configuration
 ├── modules/            # NixOS system modules
 │   ├── system/        # Core system utilities
 │   ├── desktop/       # Desktop environments (Niri, Wayland)

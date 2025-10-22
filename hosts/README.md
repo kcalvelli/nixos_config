@@ -37,9 +37,11 @@ Add one line to register your host:
 
 ```nix
 flake.nixosConfigurations = {
-  edge = mkSystem edgeCfg;
-  pangolin = mkSystem pangolinCfg;
-  myhost = mkSystem (import ./myhost.nix { inherit lib; }).hostConfig;  # Add this line
+  # Your hosts go here - examples:
+  # myhost = mkSystem (import ./myhost.nix { inherit lib; }).hostConfig;
+  # laptop = mkSystem (import ./laptop.nix { inherit lib; }).hostConfig;
+  
+  installer = ...; # Installer ISO (already configured)
 };
 ```
 

@@ -24,9 +24,12 @@ vim hosts/newhost.nix  # Set hostname, hardware, modules, etc.
 # 3. Register the host (add one line to hosts/default.nix)
 # newhost = mkSystem (import ./newhost.nix { inherit lib; }).hostConfig;
 
-# 4. Create disk configuration
+# 4. Create disk configuration (if using separate file)
 mkdir -p hosts/newhost/disko
-cp hosts/edge/disko/default.nix hosts/newhost/disko/default.nix
+# Copy a template based on your needs:
+cp modules/disko/templates/standard-ext4.nix hosts/newhost/disko/default.nix
+# OR use luks-ext4.nix for encrypted setup
+# OR use btrfs-subvolumes.nix for btrfs with snapshots
 # Edit disk configuration as needed
 ```
 
@@ -52,10 +55,10 @@ hosts/
 
 ### Example Host Files
 
-**Workstation** (`hosts/edge.nix`): Desktop with gaming and development
-**Laptop** (`hosts/pangolin.nix`): Portable system with battery optimizations
+**Simple Configuration** (`hosts/EXAMPLE-simple.nix`): Minimal setup with inline disk config
+**Organized Configuration** (`hosts/EXAMPLE-organized.nix`): Full-featured with separate files
 
-See these files for real-world examples of host configurations.
+See these example files as starting points for your own host configurations.
 
 ## Tips and Best Practices
 
