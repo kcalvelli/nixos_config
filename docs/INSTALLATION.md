@@ -497,11 +497,11 @@ git rebase upstream/main
 
    ```bash
    # Create and enroll Secure Boot keys
-   sudo sbctl create-keys
-   sudo sbctl enroll-keys -m  # -m keeps Microsoft keys for dual-boot
+   sudo nix run nixpkgs#sbctl create-keys
+   sudo nix run nixpkgs#sbctl enroll-keys -m  # -m keeps Microsoft keys for dual-boot
    
    # Verify keys are enrolled
-   sudo sbctl status
+   sudo nix run nixpkgs#sbctl status
    ```
 
    Then enable in your configuration:
@@ -759,11 +759,11 @@ After your first successful boot, you can optionally enable it:
 # 1. Boot into your new system and log in
 
 # 2. Create and enroll Secure Boot keys
-sudo sbctl create-keys
-sudo sbctl enroll-keys -m  # -m keeps Microsoft keys for dual-boot
+sudo nix run nixpkgs#sbctl create-keys
+sudo nix run nixpkgs#sbctl enroll-keys -m  # -m keeps Microsoft keys for dual-boot
 
 # 3. Check Secure Boot status
-sudo sbctl status
+sudo nix run nixpkgs#sbctl status
 
 # 4. Enable in your host configuration
 sudo vim /etc/nixos/hosts/YOURHOSTNAME.nix
