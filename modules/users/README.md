@@ -58,9 +58,9 @@ in
     };
 
     # User-specific home-manager configurations
-    programs.git = {
-      userName = fullName;
-      userEmail = email;
+    programs.git.settings.user = {
+      name = fullName;
+      email = email;
     };
 
     # Optional: User-specific Niri background path

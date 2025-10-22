@@ -49,9 +49,9 @@ modules/users/
          username = username;
        };
        
-       programs.git = {
-         userName = fullName;
-         userEmail = email;
+       programs.git.settings.user = {
+         name = fullName;
+         email = email;
        };
      };
    }
