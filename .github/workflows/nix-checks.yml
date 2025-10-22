@@ -1,0 +1,36 @@
+name: Nix checks
+
+on:
+  push:
+    branches: [ master ]
+    paths: ['**/*.nix', 'flake.nix', 'flake.lock']
+  pull_request:
+    branches: [ master ]
+    paths: ['**/*.nix', 'flake.nix', 'flake.lock']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Formatting
+        run: |
+          nix fmt
+          git diff --exit-code
+
+      - name: Flake checker
+        uses: DeterminateSystems/flake-checker-action@main
+
+      - name: Evaluate hosts
+        run: |
+          nix eval .#nixosConfigurations.edge.config.system.build.toplevel.drvPath
+          nix eval .#nixosConfigurations.pangolin.config.system.build.toplevel.drvPath

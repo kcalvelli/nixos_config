@@ -1,0 +1,39 @@
+# Nix build outputs
+result
+result-*
+
+# Nix development
+.direnv/
+.envrc
+
+# Editor files
+*.swp
+*.swo
+*~
+.*.sw?
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Temporary files
+*.tmp
+*.bak
+*.old
+
+# Test artifacts
+test-disk.qcow2
+*.qcow2
+
+# ISO images (release artifacts)
+*.iso
+
+# Generated files
+hardware-configuration.nix.new
+
+# Editor backup files
+*.backup
+*.auto
+*~
