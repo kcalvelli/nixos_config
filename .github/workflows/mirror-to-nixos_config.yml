@@ -1,0 +1,44 @@
+name: Mirror to nixos_config (no Actions)
+on:
+  push:
+    branches: [ main ]     # add more branches if you want mirrored
+  workflow_dispatch: {}     # manual trigger if needed
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install git-filter-repo
+        run: |
+          pipx install git-filter-repo
+
+      - name: Prepare filtered bare mirror
+        run: |
+          git clone --bare . ../mirror.git
+          cd ../mirror.git
+          # strip GitHub Actions from ALL history
+          git filter-repo --path .github/workflows --invert-paths
+
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.NIXOS_CONFIG_DEPLOY_KEY }}
+
+      - name: Trust github.com host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Push filtered mirror to nixos_config
+        run: |
+          cd ../mirror.git
+          git remote add target git@github.com:kcalvelli/nixos_config.git
+          git push --mirror target
