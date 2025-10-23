@@ -1,7 +1,7 @@
 name: Mirror to nixos_config (no Actions)
 on:
   push:
-    branches: [ main ]     # add more branches if you want mirrored
+    branches: [ master ]     # add more branches if you want mirrored
   workflow_dispatch: {}     # manual trigger if needed
 
 permissions:
