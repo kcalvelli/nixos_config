@@ -23,14 +23,18 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1761428125,
-        "narHash": "sha256-0nZn8fpDWOltS5DwMA3FPI4EIUdl+ckikhVIKB2azos=",
-        "path": "/home/keith/Projects/axios",
-        "type": "path"
+        "lastModified": 1761431557,
+        "narHash": "sha256-3Vr+WjgOxsbV70/ueJ61fG1tWn2gihfRCy0I9ZEEhXY=",
+        "owner": "kcalvelli",
+        "repo": "axios",
+        "rev": "87b665e4c388d3005869276fcf3bb68c3f982a24",
+        "type": "github"
       },
       "original": {
-        "path": "/home/keith/Projects/axios",
-        "type": "path"
+        "owner": "kcalvelli",
+        "ref": "flake-approach",
+        "repo": "axios",
+        "type": "github"
       }
     },
     "blueprint": {

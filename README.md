@@ -7,7 +7,7 @@ Personal NixOS machine configurations based on [axiOS](https://github.com/kcalve
 This repository contains only personal machine-specific configurations:
 
 - `hosts/` - Host configurations (edge, pangolin)
-- `modules/users/` - User definitions (keith)
+- `keith.nix` - User definition
 - `flake.nix` - Entry point that imports axiOS as a library
 
 All system modules, home-manager configs, packages, and documentation come from the [axiOS framework](https://github.com/kcalvelli/axios).
@@ -39,9 +39,12 @@ axios.url = "github:kcalvelli/axios/<commit-or-tag>";
 2. Create disk configuration in `hosts/<hostname>/disks.nix`
 3. Add to `flake.nix`:
 ```nix
+# User module path
+userModule = self.outPath + "/keith.nix";  # or your user file name
+
 <hostname>Cfg = (import ./hosts/<hostname>.nix { 
   lib = nixpkgs.lib;
-  userModulePath = self.outPath + "/modules/users";
+  userModulePath = userModule;
 }).hostConfig;
 ```
 4. Register in outputs:
