@@ -18,7 +18,7 @@
     };
     theme = {
       package = pkgs.adw-gtk3;
-      name = "Colloid"; # or "Colloid-Dark", "Colloid-Teal-Dark", etc.
+      name = "adw-gtk3";
     };
   };
 
