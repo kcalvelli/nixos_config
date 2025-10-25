@@ -6,7 +6,7 @@
       rebuild-switch = "sudo nixos-rebuild switch --flake ${flakePath}#$(hostname)";
       rebuild-boot = "sudo nixos-rebuild boot --flake ${flakePath}#$(hostname)";
       rebuild-test = "sudo nixos-rebuild test --flake ${flakePath}#$(hostname)";
-      pull-changes = "git -C ${flakePath} pull --no-ff && git -C ${flakePath} push";
+      pull-changes = "git -C ${flakePath} fetch origin && git -C ${flakePath} merge -X theirs origin/master && git -C ${flakePath} push";
     };
     enable = true;
     interactiveShellInit = ''
