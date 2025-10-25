@@ -1,3 +1,0 @@
-# Keep all prompt files in git
-# This file exists to document that prompts are intentionally tracked
-!*.md
