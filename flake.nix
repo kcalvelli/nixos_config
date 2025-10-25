@@ -3,8 +3,9 @@
 
   inputs = {
     # Use axios as the base framework
+    # Pin to specific release for stability
     axios = {
-      url = "github:kcalvelli/axios/flake-approach";
+      url = "github:kcalvelli/axios/2025.10.25";
     };
     
     # Follow axios's nixpkgs to ensure compatibility
