@@ -4,8 +4,7 @@
   inputs = {
     # Use axios as the base framework
     axios = {
-      url = "path:/home/keith/Projects/axios";
-      # Once tested: url = "github:kcalvelli/axios/flake-approach";
+      url = "github:kcalvelli/axios/flake-approach";
     };
     
     # Follow axios's nixpkgs to ensure compatibility
