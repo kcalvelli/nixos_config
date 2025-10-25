@@ -1,8 +1,42 @@
 {
   "nodes": {
+    "axios": {
+      "inputs": {
+        "dankMaterialShell": "dankMaterialShell",
+        "determinate": "determinate",
+        "devshell": "devshell",
+        "disko": "disko",
+        "fenix": "fenix",
+        "flake-parts": "flake-parts_2",
+        "flake-utils": "flake-utils_2",
+        "ghostty": "ghostty",
+        "home-manager": "home-manager",
+        "lanzaboote": "lanzaboote",
+        "lazyvim": "lazyvim",
+        "niri": "niri",
+        "nix-ai-tools": "nix-ai-tools",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_6",
+        "quickshell": "quickshell",
+        "systems": "systems_4",
+        "vscode-server": "vscode-server",
+        "zig-overlay": "zig-overlay"
+      },
+      "locked": {
+        "lastModified": 1761428125,
+        "narHash": "sha256-0nZn8fpDWOltS5DwMA3FPI4EIUdl+ckikhVIKB2azos=",
+        "path": "/home/keith/Projects/axios",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/keith/Projects/axios",
+        "type": "path"
+      }
+    },
     "blueprint": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nix-ai-tools",
           "nixpkgs"
         ],
@@ -42,6 +76,7 @@
         "dgop": "dgop",
         "dms-cli": "dms-cli",
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -64,6 +99,7 @@
         "determinate-nixd-aarch64-darwin": "determinate-nixd-aarch64-darwin",
         "determinate-nixd-aarch64-linux": "determinate-nixd-aarch64-linux",
         "determinate-nixd-x86_64-darwin": [
+          "axios",
           "determinate",
           "determinate-nixd-aarch64-darwin"
         ],
@@ -124,6 +160,7 @@
     "devshell": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -144,6 +181,7 @@
     "dgop": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "dankMaterialShell",
           "nixpkgs"
         ]
@@ -165,6 +203,7 @@
     "disko": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -186,6 +225,7 @@
       "inputs": {
         "gomod2nix": "gomod2nix",
         "nixpkgs": [
+          "axios",
           "dankMaterialShell",
           "nixpkgs"
         ]
@@ -290,6 +330,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
+          "axios",
           "determinate",
           "nix",
           "nixpkgs"
@@ -311,6 +352,7 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -331,6 +373,7 @@
     "flake-parts_3": {
       "inputs": {
         "nixpkgs-lib": [
+          "axios",
           "lanzaboote",
           "nixpkgs"
         ]
@@ -370,6 +413,7 @@
     "flake-utils_2": {
       "inputs": {
         "systems": [
+          "axios",
           "systems"
         ]
       },
@@ -427,9 +471,11 @@
       "inputs": {
         "flake-compat": "flake-compat_2",
         "flake-utils": [
+          "axios",
           "flake-utils"
         ],
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ],
         "zig": "zig",
@@ -453,10 +499,12 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "gitignore": [
+          "axios",
           "determinate",
           "nix"
         ],
         "nixpkgs": [
+          "axios",
           "determinate",
           "nix",
           "nixpkgs"
@@ -478,6 +526,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "lanzaboote",
           "pre-commit-hooks-nix",
           "nixpkgs"
@@ -501,6 +550,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
+          "axios",
           "dankMaterialShell",
           "dms-cli",
           "nixpkgs"
@@ -524,6 +574,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -547,6 +598,7 @@
         "flake-compat": "flake-compat_3",
         "flake-parts": "flake-parts_3",
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
@@ -569,6 +621,7 @@
     "lazyvim": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ],
         "nvim-treesitter": "nvim-treesitter",
@@ -594,6 +647,7 @@
         "niri-stable": "niri-stable",
         "niri-unstable": "niri-unstable",
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ],
         "nixpkgs-stable": "nixpkgs-stable",
@@ -908,11 +962,13 @@
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
+          "axios",
           "lanzaboote",
           "flake-compat"
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
+          "axios",
           "lanzaboote",
           "nixpkgs"
         ]
@@ -934,6 +990,7 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nixpkgs"
         ]
       },
@@ -953,25 +1010,11 @@
     },
     "root": {
       "inputs": {
-        "dankMaterialShell": "dankMaterialShell",
-        "determinate": "determinate",
-        "devshell": "devshell",
-        "disko": "disko",
-        "fenix": "fenix",
-        "flake-parts": "flake-parts_2",
-        "flake-utils": "flake-utils_2",
-        "ghostty": "ghostty",
-        "home-manager": "home-manager",
-        "lanzaboote": "lanzaboote",
-        "lazyvim": "lazyvim",
-        "niri": "niri",
-        "nix-ai-tools": "nix-ai-tools",
-        "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_6",
-        "quickshell": "quickshell",
-        "systems": "systems_4",
-        "vscode-server": "vscode-server",
-        "zig-overlay": "zig-overlay"
+        "axios": "axios",
+        "nixpkgs": [
+          "axios",
+          "nixpkgs"
+        ]
       }
     },
     "rust-analyzer-src": {
@@ -994,6 +1037,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "lanzaboote",
           "nixpkgs"
         ]
@@ -1105,6 +1149,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "axios",
           "nix-ai-tools",
           "nixpkgs"
         ]
@@ -1178,14 +1223,17 @@
     "zig": {
       "inputs": {
         "flake-compat": [
+          "axios",
           "ghostty",
           "flake-compat"
         ],
         "flake-utils": [
+          "axios",
           "ghostty",
           "flake-utils"
         ],
         "nixpkgs": [
+          "axios",
           "ghostty",
           "nixpkgs"
         ]

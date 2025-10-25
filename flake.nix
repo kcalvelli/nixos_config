@@ -1,130 +1,30 @@
 {
-  description = "axiOS - A modular NixOS distribution";
+  description = "Personal NixOS configurations based on axiOS";
 
   inputs = {
-
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    # Determinate Systems
-    determinate.url = "github:DeterminateSystems/determinate";
-
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
+    # Use axios as the base framework
+    axios = {
+      url = "path:/home/keith/Projects/axios";
+      # Once tested: url = "github:kcalvelli/axios/flake-approach";
     };
-
-    flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-      url = "github:hercules-ci/flake-parts";
-    };
-
-    systems = {
-      url = "github:nix-systems/x86_64-linux";
-    };
-
-    home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager";
-    };
-
-    devshell = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:numtide/devshell";
-    };
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-
-    # For dev shells
-    "zig-overlay".url = "github:mitchellh/zig-overlay";
-    fenix.url = "github:nix-community/fenix";
-
-    lazyvim = {
-      url = "github:matadaniel/LazyVim-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      inputs = {
-        #flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    # Niri with DMS Shell
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      #inputs.quickshell.follows = "quickshell";
-    };
-
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Fun with "AI" 
-    nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    
+    # Follow axios's nixpkgs to ensure compatibility
+    nixpkgs.follows = "axios/nixpkgs";
+    
+    # These are re-exported from axios, no need to declare separately
+    # nixos-hardware, home-manager, disko, etc. come from axios
   };
 
-  nixConfig = {
-    extra-substituters = [
-      "https://numtide.cachix.org"
-      "https://niri.cachix.org"
-    ];
-    extra-trusted-substituters = [
-      "https://niri.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431kS1gBOk6429S9g0f1NXtv+FIsf8Xma0="
-      "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
-    ];
-  };
-
-  outputs =
-    inputs@{ flake-parts
-    , systems
-    , ...
-    }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import systems;
-
-      perSystem = { pkgs, system, ... }: {
-        formatter = pkgs.nixpkgs-fmt;
-        
-        # ISO image package
-        packages.iso = inputs.self.nixosConfigurations.installer.config.system.build.isoImage;
+  outputs = { self, axios, nixpkgs, ... }:
+    let
+      # Load host configurations
+      pangolinCfg = (import ./hosts/pangolin.nix { lib = nixpkgs.lib; }).hostConfig;
+      edgeCfg = (import ./hosts/edge.nix { lib = nixpkgs.lib; }).hostConfig;
+    in
+    {
+      nixosConfigurations = {
+        pangolin = axios.lib.mkSystem pangolinCfg;
+        edge = axios.lib.mkSystem edgeCfg;
       };
-
-      imports = [
-        ./pkgs
-        ./hosts
-        ./modules
-        ./home
-        ./devshells.nix
-      ];
     };
 }
-# Trigger CI

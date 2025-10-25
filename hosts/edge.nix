@@ -48,6 +48,9 @@
     
     # Optional: Extra NixOS configuration
     extraConfig = {
+      # Import local user definitions
+      imports = [ ../../modules/users ];
+      
       # Dual boot with Windows requires local time
       time.hardwareClockInLocalTime = true;
       
