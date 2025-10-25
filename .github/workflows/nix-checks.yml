@@ -24,7 +24,7 @@ jobs:
 
       - name: Formatting
         run: |
-          nix fmt
+          nix fmt --accept-flake-config
           git diff --exit-code
 
       - name: Flake checker
