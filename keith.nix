@@ -34,6 +34,11 @@ in
       stateVersion = "24.05";
       homeDirectory = homeDir;
       username = username;
+      
+      # Set flake path for rebuild aliases
+      sessionVariables = {
+        FLAKE_PATH = "${homeDir}/Projects/nixos_config";
+      };
     };
 
     nixpkgs = {
