@@ -2,8 +2,8 @@
 { inputs, self, lib, ... }:
 let
   # Load host configurations
-  # Add your host configurations here:
-  # myHostCfg = (import ./myhost.nix { inherit lib; }).hostConfig;
+  edgeCfg = (import ./edge.nix { inherit lib; }).hostConfig;
+  pangolinCfg = (import ./pangolin.nix { inherit lib; }).hostConfig;
   
   # Helper to build nixos-hardware modules
   hardwareModules = hw:
@@ -135,9 +135,8 @@ let
 in
 {
   flake.nixosConfigurations = {
-    # Add your host configurations here:
-    # Example:
-    # myhost = mkSystem myHostCfg;
+    edge = mkSystem edgeCfg;
+    pangolin = mkSystem pangolinCfg;
     
     # Installer ISO
     installer = inputs.nixpkgs.lib.nixosSystem {
@@ -150,8 +149,7 @@ in
     };
     
     # To add a new host:
-    # 1. Create hosts/newhostname.nix with hostConfig (use TEMPLATE.nix or EXAMPLE-*.nix)
-    # 2. Import it above: myHostCfg = (import ./myhost.nix { inherit lib; }).hostConfig;
-    # 3. Add here: myhost = mkSystem myHostCfg;
+    # 1. Create hosts/newhostname.nix with hostConfig
+    # 2. Add: newhostname = mkSystem (import ./newhostname.nix { inherit lib; }).hostConfig;
   };
 }
