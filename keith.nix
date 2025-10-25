@@ -37,7 +37,7 @@ in
       
       # Set flake path for rebuild aliases
       sessionVariables = {
-        FLAKE_PATH = "${homeDir}/Projects/nixos_config";
+        FLAKE_PATH = "${homeDir}/.config/nixos_config";
       };
     };
 
