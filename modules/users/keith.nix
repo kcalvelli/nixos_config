@@ -11,6 +11,7 @@ in
   users.users.${username} = {
     isNormalUser = true;
     description = fullName;
+    initialPassword = "changeme"; # Change on first login
     extraGroups = [
       "networkmanager"
       "wheel"
