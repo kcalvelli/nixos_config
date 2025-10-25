@@ -1,5 +1,5 @@
 # Host: edge (Desktop workstation)
-{ lib, ... }:
+{ lib, userModulePath, ... }:
 {
   hostConfig = {
     # Basic identification
@@ -47,7 +47,7 @@
     homeProfile = "workstation";
     
     # User module path
-    userModulePath = ../../modules/users;
+    userModulePath = userModulePath;
     
     # Optional: Extra NixOS configuration
     extraConfig = {

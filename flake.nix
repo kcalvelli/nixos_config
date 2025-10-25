@@ -17,9 +17,15 @@
 
   outputs = { self, axios, nixpkgs, ... }:
     let
-      # Load host configurations
-      pangolinCfg = (import ./hosts/pangolin.nix { lib = nixpkgs.lib; }).hostConfig;
-      edgeCfg = (import ./hosts/edge.nix { lib = nixpkgs.lib; }).hostConfig;
+      # Load host configurations  
+      pangolinCfg = (import ./hosts/pangolin.nix { 
+        lib = nixpkgs.lib;
+        userModulePath = self.outPath + "/modules/users";
+      }).hostConfig;
+      edgeCfg = (import ./hosts/edge.nix { 
+        lib = nixpkgs.lib;
+        userModulePath = self.outPath + "/modules/users";
+      }).hostConfig;
     in
     {
       nixosConfigurations = {

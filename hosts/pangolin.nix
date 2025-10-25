@@ -1,5 +1,5 @@
 # Host: pangolin (System76 laptop)
-{ lib, ... }:
+{ lib, userModulePath, ... }:
 {
   hostConfig = {
     # Basic identification
@@ -39,7 +39,7 @@
     homeProfile = "laptop";
     
     # User module path
-    userModulePath = ../../modules/users;
+    userModulePath = userModulePath;
     
     # Optional: Extra NixOS configuration
     extraConfig = {
