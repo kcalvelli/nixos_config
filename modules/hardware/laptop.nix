@@ -40,6 +40,9 @@ in
         firmware-daemon.enable = true;
         power-daemon.enable = true;
       };
+      
+      # Load System76 ACPI module for keyboard backlight control
+      boot.kernelModules = [ "system76_acpi" ];
     })
     
     # Pangolin 12 specific quirks

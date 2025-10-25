@@ -320,6 +320,20 @@
           "mute"
         ];
 
+        # --- Keyboard backlight control (System76) ---
+        "XF86KbdBrightnessUp".action.spawn = [
+          "brightnessctl"
+          "--device=system76_acpi::kbd_backlight"
+          "set"
+          "5%+"
+        ];
+        "XF86KbdBrightnessDown".action.spawn = [
+          "brightnessctl"
+          "--device=system76_acpi::kbd_backlight"
+          "set"
+          "5%-"
+        ];
+
         # --- Quit compositor (clean exit) ---
         "Mod+Shift+E".action."quit" = [ ];
 
