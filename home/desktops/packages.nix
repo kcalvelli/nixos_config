@@ -29,6 +29,7 @@
     colloid-icon-theme
     adwaita-icon-theme
     papirus-icon-theme
+    adw-gtk3
   ];
 
   # Fonts for Wayland UI
