@@ -16,16 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install git-filter-repo
+      - name: Remove .github/workflows directory
         run: |
-          pipx install git-filter-repo
-
-      - name: Prepare filtered bare mirror
-        run: |
-          git clone --bare . ../mirror.git
-          cd ../mirror.git
-          # strip GitHub Actions from ALL history
-          git filter-repo --path .github/workflows --invert-paths
+          git rm -rf .github/workflows
+          git commit -m "Remove .github/workflows for downstream sync" || true
 
       - name: Configure SSH
         uses: webfactory/ssh-agent@v0.9.0
@@ -37,8 +31,13 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      - name: Push filtered mirror to nixos_config
+      - name: Configure git
         run: |
-          cd ../mirror.git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Push to nixos_config (preserving downstream files)
+        run: |
           git remote add target git@github.com:kcalvelli/nixos_config.git
-          git push --mirror target
+          git fetch target
+          git push target HEAD:master --force

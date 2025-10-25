@@ -1,5 +1,4 @@
-{ ...
-}:
+{ flakePath, ... }:
 {
   programs.fish = {
     shellAliases = {

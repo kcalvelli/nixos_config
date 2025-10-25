@@ -41,6 +41,9 @@
     };
   };
 
+  # Disable FlakeHub from Determinate Systems
+  determinate.flakehub.enable = lib.mkForce false;
+
   # Allow unfree packages
   nixpkgs = {
     config = {
