@@ -38,11 +38,11 @@
     # Home-manager profile
     homeProfile = "laptop";
     
+    # User module path
+    userModulePath = ../../modules/users;
+    
     # Optional: Extra NixOS configuration
     extraConfig = {
-      # Import local user definitions
-      imports = [ ../../modules/users ];
-      
       # System76 hardware is auto-enabled via vendor setting
       
       # Enable secure boot (already set up on this system)
