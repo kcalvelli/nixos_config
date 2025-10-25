@@ -68,6 +68,7 @@
     # Enable systemd but keep it quiet
     initrd = {
       systemd.enable = true;
+      systemd.tpm2.enable = lib.mkIf (!config.boot.lanzaboote.enableSecureBoot) true;
       verbose = false;
     };
 

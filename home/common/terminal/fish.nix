@@ -2,6 +2,12 @@
 }:
 {
   programs.fish = {
+    shellAliases = {
+      rebuild-switch = "sudo nixos-rebuild switch --flake ${flakePath}#$(hostname)";
+      rebuild-boot = "sudo nixos-rebuild boot --flake ${flakePath}#$(hostname)";
+      rebuild-test = "sudo nixos-rebuild test --flake ${flakePath}#$(hostname)";
+      pull-changes = "git -C ${flakePath} pull && git -C ${flakePath} merge --no-ff -m 'Merge changes from upstream' && git -C ${flakePath} push";
+    };
     enable = true;
     interactiveShellInit = ''
       set fish_greeting
