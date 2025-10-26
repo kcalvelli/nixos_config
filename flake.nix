@@ -3,9 +3,9 @@
 
   inputs = {
     # Use axios as the base framework
-    # Pin to specific release for stability
+    # Track master branch for latest changes
     axios = {
-      url = "github:kcalvelli/axios/2025.10.25";
+      url = "github:kcalvelli/axios/master";
     };
     
     # Follow axios's nixpkgs to ensure compatibility
