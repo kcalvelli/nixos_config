@@ -23,11 +23,11 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1761440879,
-        "narHash": "sha256-FOYSvb/YvwCn8PbaD7uQDXA5Yrlani4mcV6hcw+V8nE=",
+        "lastModified": 1761523922,
+        "narHash": "sha256-pJ8xfVADgmJYphGjviTMaN+WmNNPkqDXSYMzyrTs8fI=",
         "owner": "kcalvelli",
         "repo": "axios",
-        "rev": "e9f1123fbe36e03b3fd86c57bfe1f752f5182927",
+        "rev": "20f60c8da06dce9d5b587859516e75b3406a3a12",
         "type": "github"
       },
       "original": {

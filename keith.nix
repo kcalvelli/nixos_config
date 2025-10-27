@@ -34,22 +34,11 @@ in
       stateVersion = "24.05";
       homeDirectory = homeDir;
       username = username;
-      
+
       # Set flake path for rebuild aliases
       sessionVariables = {
         FLAKE_PATH = "${homeDir}/.config/nixos_config";
       };
-    };
-
-    nixpkgs = {
-      config = {
-        allowUnfree = true;
-        allowBroken = false;
-        allowUnsupportedSystem = false;
-      };
-      overlays = [
-        self.overlays.default
-      ];
     };
 
     # User-specific home-manager configurations
@@ -66,12 +55,14 @@ in
     # See docs/NIRI_WALLPAPER.md for setup details
     # Requires: https://github.com/kcalvelli/scripts
     programs.niri.settings.spawn-at-startup = [
-      { 
-        command = [ 
-          "swaybg" 
-          "--mode" "stretch" 
-          "--image" "${homeDir}/.cache/niri/overview-blur.jpg" 
-        ]; 
+      {
+        command = [
+          "swaybg"
+          "--mode"
+          "stretch"
+          "--image"
+          "${homeDir}/.cache/niri/overview-blur.jpg"
+        ];
       }
     ];
   };
