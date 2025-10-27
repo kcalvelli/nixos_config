@@ -24,7 +24,6 @@ in
       "video"
       "adm"
       "lp"
-      "scanner"
     ];
   };
 
