@@ -22,10 +22,12 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1761834508,
-        "narHash": "sha256-A+sVmI00ECDEELZrB7RIFARzMuJDaYRdHfCTdbE4c50=",
-        "path": "/home/keith/Projects/axios",
-        "type": "path"
+        "lastModified": 1761833506,
+        "narHash": "sha256-9kFMXkFs5RWOSS4VOLYWmUFpSkbTZt0XmDygSLPxP1U=",
+        "owner": "kcalvelli",
+        "repo": "axios",
+        "rev": "85c00cc07e2788ed8a476641bc660d7c3be805d1",
+        "type": "github"
       },
       "original": {
         "owner": "kcalvelli",
@@ -82,11 +84,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761831230,
-        "narHash": "sha256-kn+qvM+4aosDOc+5CNXpIHCn3wxCcyOiOpQQG8qMGpg=",
+        "lastModified": 1761766979,
+        "narHash": "sha256-Qv6XpZPeIN/W/F8RyoDl/Y+zaXLE3qLcVWvLvn100j4=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "c88fc20701219afef809c8e8f5ed8279f96d6914",
+        "rev": "cc5b98a5d2053aa2228ea7b162d6385c66ec729b",
         "type": "github"
       },
       "original": {
