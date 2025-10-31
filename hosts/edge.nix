@@ -27,14 +27,7 @@
       users = true;
       virt = true;
       gaming = true;
-    };
-    
-    # Services to enable
-    services = {
-      caddy-proxy.enable = true;
-      # openwebui.enable = false;
-      # ntop.enable = false;
-      # hass.enable = false;
+      ai = true;
     };
     
     # Virtualization
